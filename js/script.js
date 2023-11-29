@@ -22,24 +22,34 @@
 
 
 // Variable Declarations //
-let board
+let chart
 
 let turn
 
 let winner
 
+const hit = 'red'
+
+const miss = 'white'
+
 // Dom Declirations //
 
+const play = (e) => {
+    e.target.style.backgroundColor = hit
+}
 
+const board = document.querySelectorAll('.box')
 
 // function Statements //
 
+
 function initiate() {
-    // set values for our state variables
+    board.forEach((box) => {
+        box.addEventListener('click', (e)=>{play(e); console.log(e.target.id)});
+    })
     turn = 1
     winner = null
-
-    board = [
+    chart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
         [0, 0, 0, 0, 0, 0, 0, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
@@ -54,14 +64,14 @@ function initiate() {
 }
 
 function renderBoard() {
-    board.forEach((colArr, colIdx) => {
+    chart.forEach((colArr, colIdx) => {
         // console.log('colArr', colArr)
         // console.log('colIdx', colIdx)
         colArr.forEach((cellVal, rowIdx) => {
             // console.log('cellVal', cellVal)
             // console.log('rowIdx', rowIdx)
             const cellId = `v${colIdx}h${rowIdx}`
-            console.log('cellId', cellId)
+            // console.log('cellId', cellId)
             const cellEl = document.getElementById(cellId)
             // console.log('cellEl', cellEl)
         })
