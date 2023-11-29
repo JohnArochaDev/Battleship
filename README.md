@@ -17,7 +17,7 @@ As a user, I want the ability to...
 - Choose a layout for my ships(Predetermined or custom) upon a grid
 - Press start and have the game start
 - Have an empty grid appear, indicating the enemy's board
-- Click on an empty box and either see an explosion, or a splash, indicating success or failue
+- Click on an empty box and either see an explosion, or a splash, indicating success or failure
 - Have the board containing my ships appear, and watch either a splash or an explosion of my ownships as the computer plays its turn
 - Return to the enemys blank grid board, with a mark indicating my last move/moves, as to help the game progress
 - Repeat this process until there is a winner
