@@ -108,7 +108,7 @@ function initiate() {
     winner = null
     chart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 0, 1, 1, 1, 1, 0], // col 1
+        [0, 0, 0, 0, 3, 3, 3, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
         [0, 0, 0, 0, 0, 0, 0, 0], // col 3
         [0, 0, 0, 0, 0, 0, 0, 0], // col 4
@@ -138,53 +138,50 @@ function renderBoard() {
 function render() {
     renderBoard()
 }
-// Learn from this and make a function that changes the number in the array based off the idx
+
 function play(event) {
-    chart.forEach((colArr) => {
-        colArr.forEach((cellVal) => {
-            if (cellVal === 4 || 5) {
-                return
-            } else if (cellVal === 1) {
-                if(cBattleship.health <= 2) {
-                    cBattleship--;
-                    cellVal = 5
-                } else {
-                    cShipsLeft -1;
-                    console.log('You sunk their Battleship!');
-                    cellVal = 5
-                    //Check if game is won function
-                }
-            } else if  (cellVal === 2) {
-                if(cCruiserShip.health <= 2) {
-                    cCruiserShip--;
-                    cellVal = 5
-                } else {
-                    cShipsLeft -1;
-                    console.log('You sunk their Cruiser!');
-                    cellVal = 5
-                    //Check if game is won function
-                }
-            } else if (cellVal === 3) {
-                if(cTugShip.health <= 2) {
-                    cTugShip--;
-                    cellVal = 5
-                } else {
-                    cShipsLeft -1;
-                    console.log('You sunk their Tug!');
-                    cellVal = 5
-                    //Check if game is won function
-                }
-            } else {
-                cellVal = 4
-            }
-        })
-    })
+    const boxId = event.target.id
+    const col = boxId[1]
+    const row = boxId[3]
+    const clickedBox = chart[col][row]
+    // console.log(clickedBox)
+    if (clickedBox === 4 || 5) {
+        return
+    } else if (clickedBox === 1) {
+        if (cBattleship.health >= 2) {
+            cBattleship.health--;
+            clickedBox = 5
+        } else {
+            cShipsLeft -1;
+            console.log('You sunk their Battleship!');
+            clickedBox = 5
+        }
+    } else if (clickedBox === 2) {
+        if (cCruiserShip.health >= 2) {
+            cCruiserShip.health--;
+            clickedBox = 5
+        } else {
+            cShipsLeft -1;
+            console.log('You sunk their Cruiser!');
+            clickedBox = 5
+        }
+    } else if (clickedBox === 3) {
+        if (cTugShip.health >= 2) {
+            cTugShip.health--;
+            clickedBox = 5
+        } else {
+            cShipsLeft -1;
+            console.log('You sunk their Tug!');
+            clickedBox = 5
+        }
+    } else {
+        clickedBox = 4
+    }
 }
+
+
 // Called Functions //
 
 initiate()
 
 // Dom Statements //
-
-
-board.addEventListener('click', play)
