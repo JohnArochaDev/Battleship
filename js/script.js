@@ -22,5 +22,54 @@
 
 
 
+let board
 
-console.log('howdy')
+let turn
+
+let winner
+
+
+
+
+function initiate() {
+    // set values for our state variables
+    turn = 1
+    winner = null
+
+    board = [
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 0
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 1
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 2
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 3
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 6
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 7
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 8
+    ]
+    render()
+}
+
+
+
+function renderBoard() {
+    board.forEach((colArr, colIdx) => {
+        console.log('colArr', colArr)
+        console.log('colIdx', colIdx)
+        colArr.forEach((cellVal, rowIdx) => {
+            // console.log('cellVal', cellVal)
+            // console.log('rowIdx', rowIdx)
+            const cellId = `c${colIdx}r${rowIdx}`
+            console.log('cellId', cellId)
+            const cellEl = document.getElementById(cellId)
+        })
+    })
+}
+
+
+function render() {
+    renderBoard()
+}
+
+
+initiate()
