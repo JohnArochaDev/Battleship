@@ -40,8 +40,8 @@ const cCruiserShip = {
 
 const cTugShip = {
     name: 'Tug Ship',
-    num: 1,
-    health: 1,
+    num: 2,
+    health: 2,
     color: 'grey',
 }
 
@@ -63,8 +63,8 @@ const pCruiserShip = {
 
 const pTugShip = {
     name: 'Tug Ship',
-    num: 1,
-    health: 1,
+    num: 2,
+    health: 2,
     color: 'grey',
 }
 
@@ -108,7 +108,7 @@ function initiate() {
     winner = null
     chart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 0, 0, 3, 3, 3, 0], // col 1
+        [0, 0, 0, 1, 1, 1, 1, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
         [0, 0, 0, 0, 0, 0, 0, 0], // col 3
         [0, 0, 0, 0, 0, 0, 0, 0], // col 4
@@ -137,46 +137,47 @@ function renderBoard() {
 
 function render() {
     renderBoard()
+    
 }
 
 function play(event) {
     const boxId = event.target.id
     const col = boxId[1]
     const row = boxId[3]
-    const clickedBox = chart[col][row]
-    // console.log(clickedBox)
-    if (clickedBox === 4 || 5) {
+    console.log(chart[col][row])
+    if (chart[col][row] === 4 || chart[col][row] === 5) {
         return
-    } else if (clickedBox === 1) {
+    } else if (chart[col][row] === 1) {
         if (cBattleship.health >= 2) {
             cBattleship.health--;
-            clickedBox = 5
+            chart[col][row] = 5
         } else {
             cShipsLeft -1;
             console.log('You sunk their Battleship!');
-            clickedBox = 5
+            chart[col][row] = 5
         }
-    } else if (clickedBox === 2) {
+    } else if (chart[col][row] === 2) {
         if (cCruiserShip.health >= 2) {
             cCruiserShip.health--;
-            clickedBox = 5
+            chart[col][row] = 5
         } else {
             cShipsLeft -1;
             console.log('You sunk their Cruiser!');
-            clickedBox = 5
+            chart[col][row] = 5
         }
-    } else if (clickedBox === 3) {
+    } else if (chart[col][row] === 3) {
         if (cTugShip.health >= 2) {
             cTugShip.health--;
-            clickedBox = 5
+            chart[col][row] = 5
         } else {
             cShipsLeft -1;
             console.log('You sunk their Tug!');
-            clickedBox = 5
+            chart[col][row] = 5
         }
     } else {
-        clickedBox = 4
+        chart[col][row] = 4
     }
+    render()
 }
 
 
