@@ -149,6 +149,7 @@ function play(event) {
                 } else {
                     cShipsLeft -1;
                     console.log('You sunk their Battleship!');
+                    cellVal = 5
                     //Check if game is won function
                 }
             } else if  (cellVal === 2) {
@@ -158,6 +159,7 @@ function play(event) {
                 } else {
                     cShipsLeft -1;
                     console.log('You sunk their Cruiser!');
+                    cellVal = 5
                     //Check if game is won function
                 }
             } else if (cellVal === 3) {
@@ -167,12 +169,12 @@ function play(event) {
                 } else {
                     cShipsLeft -1;
                     console.log('You sunk their Tug!');
+                    cellVal = 5
                     //Check if game is won function
                 }
             } else {
                 cellVal = 4
             }
-        
         })
     })
     // console.log('this is the current board', board)
