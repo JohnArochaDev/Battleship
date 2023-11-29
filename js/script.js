@@ -59,7 +59,7 @@ function renderBoard() {
         colArr.forEach((cellVal, rowIdx) => {
             // console.log('cellVal', cellVal)
             // console.log('rowIdx', rowIdx)
-            const cellId = `c${colIdx}r${rowIdx}`
+            const cellId = `v${colIdx}h${rowIdx}`
             console.log('cellId', cellId)
             const cellEl = document.getElementById(cellId)
         })
