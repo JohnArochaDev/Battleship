@@ -77,9 +77,9 @@ const colors = {
     0: 'green', // boxes
 }
 
-let pShipsLeft
+let pShipsLeft = 3
 
-let cShipsLeft
+let cShipsLeft = 3
 
 let chart
 
@@ -137,7 +137,7 @@ function renderBoard() {
 
 function render() {
     renderBoard()
-    
+
 }
 
 function play(event) {
@@ -151,33 +151,46 @@ function play(event) {
         if (cBattleship.health >= 2) {
             cBattleship.health--;
             chart[col][row] = 5
+            // Need a function to check if there is a win
         } else {
             cShipsLeft -1;
             console.log('You sunk their Battleship!');
             chart[col][row] = 5
+            // Need a function to check if there is a win
         }
     } else if (chart[col][row] === 2) {
         if (cCruiserShip.health >= 2) {
             cCruiserShip.health--;
             chart[col][row] = 5
+            // Need a function to check if there is a win
         } else {
             cShipsLeft -1;
             console.log('You sunk their Cruiser!');
             chart[col][row] = 5
+            // Need a function to check if there is a win
         }
     } else if (chart[col][row] === 3) {
         if (cTugShip.health >= 2) {
             cTugShip.health--;
             chart[col][row] = 5
+            // Need a function to check if there is a win
         } else {
             cShipsLeft -1;
             console.log('You sunk their Tug!');
             chart[col][row] = 5
+            // Need a function to check if there is a win
         }
     } else {
         chart[col][row] = 4
     }
     render()
+}
+
+function checkWinner() {
+    if (pShipsLeft === 0 || cShipsLeft === 0) {
+        //Need to hide the entire board
+        
+    }
 }
 
 

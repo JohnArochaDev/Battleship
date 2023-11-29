@@ -19,6 +19,7 @@ body {
 h1 {
     font-size: 140px;
     margin-top: 17px;
+    text-decoration: underline solid;
 }
 
 #board {
