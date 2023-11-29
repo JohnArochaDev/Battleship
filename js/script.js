@@ -22,15 +22,40 @@
 
 
 // Variable Declarations //
+
+const battleship = {
+    name: 'Battleship'
+    value: 4,
+    health: 4,
+    color: 'grey',
+}
+
+const cruiserShip = {
+    name: 'Cruiser Ship'
+    value: 3,
+    health: 3,
+    color: 'grey',
+}
+
+// May tempararily make tugShip 1 with a health of 1 for game building, return to balue 2 when finished
+
+const tugShip = {
+    name: 'Tug Ship'
+    value: 1,
+    health: 1,
+    color: 'grey',
+}
+
+const colors = {
+    hit: 'red',
+    miss: 'white',
+}
+
 let chart
 
 let turn
 
 let winner
-
-const hit = 'red'
-
-const miss = 'white'
 
 // Dom Declirations //
 
