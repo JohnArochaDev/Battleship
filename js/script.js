@@ -23,33 +23,63 @@
 
 // Variable Declarations //
 
-const battleship = {
-    name: 'Battleship'
-    value: 4,
+const cBattleship = {
+    name: 'Battleship',
+    num: 4,
     health: 4,
     color: 'grey',
 }
 
-const cruiserShip = {
-    name: 'Cruiser Ship'
-    value: 3,
+const cCruiserShip = {
+    name: 'Cruiser Ship',
+    num: 3,
+    health: 3,
+    color: 'grey',
+}
+
+
+const cTugShip = {
+    name: 'Tug Ship',
+    num: 1,
+    health: 1,
+    color: 'grey',
+}
+
+const pBattleship = {
+    name: 'Battleship',
+    num: 4,
+    health: 4,
+    color: 'grey',
+}
+
+const pCruiserShip = {
+    name: 'Cruiser Ship',
+    num: 3,
     health: 3,
     color: 'grey',
 }
 
 // May tempararily make tugShip 1 with a health of 1 for game building, return to balue 2 when finished
 
-const tugShip = {
-    name: 'Tug Ship'
-    value: 1,
+const pTugShip = {
+    name: 'Tug Ship',
+    num: 1,
     health: 1,
     color: 'grey',
 }
 
 const colors = {
-    hit: 'red',
-    miss: 'white',
+    5: 'red', // hit
+    4: 'white', // miss
+    3: 'grey', // tug ship
+    2: 'grey', // cruiser
+    1: 'grey', // battleship
+    0: 'green', // boxes
 }
+
+let pShipsLeft
+
+let cShipsLeft
 
 let chart
 
@@ -59,9 +89,6 @@ let winner
 
 // Dom Declirations //
 
-const play = (e) => {
-    e.target.style.backgroundColor = hit
-}
 
 const board = document.querySelectorAll('.box')
 
@@ -72,11 +99,13 @@ function initiate() {
     board.forEach((box) => {
         box.addEventListener('click', (e)=>{play(e); console.log(e.target.id)});
     })
+    pShipsLeft = 3
+    cShipsLeft = 3
     turn = 1
     winner = null
     chart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 1
+        [0, 0, 0, 1, 1, 1, 1, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
         [0, 0, 0, 0, 0, 0, 0, 0], // col 3
         [0, 0, 0, 0, 0, 0, 0, 0], // col 4
@@ -99,6 +128,7 @@ function renderBoard() {
             // console.log('cellId', cellId)
             const cellEl = document.getElementById(cellId)
             // console.log('cellEl', cellEl)
+            cellEl.style.backgroundColor = colors[cellVal]
         })
     })
 }
@@ -106,9 +136,52 @@ function renderBoard() {
 function render() {
     renderBoard()
 }
-
+// Learn from this and make a function that changes the number in the array based off the idx
+function play(event) {
+    chart.forEach((colArr) => {
+        colArr.forEach((cellVal) => {
+            if (cellVal === 4 || 5) {
+                return
+            } else if (cellVal === 1) {
+                if(cBattleship.health <= 2) {
+                    cBattleship--;
+                    cellVal = 5
+                } else {
+                    cShipsLeft -1;
+                    console.log('You sunk their Battleship!');
+                    //Check if game is won function
+                }
+            } else if  (cellVal === 2) {
+                if(cCruiserShip.health <= 2) {
+                    cCruiserShip--;
+                    cellVal = 5
+                } else {
+                    cShipsLeft -1;
+                    console.log('You sunk their Cruiser!');
+                    //Check if game is won function
+                }
+            } else if (cellVal === 3) {
+                if(cTugShip.health <= 2) {
+                    cTugShip--;
+                    cellVal = 5
+                } else {
+                    cShipsLeft -1;
+                    console.log('You sunk their Tug!');
+                    //Check if game is won function
+                }
+            } else {
+                cellVal = 4
+            }
+        
+        })
+    })
+    // console.log('this is the current board', board)
+}
 // Called Functions //
 
 initiate()
 
-// Variable Statements //
+// Dom Statements //
+
+
+board.addEventListener('click', play)

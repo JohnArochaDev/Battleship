@@ -2,21 +2,29 @@
     box-sizing: border-box;
     background-color: grey;
 }
+
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Raleway', sans-serif;
     height: 100vh;
     margin: 0;
     background-color: grey;
+    font-family: 'Black Ops One', sans-serif;
+}
+
+h1 {
+    font-size: 140px;
+    margin-top: 17px;
+}
 
 #board {
     display: grid;
-    grid-template-columns: repeat(8, 10vmin);
-    grid-template-rows: repeat(8, 10vmin);
+    grid-template-columns: repeat(8, 8vmin);
+    grid-template-rows: repeat(8, 8vmin);
     gap: .4vmin;
-    margin-top: 7vmin;
+    margin-top: -50px;
     background-color: rgb(0, 255, 0);
 }
 
