@@ -21,15 +21,18 @@
 // - Display a play again button, that resets the whole game as if it was refreshed, placing all its original values back
 
 
-
+// Variable Declarations //
 let board
 
 let turn
 
 let winner
 
+// Dom Declirations //
 
 
+
+// function Statements //
 
 function initiate() {
     // set values for our state variables
@@ -50,26 +53,27 @@ function initiate() {
     render()
 }
 
-
-
 function renderBoard() {
     board.forEach((colArr, colIdx) => {
-        console.log('colArr', colArr)
-        console.log('colIdx', colIdx)
+        // console.log('colArr', colArr)
+        // console.log('colIdx', colIdx)
         colArr.forEach((cellVal, rowIdx) => {
             // console.log('cellVal', cellVal)
             // console.log('rowIdx', rowIdx)
             const cellId = `v${colIdx}h${rowIdx}`
             console.log('cellId', cellId)
             const cellEl = document.getElementById(cellId)
+            // console.log('cellEl', cellEl)
         })
     })
 }
-
 
 function render() {
     renderBoard()
 }
 
+// Called Functions //
 
 initiate()
+
+// Variable Statements //
