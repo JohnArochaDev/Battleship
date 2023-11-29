@@ -97,7 +97,10 @@ const board = document.querySelectorAll('.box')
 
 function initiate() {
     board.forEach((box) => {
-        box.addEventListener('click', (e)=>{play(e); console.log(e.target.id)});
+        box.addEventListener('click', (e)=>{
+            play(e);
+            console.log(e.target.id)
+        });
     })
     pShipsLeft = 3
     cShipsLeft = 3
@@ -112,7 +115,6 @@ function initiate() {
         [0, 0, 0, 0, 0, 0, 0, 0], // col 5
         [0, 0, 0, 0, 0, 0, 0, 0], // col 6
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 8
     ]
     render()
 }
@@ -140,6 +142,7 @@ function render() {
 function play(event) {
     chart.forEach((colArr) => {
         colArr.forEach((cellVal) => {
+            // console.log(cellVal)
             if (cellVal === 4 || 5) {
                 return
             } else if (cellVal === 1) {
@@ -177,7 +180,6 @@ function play(event) {
             }
         })
     })
-    // console.log('this is the current board', board)
 }
 // Called Functions //
 
