@@ -142,7 +142,6 @@ function render() {
 function play(event) {
     chart.forEach((colArr) => {
         colArr.forEach((cellVal) => {
-            // console.log(cellVal)
             if (cellVal === 4 || 5) {
                 return
             } else if (cellVal === 1) {

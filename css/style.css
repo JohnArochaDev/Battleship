@@ -34,7 +34,7 @@ h1 {
 }
 
 .box:hover {
-    background-color: rgba(0, 128, 0, 0.37);
+    transform: scale(.95);
 }
 
 /*corners*/
