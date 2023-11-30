@@ -36,7 +36,7 @@ const pCruiserShip = {
     color: 'grey',
 }
 
-// May tempararily make tugShip 1 with a health of 1 for game building, return to balue 2 when finished
+// May tempararily make tugShip 1 with a health of 1 for game building, return to value 2 when finished
 
 const pTugShip = {
     name: 'Tug Ship',
@@ -68,6 +68,10 @@ let turn
 
 let winner
 
+let cX// The value of the computers random choice, either for the column or the row
+
+let cY// The value of the computers random choice, either for the column or the row
+
 // Dom Declirations //
 
 const board = document.querySelectorAll('.box')
@@ -78,7 +82,6 @@ function initiate() {
     board.forEach((box) => {
         box.addEventListener('click', (e)=>{
             play(e);
-            // console.log(e.target.id)
         });
     })
     pShipsLeft = 3
@@ -212,9 +215,21 @@ function play(event) {
     render()
 }
 
+function cTurn() {
+    const boxId = pCHart[cX][cY]
+    const col = boxId[cX]
+    const row = boxId[cY]
+    if (turn === 2) {
+
+    }
+}
+
+function cChoice() {
+    //This will be a random num generator that chooses between 1 and 8 two times, once for col val and once for row val
+}
+
 function checkWinner() {
     if (pShipsLeft === 0) {
-        //Need to hide the entire board
         winner = 'c'
         console.log('They sunk your battleship!')
     } else if (cShipsLeft === 0) {
@@ -227,7 +242,6 @@ function checkWinner() {
 
 function changeTurn() {
     turn = turn === 1 ? 2 : 1 
-    //Make a function to change which chart to look at WITH DELAY
 }
 
 function changeChart() {
