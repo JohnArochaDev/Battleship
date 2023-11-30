@@ -232,7 +232,7 @@ function cTurn() {
         return
     } else if (turn === 2) {
         if (chart[col][row] === 4 || chart[col][row] === 5)
-        return
+        return retry()
     } else if (chart[col][row] === 1) {
         if (pBattleship.health >= 2) {
             --pBattleship.health;
@@ -277,6 +277,14 @@ function cTurn() {
             if (!checkWinner()) {
                 changeTurn()
             }
+        } else {
+            --pShipsLeft;
+            console.log('They sunk your Tug!');
+            chart[col][row] = 5
+            checkWinner()
+            if (!checkWinner()) {
+                changeTurn()
+            }
         }
     } else {
         chart[col][row] = 4
@@ -286,6 +294,12 @@ function cTurn() {
     }
     console.log('turn:' + turn)
     render()
+}
+
+function retry() {
+    if (turn === 2) {
+        cTurn()
+    }
 }
 
 function cChoice(min = 0, max = 9) {
