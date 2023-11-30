@@ -89,18 +89,18 @@ function initiate() {
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
         [0, 0, 0, 0, 0, 0, 0, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
-        [0, 0, 2, 0, 0, 0, 0, 0], // col 3
-        [0, 0, 2, 0, 0, 0, 0, 0], // col 4
-        [0, 0, 2, 0, 0, 0, 0, 0], // col 5
-        [0, 0, 0, 0, 0, 3, 0, 0], // col 6
-        [0, 0, 0, 0, 0, 3, 0, 0], // col 7
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 3
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 6
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 7
     ]
     // THIS WILL BE THE CHART THAT THE PLAYER SEES HIS BOATS ON
     pChart = [
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 1
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 2
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 3
+        [1, 0, 0, 0, 0, 0, 0, 0], // col 0
+        [1, 0, 0, 0, 0, 0, 0, 0], // col 1
+        [1, 0, 0, 0, 0, 0, 0, 0], // col 2
+        [1, 0, 0, 0, 0, 0, 0, 0], // col 3
         [0, 0, 0, 0, 0, 0, 0, 0], // col 4
         [0, 0, 0, 0, 0, 0, 0, 0], // col 5
         [0, 0, 0, 0, 0, 0, 0, 0], // col 6
@@ -111,11 +111,11 @@ function initiate() {
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
         [0, 0, 0, 0, 0, 0, 0, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
-        [0, 0, 2, 0, 0, 0, 0, 0], // col 3
-        [0, 0, 2, 0, 0, 0, 0, 0], // col 4
-        [0, 0, 2, 0, 0, 0, 0, 0], // col 5
-        [0, 0, 0, 0, 0, 3, 0, 0], // col 6
-        [0, 0, 0, 0, 0, 3, 0, 0], // col 7
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 3
+        [0, 0, 0, 0, 0, 0, 0, 1], // col 4
+        [0, 0, 0, 0, 0, 0, 0, 1], // col 5
+        [0, 0, 0, 0, 0, 0, 0, 1], // col 6
+        [0, 0, 0, 0, 0, 0, 0, 1], // col 7
     ]
     render()
 }
@@ -137,8 +137,9 @@ function renderBoard() {
 }
 
 function render() {
+    renderBoard();
+    changeChart();
     renderBoard()
-
 }
 
 function play(event) {
@@ -229,6 +230,13 @@ function changeTurn() {
     //Make a function to change which chart to look at WITH DELAY
 }
 
+function changeChart() {
+    if (turn === 1) {
+        chart = cChart
+    } else {
+        chart = pChart
+    }
+}
 // Called Functions //
 
 initiate()
