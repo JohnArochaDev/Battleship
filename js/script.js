@@ -60,9 +60,9 @@ let cShipsLeft = 3
 
 let chart
 
-let pChart
-
 let cChart
+
+// let pChart Maybe use later
 
 let turn
 
@@ -92,13 +92,13 @@ function initiate() {
     winner = null
     chart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 1
+        [0, 0, 1, 1, 1, 1, 0, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
         [0, 0, 0, 0, 0, 0, 0, 0], // col 3
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 6
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 7
+        [0, 0, 0, 2, 0, 0, 0, 0], // col 4
+        [0, 0, 0, 2, 0, 0, 0, 0], // col 5
+        [0, 0, 0, 2, 0, 0, 0, 0], // col 6
+        [3, 3, 0, 0, 0, 0, 0, 0], // col 7
     ]
     // THIS WILL BE THE CHART THAT THE PLAYER SEES HIS BOATS ON
     // pChart = [
@@ -114,13 +114,13 @@ function initiate() {
     //THIS WILL BE THE CHART THE PLAYER SEES HIS HITS AND MISSES ON
     cChart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 1
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 2
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 3
-        [0, 0, 0, 0, 0, 0, 0, 1], // col 4
-        [0, 0, 0, 0, 0, 0, 0, 1], // col 5
-        [0, 0, 0, 0, 0, 0, 0, 1], // col 6
-        [0, 0, 0, 0, 0, 0, 0, 1], // col 7
+        [0, 0, 1, 0, 0, 0, 0, 0], // col 1
+        [0, 0, 1, 0, 0, 0, 0, 0], // col 2
+        [0, 0, 1, 0, 0, 0, 0, 0], // col 3
+        [0, 0, 1, 0, 0, 0, 0, 0], // col 4
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
+        [3, 0, 0, 2, 2, 2, 0, 0], // col 6
+        [3, 0, 0, 0, 0, 0, 0, 0], // col 7
     ]
     render()
 }
@@ -141,13 +141,34 @@ function renderBoard() {
     })
 }
 
+function renderCBoard() {
+    cChart.forEach((colArr, colIdx) => {
+        // console.log('colArr', colArr)
+        // console.log('colIdx', colIdx)
+        colArr.forEach((cellVal, rowIdx) => {
+            // console.log('cellVal', cellVal)
+            // console.log('rowIdx', rowIdx)
+            const cellId = `c${colIdx}r${rowIdx}`
+            // console.log('cellId', cellId)
+            const cellEl = document.getElementById(cellId)
+            // console.log('cellEl', cellEl)
+            cellEl.style.backgroundColor = colors[cellVal]
+        })
+    })
+}
+
 function render() {
     renderBoard();
+    renderCBoard()
     // setTimeout(changeChart, 1000); USE LATER WHEN WORKING
     // setTimeout(renderBoard, 2000)
 }
 
 function play(event) {
+    if (turn === 2) {
+        return
+    }
+    //                                                       If turn !1 NO MOVEMENT WILL WORK
     console.log('turn:' + turn)
     const boxId = event.target.id
     // console.log(boxId)
@@ -228,16 +249,16 @@ function cTurn() {
     const row = boxId[3]
     // console.log(row)
     console.log(comId)
-    console.log(chart[col][row])
+    console.log(cChart[col][row])
     if (turn !== 2) {
         return
     } else if (turn === 2) {
-        if (chart[col][row] === 4 || chart[col][row] === 5)
+        if (cChart[col][row] === 4 || cChart[col][row] === 5)
         return retry()
-    } else if (chart[col][row] === 1) {
+    } else if (cChart[col][row] === 1) {
         if (pBattleship.health >= 2) {
             --pBattleship.health;
-            chart[col][row] = 5
+            cChart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -246,16 +267,16 @@ function cTurn() {
             --pShipsLeft;
             console.log('They sunk your Battleship!');
             // console.log(pShipsLeft);
-            chart[col][row] = 5
+            cChart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         }
-    } else if (chart[col][row] === 2) {
+    } else if (cChart[col][row] === 2) {
         if (pCruiserShip.health >= 2) {
             --pCruiserShip.health;
-            chart[col][row] = 5
+            cChart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -264,16 +285,16 @@ function cTurn() {
             --pShipsLeft;
             console.log('They sunk your Cruiser!');
             // console.log(pShipsLeft);
-            chart[col][row] = 5
+            cChart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         }
-    } else if (chart[col][row] === 3) {
+    } else if (cChart[col][row] === 3) {
         if (pTugShip.health >= 2) {
             --pTugShip.health;
-            chart[col][row] = 5
+            cChart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -281,14 +302,14 @@ function cTurn() {
         } else {
             --pShipsLeft;
             console.log('They sunk your Tug!');
-            chart[col][row] = 5
+            cChart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         }
     } else {
-        chart[col][row] = 4
+        cChart[col][row] = 4
         if (!checkWinner()) {
             changeTurn()
         }
