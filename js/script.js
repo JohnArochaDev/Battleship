@@ -224,8 +224,12 @@ function cTurn() {
     }
 }
 
-function cChoice() {
-    //This will be a random num generator that chooses between 1 and 8 two times, once for col val and once for row val
+
+function cChoice(min = 0, max = 9) {
+    let choice1 = Math.random();
+    choice1 = Math.floor(choice1 * max);
+    choice1 = choice1 + min;
+    return choice1;
 }
 
 function checkWinner() {
