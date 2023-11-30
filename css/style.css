@@ -29,6 +29,14 @@ h1 {
     margin-top: -50px;
     background-color: rgb(0, 255, 0);
 }
+#board2 {
+    display: grid;
+    grid-template-columns: repeat(8, 8vmin);
+    grid-template-rows: repeat(8, 8vmin);
+    gap: .4vmin;
+    margin-top: -50px;
+    background-color: rgb(0, 255, 0);
+}
 
 
 .box {

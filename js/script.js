@@ -101,16 +101,16 @@ function initiate() {
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
     ]
     // THIS WILL BE THE CHART THAT THE PLAYER SEES HIS BOATS ON
-    pChart = [
-        [1, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [1, 0, 0, 0, 0, 0, 0, 0], // col 1
-        [1, 0, 0, 0, 0, 0, 0, 0], // col 2
-        [1, 0, 0, 0, 0, 0, 0, 0], // col 3
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 6
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 7
-    ]
+    // pChart = [
+    //     [1, 0, 0, 0, 0, 0, 0, 0], // col 0
+    //     [1, 0, 0, 0, 0, 0, 0, 0], // col 1
+    //     [1, 0, 0, 0, 0, 0, 0, 0], // col 2
+    //     [1, 0, 0, 0, 0, 0, 0, 0], // col 3
+    //     [0, 0, 0, 0, 0, 0, 0, 0], // col 4
+    //     [0, 0, 0, 0, 0, 0, 0, 0], // col 5
+    //     [0, 0, 0, 0, 0, 0, 0, 0], // col 6
+    //     [0, 0, 0, 0, 0, 0, 0, 0], // col 7
+    // ]
     //THIS WILL BE THE CHART THE PLAYER SEES HIS HITS AND MISSES ON
     cChart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
@@ -143,8 +143,8 @@ function renderBoard() {
 
 function render() {
     renderBoard();
-    setTimeout(changeChart, 1000);
-    setTimeout(renderBoard, 2000)
+    // setTimeout(changeChart, 1000); USE LATER WHEN WORKING
+    // setTimeout(renderBoard, 2000)
 }
 
 function play(event) {
@@ -224,9 +224,9 @@ function cTurn() {
     cptrId()
     const boxId = comId
     const col = boxId[1]
-    console.log(col)
+    // console.log(col)
     const row = boxId[3]
-    console.log(row)
+    // console.log(row)
     console.log(comId)
     console.log(chart[col][row])
     if (turn !== 2) {
@@ -303,7 +303,7 @@ function retry() {
     }
 }
 
-function cChoice(min = 0, max = 9) {
+function cChoice(min = 0, max = 8) {
     let choice = Math.random();
     choice = Math.floor(choice * max);
     choice = choice + min;
@@ -317,7 +317,7 @@ function cptrId() {
     // console.log(cChoice1)
     cChoice2 = cChoice()
     // console.log(cChoice2)
-    comId = `v${cChoice1}h${cChoice2}`
+    comId = `c${cChoice1}r${cChoice2}`
     // console.log(comId)
     return comId
 }
@@ -341,14 +341,15 @@ function changeTurn() {
         cTurn()
     }
 }
+// Use this later!
+// function changeChart() {
+//     if (turn === 1) {
+//         chart = cChart
+//     } else {
+//         chart = pChart
+//     }
+// }
 
-function changeChart() {
-    if (turn === 1) {
-        chart = cChart
-    } else {
-        chart = pChart
-    }
-}
 // Called Functions //
 
 initiate()
