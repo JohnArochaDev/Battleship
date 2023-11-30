@@ -36,8 +36,6 @@ const pCruiserShip = {
     color: 'grey',
 }
 
-// May tempararily make tugShip 1 with a health of 1 for game building, return to value 2 when finished
-
 const pTugShip = {
     name: 'Tug Ship',
     num: 2,
@@ -54,6 +52,8 @@ const colors = {
     0: 'green', // boxes
 }
 
+let cHitChoice
+
 let pShipsLeft = 3
 
 let cShipsLeft = 3
@@ -68,9 +68,9 @@ let turn
 
 let winner
 
-let cChoice1// The value of the computers random choice, either for the column or the row
+let cChoice1
 
-let cChoice2// The value of the computers random choice, either for the column or the row
+let cChoice2
 
 let comId
 
@@ -129,15 +129,9 @@ function initiate() {
 
 function renderBoard() {
     chart.forEach((colArr, colIdx) => {
-        // console.log('colArr', colArr)
-        // console.log('colIdx', colIdx)
         colArr.forEach((cellVal, rowIdx) => {
-            // console.log('cellVal', cellVal)
-            // console.log('rowIdx', rowIdx)
             const cellId = `v${colIdx}h${rowIdx}`
-            // console.log('cellId', cellId)
             const cellEl = document.getElementById(cellId)
-            // console.log('cellEl', cellEl)
             cellEl.style.backgroundColor = colors[cellVal]
         })
     })
@@ -153,13 +147,10 @@ function play(event) {
     if (turn === 2) {
         return
     }
-    // //                                                       If turn !1 NO MOVEMENT WILL WORK
     console.log('turn:' + turn)
     const boxId = event.target.id
-    // console.log(boxId)
     const col = boxId[1]
     const row = boxId[3]
-    // console.log(chart[col][row])
     if (chart[col][row] === 4 || chart[col][row] === 5) {
         return
     } else if (chart[col][row] === 1) {
@@ -226,20 +217,13 @@ function play(event) {
 }
 
 function cTurn() {
-    console.log(chart)
-    console.log('Computer turn')
     cptrId()
     const boxId = comId
     const col = boxId[1]
-    // console.log(col)
     const row = boxId[3]
-    // console.log(row)
-    console.log('Computr ID: ' + comId)
-    console.log(chart[col][row]) //                     Logs the value its randmly lands on, it works but it still wont make its choice :(
     if (chart[col][row] === 4 || chart[col][row] === 5) {
         return retry()
     } else if (chart[col][row] === 1) {
-        console.log('cChart is 1')
         if (pBattleship.health >= 2) {
             --pBattleship.health;
             chart[col][row] = 5
@@ -249,8 +233,6 @@ function cTurn() {
             }
         } else {
             --pShipsLeft;
-            console.log('They sunk your Battleship!');
-            // console.log(pShipsLeft);
             chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
@@ -258,7 +240,6 @@ function cTurn() {
             }
         }
     } else if (chart[col][row] === 2) {
-        console.log('equals 2')
         if (pCruiserShip.health >= 2) {
             --pCruiserShip.health;
             chart[col][row] = 5
@@ -268,7 +249,6 @@ function cTurn() {
             }
         } else {
             --pShipsLeft;
-            console.log('They sunk your Cruiser!');
             // console.log(pShipsLeft);
             chart[col][row] = 5
             checkWinner()
@@ -277,7 +257,6 @@ function cTurn() {
             }
         }
     } else if (chart[col][row] === 3) {
-        console.log('eq 3')
         if (pTugShip.health >= 2) {
             --pTugShip.health;
             chart[col][row] = 5
@@ -287,7 +266,6 @@ function cTurn() {
             }
         } else {
             --pShipsLeft;
-            console.log('They sunk your Tug!');
             chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
@@ -295,13 +273,11 @@ function cTurn() {
             }
         }
     } else {
-        console.log('miss')
         chart[col][row] = 4
         if (!checkWinner()) {
             changeTurn()
         }
     }
-    console.log('turn: ' + turn) //                                  This is literally working so why isnt the code??
     render()
 }
 
@@ -309,6 +285,19 @@ function retry() {
     if (turn === 2) {
         cTurn()
     }
+}
+
+function hit() {
+    cHitChoice = hitChoice()
+    console.log(cHitChoice)
+}
+// Makes a random number between 0-4 that tells it to guess up down left or right
+
+function hitChoice(min = 0, max = 4) {
+    let choice = Math.random();
+    choice = Math.floor(choice * max);
+    choice = choice + min;
+    return choice;
 }
 
 function cChoice(min = 0, max = 8) {
