@@ -62,7 +62,7 @@ let chart
 
 let cChart
 
-// let pChart Maybe use later
+let pChart
 
 let turn
 
@@ -103,16 +103,16 @@ function initiate() {
         [3, 3, 0, 0, 0, 0, 0, 0], // col 7
     ]
     // THIS WILL BE THE CHART THAT THE PLAYER SEES HIS BOATS ON
-    // pChart = [
-    //     [1, 0, 0, 0, 0, 0, 0, 0], // col 0
-    //     [1, 0, 0, 0, 0, 0, 0, 0], // col 1
-    //     [1, 0, 0, 0, 0, 0, 0, 0], // col 2
-    //     [1, 0, 0, 0, 0, 0, 0, 0], // col 3
-    //     [0, 0, 0, 0, 0, 0, 0, 0], // col 4
-    //     [0, 0, 0, 0, 0, 0, 0, 0], // col 5
-    //     [0, 0, 0, 0, 0, 0, 0, 0], // col 6
-    //     [0, 0, 0, 0, 0, 0, 0, 0], // col 7
-    // ]
+    pChart = [
+        [1, 0, 0, 0, 0, 0, 0, 0], // col 0
+        [1, 0, 0, 0, 0, 0, 0, 0], // col 1
+        [1, 0, 0, 0, 0, 0, 0, 0], // col 2
+        [1, 0, 0, 0, 0, 0, 0, 0], // col 3
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 6
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 7
+    ]
     //THIS WILL BE THE CHART THE PLAYER SEES HIS HITS AND MISSES ON
     cChart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
@@ -143,33 +143,16 @@ function renderBoard() {
     })
 }
 
-function renderCBoard() {
-    cChart.forEach((colArr, colIdx) => {
-        // console.log('colArr', colArr)
-        // console.log('colIdx', colIdx)
-        colArr.forEach((cellVal, rowIdx) => {
-            // console.log('cellVal', cellVal)
-            // console.log('rowIdx', rowIdx)
-            const cellId = `c${colIdx}r${rowIdx}`
-            // console.log('cellId', cellId)
-            const cellEl = document.getElementById(cellId)
-            // console.log('cellEl', cellEl)
-            cellEl.style.backgroundColor = colors[cellVal]
-        })
-    })
-}
-
 function render() {
     renderBoard();
-    renderCBoard()
-    // setTimeout(changeChart, 1000); USE LATER WHEN WORKING
-    // setTimeout(renderBoard, 2000)
+    setTimeout(changeChart, 1000);
+    setTimeout(renderBoard, 2000)
 }
 
 function play(event) {
-    // if (turn === 2) {
-    //     return
-    // }
+    if (turn === 2) {
+        return
+    }
     // //                                                       If turn !1 NO MOVEMENT WILL WORK
     console.log('turn:' + turn)
     const boxId = event.target.id
@@ -243,7 +226,7 @@ function play(event) {
 }
 
 function cTurn() {
-    console.log(cChart)
+    console.log(chart)
     console.log('Computer turn')
     cptrId()
     const boxId = comId
@@ -252,15 +235,14 @@ function cTurn() {
     const row = boxId[3]
     // console.log(row)
     console.log('Computr ID: ' + comId)
-    console.log(cChart[col][row]) //                     Logs the value its randmly lands on, it works but it still wont make its choice :(
-
-    if (cChart[col][row] === 4 || cChart[col][row] === 5) {
+    console.log(chart[col][row]) //                     Logs the value its randmly lands on, it works but it still wont make its choice :(
+    if (chart[col][row] === 4 || chart[col][row] === 5) {
         return retry()
-    } else if (cChart[col][row] === 1) {
+    } else if (chart[col][row] === 1) {
         console.log('cChart is 1')
         if (pBattleship.health >= 2) {
             --pBattleship.health;
-            cChart[col][row] = 5
+            chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -269,17 +251,17 @@ function cTurn() {
             --pShipsLeft;
             console.log('They sunk your Battleship!');
             // console.log(pShipsLeft);
-            cChart[col][row] = 5
+            chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         }
-    } else if (cChart[col][row] === 2) {
+    } else if (chart[col][row] === 2) {
         console.log('equals 2')
         if (pCruiserShip.health >= 2) {
             --pCruiserShip.health;
-            cChart[col][row] = 5
+            chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -288,17 +270,17 @@ function cTurn() {
             --pShipsLeft;
             console.log('They sunk your Cruiser!');
             // console.log(pShipsLeft);
-            cChart[col][row] = 5
+            chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         }
-    } else if (cChart[col][row] === 3) {
+    } else if (chart[col][row] === 3) {
         console.log('eq 3')
         if (pTugShip.health >= 2) {
             --pTugShip.health;
-            cChart[col][row] = 5
+            chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -306,7 +288,7 @@ function cTurn() {
         } else {
             --pShipsLeft;
             console.log('They sunk your Tug!');
-            cChart[col][row] = 5
+            chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -314,7 +296,7 @@ function cTurn() {
         }
     } else {
         console.log('miss')
-        cChart[col][row] = 4
+        chart[col][row] = 4
         if (!checkWinner()) {
             changeTurn()
         }
@@ -343,7 +325,7 @@ function cptrId() {
     // console.log(cChoice1)
     cChoice2 = cChoice()
     // console.log(cChoice2)
-    comId = `c${cChoice1}r${cChoice2}`
+    comId = `v${cChoice1}h${cChoice2}`
     // console.log(comId)
     return comId
 }
@@ -363,17 +345,17 @@ function checkWinner() {
 function changeTurn() {
     turn = turn === 1 ? 2 : 1;
     if (turn === 2) {
-        cTurn()
+        setTimeout(cTurn, 3000)
     }
 }
 // Use this later!
-// function changeChart() {
-//     if (turn === 1) {
-//         chart = cChart
-//     } else {
-//         chart = pChart
-//     }
-// }
+function changeChart() {
+    if (turn === 1) {
+        chart = cChart
+    } else {
+        chart = pChart
+    }
+}
 
 // Called Functions //
 
