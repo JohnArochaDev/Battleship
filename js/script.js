@@ -220,12 +220,13 @@ function play(event) {
 }
 
 function cTurn() {
+    console.log('turn:' + turn )
     cptrId()
     const boxId = comId
     const col = boxId[1]
-    // console.log(col)
+    console.log(col)
     const row = boxId[3]
-    // console.log(row)
+    console.log(row)
     console.log(comId)
     console.log(chart[col][row])
     if (turn !== 2) {
