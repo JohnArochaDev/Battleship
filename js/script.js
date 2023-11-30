@@ -78,6 +78,8 @@ let comId
 
 const board = document.querySelectorAll('.box')
 
+const cBoard = document.querySelectorAll('.cBox')
+
 // function Statements //
 
 function initiate() {
@@ -241,16 +243,16 @@ function play(event) {
 }
 
 function cTurn() {
-    console.log('turn:' + turn )
+    console.log('Computer turn')
     cptrId()
     const boxId = comId
     const col = boxId[1]
     // console.log(col)
     const row = boxId[3]
     // console.log(row)
-    console.log(comId)
+    console.log('Computr ID: ' + comId)
     console.log(cChart[col][row])
-    if (turn !== 2) {
+    if (turn === 1) {
         return
     } else if (turn === 2) {
         if (cChart[col][row] === 4 || cChart[col][row] === 5)
@@ -357,7 +359,6 @@ function checkWinner() {
 
 function changeTurn() {
     turn = turn === 1 ? 2 : 1;
-    console.log('Change turn function: ' + turn)
     if (turn === 2) {
         cTurn()
     }
