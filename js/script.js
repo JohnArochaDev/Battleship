@@ -149,9 +149,10 @@ function render() {
 
 function play(event) {
     const boxId = event.target.id
+    // console.log(boxId)
     const col = boxId[1]
     const row = boxId[3]
-    // console.log(chart[col][row])
+    console.log(chart[col][row])
     if (chart[col][row] === 4 || chart[col][row] === 5) {
         return
     } else if (chart[col][row] === 1) {
@@ -283,3 +284,16 @@ function changeChart() {
 initiate()
 
 // Dom Statements //
+
+
+
+
+// SOUND EFFECTS FOR LATER// 
+
+
+
+// EXPLOSION https://www.youtube.com/watch?v=YRex1Udiybs
+
+//MISS https://www.youtube.com/watch?v=xHN3zSp6Ggg
+
+// background noise potentally https://www.youtube.com/watch?v=FWdnm3CHato
