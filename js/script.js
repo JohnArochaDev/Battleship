@@ -138,8 +138,8 @@ function renderBoard() {
 
 function render() {
     renderBoard();
-    changeChart();
-    renderBoard()
+    setTimeout(changeChart, 1000);
+    setTimeout(renderBoard, 2000)
 }
 
 function play(event) {
