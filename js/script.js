@@ -228,7 +228,7 @@ function cTurn() {
     // console.log(row)
     console.log(comId)
     console.log(chart[col][row])
-    if (turn === !2) {
+    if (turn !== 2) {
         return
     } else if (turn === 2) {
         if (chart[col][row] === 4 || chart[col][row] === 5)
@@ -335,6 +335,7 @@ function checkWinner() {
 
 function changeTurn() {
     turn = turn === 1 ? 2 : 1;
+    console.log('Change turn function: ' + turn)
     if (turn === 2) {
         cTurn()
     }
