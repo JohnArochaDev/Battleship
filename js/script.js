@@ -251,10 +251,8 @@ function cTurn() {
     const row = boxId[3]
     // console.log(row)
     console.log('Computr ID: ' + comId)
-    console.log(cChart[col][row])
-    if (turn === 1) {
-        return
-    } else if (turn === 2) {
+    console.log(cChart[col][row]) //                     Logs the value its randmly lands on, it works but it still wont make its choice :(
+    if (turn === 2) {
         if (cChart[col][row] === 4 || cChart[col][row] === 5)
         return retry()
     } else if (cChart[col][row] === 1) {
@@ -316,7 +314,7 @@ function cTurn() {
             changeTurn()
         }
     }
-    console.log('turn:' + turn)
+    console.log('turn: ' + turn) //                                  This is literally working so why isnt the code??
     render()
 }
 
