@@ -60,6 +60,10 @@ let cShipsLeft = 3
 
 let chart
 
+let pChart
+
+let cChart
+
 let turn
 
 let winner
@@ -83,7 +87,29 @@ function initiate() {
     winner = null
     chart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 0, 1, 1, 1, 1, 0], // col 1
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 1
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 2
+        [0, 0, 2, 0, 0, 0, 0, 0], // col 3
+        [0, 0, 2, 0, 0, 0, 0, 0], // col 4
+        [0, 0, 2, 0, 0, 0, 0, 0], // col 5
+        [0, 0, 0, 0, 0, 3, 0, 0], // col 6
+        [0, 0, 0, 0, 0, 3, 0, 0], // col 7
+    ]
+    // THIS WILL BE THE CHART THAT THE PLAYER SEES HIS BOATS ON
+    pChart = [
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 0
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 1
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 2
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 3
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 6
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 7
+    ]
+    //THIS WILL BE THE CHART THE PLAYER SEES HIS HITS AND MISSES ON
+    cChart = [
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 0
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
         [0, 0, 2, 0, 0, 0, 0, 0], // col 3
         [0, 0, 2, 0, 0, 0, 0, 0], // col 4
@@ -200,6 +226,7 @@ function checkWinner() {
 
 function changeTurn() {
     turn = turn === 1 ? 2 : 1 
+    //Make a function to change which chart to look at WITH DELAY
 }
 
 // Called Functions //
