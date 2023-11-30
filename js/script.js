@@ -68,9 +68,11 @@ let turn
 
 let winner
 
-let cX// The value of the computers random choice, either for the column or the row
+let cChoice1// The value of the computers random choice, either for the column or the row
 
-let cY// The value of the computers random choice, either for the column or the row
+let cChoice2// The value of the computers random choice, either for the column or the row
+
+let comId
 
 // Dom Declirations //
 
@@ -216,21 +218,39 @@ function play(event) {
 }
 
 function cTurn() {
-    const boxId = pCHart[cX][cY]
-    const col = boxId[cX]
-    const row = boxId[cY]
-    if (turn === 2) {
-
+    const boxId = pChart.id
+    const col = boxId[1]
+    const row = boxId[3]
+    if (turn === !2) {
+        return
+    } else if ( turn === 2) {
+        cChoice1 = cChoice()
+        console.log(cChoice1)
+        cChoice2 = cChoice()
+        console.log(cChoice2)
     }
 }
 
+// cTurn()
 
 function cChoice(min = 0, max = 9) {
-    let choice1 = Math.random();
-    choice1 = Math.floor(choice1 * max);
-    choice1 = choice1 + min;
-    return choice1;
+    let choice = Math.random();
+    choice = Math.floor(choice * max);
+    choice = choice + min;
+    return choice;
 }
+
+function cptrId() {
+    cChoice1 = cChoice()
+    console.log(cChoice1)
+    cChoice2 = cChoice()
+    console.log(cChoice2)
+    comId = `v${cChoice1}h${cChoice2}`
+    console.log(comId)
+    return comId
+}
+
+cptrId()
 
 function checkWinner() {
     if (pShipsLeft === 0) {
