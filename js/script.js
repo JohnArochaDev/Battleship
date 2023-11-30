@@ -152,7 +152,7 @@ function play(event) {
     // console.log(boxId)
     const col = boxId[1]
     const row = boxId[3]
-    console.log(chart[col][row])
+    // console.log(chart[col][row])
     if (chart[col][row] === 4 || chart[col][row] === 5) {
         return
     } else if (chart[col][row] === 1) {
@@ -222,9 +222,9 @@ function cTurn() {
     cptrId()
     const boxId = comId
     const col = boxId[1]
-    console.log(col)
+    // console.log(col)
     const row = boxId[3]
-    console.log(row)
+    // console.log(row)
     console.log(comId)
     console.log(chart[col][row])
     if (turn === !2) {
