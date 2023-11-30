@@ -175,7 +175,7 @@ function play(event) {
         }
     } else if (chart[col][row] === 2) {
         if (cCruiserShip.health >= 2) {
-            cCruiserShip.health--;
+            --cCruiserShip.health;
             chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
@@ -193,7 +193,7 @@ function play(event) {
         }
     } else if (chart[col][row] === 3) {
         if (cTugShip.health >= 2) {
-            cTugShip.health--;
+            --cTugShip.health;
             chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
@@ -232,10 +232,59 @@ function cTurn() {
     } else if (turn === 2) {
         if (chart[col][row] === 4 || chart[col][row] === 5)
         return
+    } else if (chart[col][row] === 1) {
+        if (pBattleship.health >= 2) {
+            --pBattleship.health;
+            chart[col][row] = 5
+            checkWinner()
+            if (!checkWinner()) {
+                changeTurn()
+            }
+        } else {
+            --pShipsLeft;
+            console.log('They sunk your Battleship!');
+            // console.log(pShipsLeft);
+            chart[col][row] = 5
+            checkWinner()
+            if (!checkWinner()) {
+                changeTurn()
+            }
+        }
+    } else if (chart[col][row] === 2) {
+        if (pCruiserShip.health >= 2) {
+            --pCruiserShip.health;
+            chart[col][row] = 5
+            checkWinner()
+            if (!checkWinner()) {
+                changeTurn()
+            }
+        } else {
+            --pShipsLeft;
+            console.log('They sunk your Cruiser!');
+            // console.log(pShipsLeft);
+            chart[col][row] = 5
+            checkWinner()
+            if (!checkWinner()) {
+                changeTurn()
+            }
+        }
+    } else if (chart[col][row] === 3) {
+        if (pTugShip.health >= 2) {
+            --pTugShip.health;
+            chart[col][row] = 5
+            checkWinner()
+            if (!checkWinner()) {
+                changeTurn()
+            }
+        }
+    } else {
+        chart[col][row] = 4
+        if (!checkWinner()) {
+            changeTurn()
+        }
     }
+    render()
 }
-
-cTurn()
 
 function cChoice(min = 0, max = 9) {
     let choice = Math.random();
@@ -269,7 +318,10 @@ function checkWinner() {
 }
 
 function changeTurn() {
-    turn = turn === 1 ? 2 : 1 
+    turn = turn === 1 ? 2 : 1;
+    if (turn === 2) {
+        setTimeout(cTurn, 2500)
+    }
 }
 
 function changeChart() {
