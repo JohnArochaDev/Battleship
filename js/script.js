@@ -148,6 +148,7 @@ function render() {
 }
 
 function play(event) {
+    console.log('turn:' + turn)
     const boxId = event.target.id
     // console.log(boxId)
     const col = boxId[1]
@@ -283,6 +284,7 @@ function cTurn() {
             changeTurn()
         }
     }
+    console.log('turn:' + turn)
     render()
 }
 
@@ -320,7 +322,7 @@ function checkWinner() {
 function changeTurn() {
     turn = turn === 1 ? 2 : 1;
     if (turn === 2) {
-        setTimeout(cTurn, 2500)
+        cTurn()
     }
 }
 
