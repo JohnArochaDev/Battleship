@@ -167,10 +167,10 @@ function render() {
 }
 
 function play(event) {
-    if (turn === 2) {
-        return
-    }
-    //                                                       If turn !1 NO MOVEMENT WILL WORK
+    // if (turn === 2) {
+    //     return
+    // }
+    // //                                                       If turn !1 NO MOVEMENT WILL WORK
     console.log('turn:' + turn)
     const boxId = event.target.id
     // console.log(boxId)
@@ -243,6 +243,7 @@ function play(event) {
 }
 
 function cTurn() {
+    console.log(cChart)
     console.log('Computer turn')
     cptrId()
     const boxId = comId
@@ -252,10 +253,11 @@ function cTurn() {
     // console.log(row)
     console.log('Computr ID: ' + comId)
     console.log(cChart[col][row]) //                     Logs the value its randmly lands on, it works but it still wont make its choice :(
-    if (turn === 2) {
-        if (cChart[col][row] === 4 || cChart[col][row] === 5)
+
+    if (cChart[col][row] === 4 || cChart[col][row] === 5) {
         return retry()
     } else if (cChart[col][row] === 1) {
+        console.log('cChart is 1')
         if (pBattleship.health >= 2) {
             --pBattleship.health;
             cChart[col][row] = 5
@@ -274,6 +276,7 @@ function cTurn() {
             }
         }
     } else if (cChart[col][row] === 2) {
+        console.log('equals 2')
         if (pCruiserShip.health >= 2) {
             --pCruiserShip.health;
             cChart[col][row] = 5
@@ -292,6 +295,7 @@ function cTurn() {
             }
         }
     } else if (cChart[col][row] === 3) {
+        console.log('eq 3')
         if (pTugShip.health >= 2) {
             --pTugShip.health;
             cChart[col][row] = 5
@@ -309,6 +313,7 @@ function cTurn() {
             }
         }
     } else {
+        console.log('miss')
         cChart[col][row] = 4
         if (!checkWinner()) {
             changeTurn()
