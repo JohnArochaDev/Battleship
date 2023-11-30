@@ -1,8 +1,7 @@
 * {
     box-sizing: border-box;
     background-color: grey;
-    cursor: crosshair;
-    caret-color: black;
+    /* cursor: crosshair; */
 }
 
 

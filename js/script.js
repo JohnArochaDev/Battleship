@@ -74,7 +74,7 @@ function initiate() {
     board.forEach((box) => {
         box.addEventListener('click', (e)=>{
             play(e);
-            console.log(e.target.id)
+            // console.log(e.target.id)
         });
     })
     pShipsLeft = 3
@@ -85,11 +85,11 @@ function initiate() {
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
         [0, 0, 0, 1, 1, 1, 1, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 3
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 6
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 7
+        [0, 0, 2, 0, 0, 0, 0, 0], // col 3
+        [0, 0, 2, 0, 0, 0, 0, 0], // col 4
+        [0, 0, 2, 0, 0, 0, 0, 0], // col 5
+        [0, 0, 0, 0, 0, 3, 0, 0], // col 6
+        [0, 0, 0, 0, 0, 3, 0, 0], // col 7
     ]
     render()
 }
@@ -119,7 +119,7 @@ function play(event) {
     const boxId = event.target.id
     const col = boxId[1]
     const row = boxId[3]
-    console.log(chart[col][row])
+    // console.log(chart[col][row])
     if (chart[col][row] === 4 || chart[col][row] === 5) {
         return
     } else if (chart[col][row] === 1) {
@@ -129,16 +129,15 @@ function play(event) {
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
-                console.log(turn)
             }
         } else {
-            cShipsLeft -1;
+            --cShipsLeft;
             console.log('You sunk their Battleship!');
+            console.log(cShipsLeft);
             chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
-                console.log(turn)
             }
         }
     } else if (chart[col][row] === 2) {
@@ -148,16 +147,15 @@ function play(event) {
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
-                console.log(turn)
             }
         } else {
-            cShipsLeft -1;
+            --cShipsLeft;
             console.log('You sunk their Cruiser!');
+            console.log(cShipsLeft);
             chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
-                console.log(turn)
             }
         }
     } else if (chart[col][row] === 3) {
@@ -167,23 +165,21 @@ function play(event) {
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
-                console.log(turn)
             }
         } else {
-            cShipsLeft -1;
+            --cShipsLeft;
             console.log('You sunk their Tug!');
+            console.log(cShipsLeft);
             chart[col][row] = 5
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
-                console.log(turn)
             }
         }
     } else {
         chart[col][row] = 4
         if (!checkWinner()) {
             changeTurn()
-            console.log(turn)
         }
     }
     render()
@@ -193,8 +189,10 @@ function checkWinner() {
     if (pShipsLeft === 0) {
         //Need to hide the entire board
         winner = 'c'
+        console.log('They sunk your battleship!')
     } else if (cShipsLeft === 0) {
         winner = 'p'
+        console.log('You sunk their battleship!')
     } else {
         return false
     }
