@@ -218,20 +218,23 @@ function play(event) {
 }
 
 function cTurn() {
-    const boxId = pChart.id
+    cptrId()
+    const boxId = comId
     const col = boxId[1]
+    console.log(col)
     const row = boxId[3]
+    console.log(row)
+    console.log(comId)
+    console.log(chart[col][row])
     if (turn === !2) {
         return
-    } else if ( turn === 2) {
-        cChoice1 = cChoice()
-        console.log(cChoice1)
-        cChoice2 = cChoice()
-        console.log(cChoice2)
+    } else if (turn === 2) {
+        if (chart[col][row] === 4 || chart[col][row] === 5)
+        return
     }
 }
 
-// cTurn()
+cTurn()
 
 function cChoice(min = 0, max = 9) {
     let choice = Math.random();
@@ -240,17 +243,17 @@ function cChoice(min = 0, max = 9) {
     return choice;
 }
 
+// THis gives me an ID to use in the future for the computer turn (cTurn)
+
 function cptrId() {
     cChoice1 = cChoice()
-    console.log(cChoice1)
+    // console.log(cChoice1)
     cChoice2 = cChoice()
-    console.log(cChoice2)
+    // console.log(cChoice2)
     comId = `v${cChoice1}h${cChoice2}`
-    console.log(comId)
+    // console.log(comId)
     return comId
 }
-
-cptrId()
 
 function checkWinner() {
     if (pShipsLeft === 0) {
