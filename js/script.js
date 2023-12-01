@@ -474,6 +474,7 @@ function cptrId() {
         comId = `v${cChoice1}h${cChoice2}`
         console.log('cptrId fifth try: ' + comId)
     }
+    console.log(comId)
     return comId
 }
 
