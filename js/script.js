@@ -244,7 +244,8 @@ function exactSpot() { // tells the cTurn to either make a specific guess or use
         cBoxId = comId
     } else if (turnFunction !== 0) {
         cBoxId = newCChoice;
-        comId = newCChoice
+        comId = newCChoice;
+        turnFunction = 0 // This is so that turn function is only not 0 if its called
     }
 }
 
@@ -258,7 +259,7 @@ function cTurn() {
             --pBattleship.health;
             chart[col][row] = 5;
             savedCChoice = comId;
-            // hit()
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -267,7 +268,7 @@ function cTurn() {
             --pShipsLeft;
             chart[col][row] = 5
             savedCChoice = comId;
-            // hit()
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -278,7 +279,7 @@ function cTurn() {
             --pCruiserShip.health;
             chart[col][row] = 5
             savedCChoice = comId;
-            // hit()
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -287,7 +288,7 @@ function cTurn() {
             --pShipsLeft;
             chart[col][row] = 5
             savedCChoice = comId;
-            // hit()
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -298,7 +299,7 @@ function cTurn() {
             --pTugShip.health;
             chart[col][row] = 5
             savedCChoice = comId;
-            // hit()
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -307,7 +308,7 @@ function cTurn() {
             --pShipsLeft;
             chart[col][row] = 5
             savedCChoice = comId;
-            // hit()
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -315,7 +316,8 @@ function cTurn() {
         }
     } else {
         chart[col][row] = 4
-        savedCChoice = comId;
+        // ATK SHIP T OR FALSE IF STATEMENT
+        savedCChoice = comId; // ATK SHIP
         if (!checkWinner()) {
             changeTurn()
         }
@@ -325,70 +327,48 @@ function cTurn() {
 
 // Function that runs if there is a hit to make it smarter
 
+let nTestRemove
+
+function nRemoveId(arr) { // gathers the IDX of the id in the array for the AI when its hit something
+    return arr === newCChoice
+}
+
+atkShip = false
+
 function hit() {// Uses random NUM generator and picks from its options
-    cHitChoice = hitChoice()
-    if (cHitChoice >= 0) {// CHANGE THIS BACK TO === 0 LATER
+    atkShip = true
+    cHitChoice = hitChoice()//                                                 Lets do a new system where is starts by going down, then left, then right, then up
+    if (cHitChoice < 150) {// CHANGE THIS BACK TO === 0 LATER
+        longSavedChoice = savedCChoice // This may need to go somewhere else
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --row;
-        if (row < 0) {
-        }
-        if (chart[col][row] === 0) {
-            cHitChoice = 1;
-            return
-        }
         turnFunction = turnOptions.down;
         newCChoice = `v${col}h${row}`
+        if (row < 0) { // If it tries something that is NOT on the board // NOT SURE IF EITHER OF THESE ARE PUSHING THE VALUES TO COL OR ROW FOR THE LINE 355
+            ++row;
+            ++row;
+            turnFunction = turnOptions.up;
+            newCChoice = `v${col}h${row}`
+            return newCChoice
+        }
+        if (chart[col][row] === 0) { // If it tries something and missess // NOT SURE IF EITHER OF THESE ARE PUSHING THE VALUES TO COL OR ROW FOR THE LINE 355
+            cHitChoice = 1; // Might need to be a function
+            let col = longSavedChoice[1];
+            let row = longSavedChoice[3];
+            ++ row
+            turnFunction = 1 // 1 is for going up
+            return newCChoice = `v${col}h${row}`
+        }
+        newCChoice = `v${col}h${row}`
+        // I need to take this newCChoice ID and check if its already been ran
+        if (cPossibleHits.includes(newCChoice)) {
+            nTestRemove = cPossibleHits.findIndex(nRemoveId); // Will give me index, write a new CB function!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        } else {
+            ++ row;
+            newCChoice = `v${col}h${row}`
+        }
         // New function to keep going this way unless it misses
-        //new function that runs the new coords on the board
-        //new function to see if theboat sunk
-        return savedCChoice
-    } else if (cHitChoice === -1) { // TEMP CHANGE THESE NUMBERS SO IT NEVER USES THESE OPTIONS
-        let col = savedCChoice[1];
-        let row = savedCChoice[3];
-        ++row;
-        if (row > 7) {
-        }
-        if (chart[col][row] === 0) {
-            cHitChoice = 2;
-            return
-        }
-        turnFunction = turnOptions.up;
-        savedCChoice = `v${col}h${row}`
-        // New function to keep going this way unless it misses
-        //new function that runs the new coords on the board
-        //new function to see if theboat sunk
-        return newCChoice
-    } else if (cHitChoice === -2) { // TEMP CHANGE THESE NUMBERS SO IT NEVER USES THESE OPTIONS
-        let col = savedCChoice[1];
-        let row = savedCChoice[3];
-        --col;
-        if (row < 0) {
-        }
-        if (chart[col][row] === 0) {
-            cHitChoice = 3;
-            return
-        }
-        turnFunction = turnOptions.left;
-        savedCChoice = `v${col}h${row}`
-        // New function to keep going this way unless it misses
-        //new function that runs the new coords on the board
-        //new function to see if theboat sunk
-        return newCChoice
-    } else if (cHitChoice === -3) { // TEMP CHANGE THESE NUMBERS SO IT NEVER USES THESE OPTIONS
-        let col = savedCChoice[1];
-        let row = savedCChoice[3];
-        ++col;
-        if (row > 7) {
-        }
-        if (chart[col][row] === 0) {
-            cHitChoice = 0;
-            return
-        }
-        turnFunction = turnOptions.right;
-        savedCChoice = `v${col}h${row}`
-        // New function to keep going this way unless it misses
-        //new function that runs the new coords on the board
         //new function to see if theboat sunk
         return newCChoice
     }
