@@ -247,6 +247,7 @@ function exactSpot() { // tells the cTurn to either make a specific guess or use
     if (turnFunction === 0) {
         cptrId();
         cBoxId = comId
+        longSavedChoice = comId
     } else if (turnFunction !== 0) {
         cBoxId = newCChoice;
         comId = newCChoice;
@@ -348,10 +349,10 @@ atkShip = false
 
 function hit() {
     atkShip = true
+    console.log(atkShip)
     cHitChoice = hitChoice()
     console.log(cHitChoice) //                                                 Lets do a new system where is starts by going down, then left, then right, then up
     if (cHitChoice === 0) {// CHANGE THIS BACK TO === 0 LATER
-        longSavedChoice = savedCChoice // This may need to go somewhere else BEFORE THE TURN POSSIBLY
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --row;
