@@ -53,13 +53,15 @@ const colors = {
 }
 
 const turnOptions = {
-    down: 0,
-    up: 1,
-    left: 2,
-    right: 3,
+    down: 1,
+    up: 2,
+    left: 3,
+    right: 4,
 }
 
-let turnFunction
+// Need to return this value to 0 if we want toever go back to random number generating for the AI
+
+let turnFunction = 0
 
 let col = 0
 
@@ -67,7 +69,9 @@ let row = 0
 
 let cHitChoice
 
-let savedCChoice
+let newCChoice // THis is the variable that controlls the moves after it finds a hit
+
+let savedCChoice 
 
 let pShipsLeft = 3
 
@@ -88,6 +92,10 @@ let cChoice1
 let cChoice2
 
 let comId
+
+let cBoxId // May use this to store the variable for cTurn
+
+let cPreviousHits = []
 
 // Dom Declirations //
 
@@ -119,13 +127,13 @@ function initiate() {
     ]
     // THIS WILL BE THE CHART THAT THE PLAYER SEES HIS BOATS ON
     pChart = [
-        [1, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [1, 0, 0, 0, 0, 3, 3, 0], // col 1
-        [1, 0, 0, 0, 0, 0, 0, 0], // col 2
-        [1, 0, 0, 0, 2, 0, 0, 0], // col 3
-        [0, 0, 0, 0, 2, 0, 0, 0], // col 4
-        [0, 0, 0, 0, 2, 0, 0, 0], // col 5
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 6
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 0
+        [0, 0, 0, 0, 0, 3, 3, 0], // col 1
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 2
+        [0, 0, 1, 0, 2, 0, 0, 0], // col 3
+        [0, 0, 1, 0, 2, 0, 0, 0], // col 4
+        [0, 0, 1, 0, 2, 0, 0, 0], // col 5
+        [0, 0, 1, 0, 0, 0, 0, 0], // col 6
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
     ]
     //THIS WILL BE THE CHART THE PLAYER SEES HIS HITS AND MISSES ON
@@ -230,27 +238,37 @@ function play(event) {
     render()
 }
 
+function exactSpot() { // tells the cTurn to either make a specific guess or use the random value
+    if (turnFunction === 0) {
+        cBoxId = comId
+    } else if (turnFunction !== 0) {
+        cBoxId = newCChoice
+        comId = newCChoice
+    }
+}
+
 function cTurn() {
-    cptrId()
-    const boxId = comId
-    console.log('cptr ID: ' + comId)
-    let col = boxId[1]
-    let row = boxId[3]
-    if (chart[col][row] === 4 || chart[col][row] === 5) {
-        return retry()
-    } else if (chart[col][row] === 1) {
+    cptrId() // comID is given Value Here
+    exactSpot() // Giving cBoxId a value here depending on if it was a previous hit or not
+    let col = cBoxId[1]
+    let row = cBoxId[3]
+    if (chart[col][row] === 1) {// BUILD A NEW SYSTEM THAT TAKES THE PREVIOUS GUESSES AND NEVER GUESSES THEM AGAIN
         if (pBattleship.health >= 2) {
             --pBattleship.health;
+            cPreviousHits.push(cBoxId);
             chart[col][row] = 5;
             savedCChoice = comId;
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         } else {
             --pShipsLeft;
+            cPreviousHits.push(cBoxId);
             chart[col][row] = 5
             savedCChoice = comId;
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -259,16 +277,20 @@ function cTurn() {
     } else if (chart[col][row] === 2) {
         if (pCruiserShip.health >= 2) {
             --pCruiserShip.health;
+            cPreviousHits.push(cBoxId);
             chart[col][row] = 5
             savedCChoice = comId;
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         } else {
             --pShipsLeft;
+            cPreviousHits.push(cBoxId);
             chart[col][row] = 5
             savedCChoice = comId;
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -277,26 +299,31 @@ function cTurn() {
     } else if (chart[col][row] === 3) {
         if (pTugShip.health >= 2) {
             --pTugShip.health;
+            cPreviousHits.push(cBoxId);
             chart[col][row] = 5
             savedCChoice = comId;
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         } else {
             --pShipsLeft;
+            cPreviousHits.push(cBoxId);
             chart[col][row] = 5
             savedCChoice = comId;
+            hit()
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         }
     } else {
+        cPreviousHits.push(cBoxId);
+        console.log(cPreviousHits)
         chart[col][row] = 4
         savedCChoice = comId;
         if (!checkWinner()) {
-            hit();
             changeTurn()
         }
     }
@@ -309,46 +336,82 @@ function retry() {
     }
 }
 
+function tryAgain() {
+    hit()
+}
+
 // Function that runs if there is a hit to make it smarter
 
-function hit() {
+function hit() {// Uses random NUM generator and picks from its options
     cHitChoice = hitChoice()
-    if (cHitChoice === 0) {
+    if (cHitChoice >= 0) {// CHANGE THIS BACK TO === 0 LATER
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --row;
+        if (row < 0) {
+            tryAgain()// THIS IS BROKE RN
+            console.log('not down')
+        }
+        if (chart[col][row] === 0) {
+            cHitChoice = 1;
+            tryAgain()// THIS IS BROKE RN
+        }
         turnFunction = turnOptions.down;
-        // chart[col][row];
+        newCChoice = `v${col}h${row}`
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
         //new function to see if theboat sunk
         return savedCChoice
-    } else if (cHitChoice === 1) {
+    } else if (cHitChoice === -1) { // TEMP CHANGE THESE NUMBERS SO IT NEVER USES THESE OPTIONS
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         ++row;
+        if (row > 7) {
+            tryAgain()// THIS IS BROKE RN
+            console.log('not up')
+        }
+        if (chart[col][row] === 0) {
+            cHitChoice = 2;
+            return tryAgain()// THIS IS BROKE RN
+        }
         turnFunction = turnOptions.up;
-        // chart[col][row];
+        savedCChoice = `v${col}h${row}`
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
         //new function to see if theboat sunk
         return savedCChoice
-    } else if (cHitChoice === 2) {
+    } else if (cHitChoice === -2) { // TEMP CHANGE THESE NUMBERS SO IT NEVER USES THESE OPTIONS
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --col;
+        if (row < 0) {
+            tryAgain()// THIS IS BROKE RN
+            console.log('not left')
+        }
+        if (chart[col][row] === 0) {
+            cHitChoice = 3;
+            return tryAgain()// THIS IS BROKE RN
+        }
         turnFunction = turnOptions.left;
-        // chart[col][row];
+        savedCChoice = `v${col}h${row}`
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
         //new function to see if theboat sunk
         return savedCChoice
-    } else if (cHitChoice === 3) {
+    } else if (cHitChoice === -3) { // TEMP CHANGE THESE NUMBERS SO IT NEVER USES THESE OPTIONS
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         ++col;
+        if (row > 7) {
+            tryAgain()// THIS IS BROKE RN
+            console.log('not right')
+        }
+        if (chart[col][row] === 0) {
+            cHitChoice = 0;
+            return tryAgain()// THIS IS BROKE RN
+        }
         turnFunction = turnOptions.right;
-        // chart[col][row];
+        savedCChoice = `v${col}h${row}`
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
         //new function to see if theboat sunk
@@ -419,22 +482,22 @@ function changeTurn() {
 
 //THIS FUNCTION BELOW IS A NEW VERSION OF THE ABOVE FUNCTION///////////////////////////////////////////////////////////////////////
 
-function changeTurn() {
-    turn = turn === 1 ? 2 : 1;
-    if ((turn === 2 && turnFunction === 0) || (turn === 2 && someVariable === sum)) { // THIS MAY WORK TRY IT SECOND HALF IS FOR THE EXTRA VARIABLE FOR RE RUNNING CODE, ALSO MAYBE JUST CHANGE THE VARIABLE ENTERING INTO CTURN INSTEAD, THAT WAY WE DONT NEED A NEW FUNCTION FOR RUNNING THE CODE AND APPLYING THE CHANGE TO THE BOARD
-        setTimeout(down, 3000)
-        //variable to tell it to run this again next turn
-    } else if (turn === 2 && turnFunction === 1) {
-        setTimeout(up, 3000)
-        //variable to tell it to run this again next turn
-    } else if (turn === 2 && turnFunction === 2) {
-        setTimeout(left, 3000)
-        //variable to tell it to run this again next turn
-    } else if (turn === 2 && turnFunction === 3) {
-        setTimeout(right, 3000)
-        //variable to tell it to run this again next turn
-    }
-}
+// function changeTurn() {
+//     turn = turn === 1 ? 2 : 1;
+//     if ((turn === 2 && turnFunction === 0) || (turn === 2 && someVariable === sum)) { // THIS MAY WORK TRY IT SECOND HALF IS FOR THE EXTRA VARIABLE FOR RE RUNNING CODE, ALSO MAYBE JUST CHANGE THE VARIABLE ENTERING INTO CTURN INSTEAD, THAT WAY WE DONT NEED A NEW FUNCTION FOR RUNNING THE CODE AND APPLYING THE CHANGE TO THE BOARD
+//         setTimeout(down, 3000)
+//         //variable to tell it to run this again next turn
+//     } else if (turn === 2 && turnFunction === 1) {
+//         setTimeout(up, 3000)
+//         //variable to tell it to run this again next turn
+//     } else if (turn === 2 && turnFunction === 2) {
+//         setTimeout(left, 3000)
+//         //variable to tell it to run this again next turn
+//     } else if (turn === 2 && turnFunction === 3) {
+//         setTimeout(right, 3000)
+//         //variable to tell it to run this again next turn
+//     }
+// }
 
 function changeChart() {
     if (turn === 1) {
@@ -478,3 +541,7 @@ initiate()
 //MISS https://www.youtube.com/watch?v=xHN3zSp6Ggg
 
 // background noise potentally https://www.youtube.com/watch?v=FWdnm3CHato
+
+
+
+//save variable for last hit
