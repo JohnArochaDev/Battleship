@@ -52,7 +52,13 @@ const colors = {
     0: 'green', // boxes
 }
 
+let col = 0
+
+let row = 0
+
 let cHitChoice
+
+let savedCChoice
 
 let pShipsLeft = 3
 
@@ -94,22 +100,22 @@ function initiate() {
     winner = null
     chart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 1, 1, 1, 1, 0, 0], // col 1
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
         [0, 0, 0, 0, 0, 0, 0, 0], // col 3
-        [0, 0, 0, 2, 0, 0, 0, 0], // col 4
-        [0, 0, 0, 2, 0, 0, 0, 0], // col 5
-        [0, 0, 0, 2, 0, 0, 0, 0], // col 6
-        [3, 3, 0, 0, 0, 0, 0, 0], // col 7
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 6
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 7
     ]
     // THIS WILL BE THE CHART THAT THE PLAYER SEES HIS BOATS ON
     pChart = [
         [1, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [1, 0, 0, 0, 0, 0, 0, 0], // col 1
+        [1, 0, 0, 0, 0, 3, 3, 0], // col 1
         [1, 0, 0, 0, 0, 0, 0, 0], // col 2
-        [1, 0, 0, 0, 0, 0, 0, 0], // col 3
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
+        [1, 0, 0, 0, 2, 0, 0, 0], // col 3
+        [0, 0, 0, 0, 2, 0, 0, 0], // col 4
+        [0, 0, 0, 0, 2, 0, 0, 0], // col 5
         [0, 0, 0, 0, 0, 0, 0, 0], // col 6
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
     ]
@@ -219,14 +225,16 @@ function play(event) {
 function cTurn() {
     cptrId()
     const boxId = comId
-    const col = boxId[1]
-    const row = boxId[3]
+    let col = boxId[1]
+    let row = boxId[3]
+    console.log(col + ' ' + row)
     if (chart[col][row] === 4 || chart[col][row] === 5) {
         return retry()
     } else if (chart[col][row] === 1) {
         if (pBattleship.health >= 2) {
             --pBattleship.health;
-            chart[col][row] = 5
+            chart[col][row] = 5;
+            savedCChoice = comId;
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -234,6 +242,7 @@ function cTurn() {
         } else {
             --pShipsLeft;
             chart[col][row] = 5
+            savedCChoice = comId;
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -243,14 +252,15 @@ function cTurn() {
         if (pCruiserShip.health >= 2) {
             --pCruiserShip.health;
             chart[col][row] = 5
+            savedCChoice = comId;
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         } else {
             --pShipsLeft;
-            // console.log(pShipsLeft);
             chart[col][row] = 5
+            savedCChoice = comId;
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -260,6 +270,7 @@ function cTurn() {
         if (pTugShip.health >= 2) {
             --pTugShip.health;
             chart[col][row] = 5
+            savedCChoice = comId;
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -267,6 +278,7 @@ function cTurn() {
         } else {
             --pShipsLeft;
             chart[col][row] = 5
+            savedCChoice = comId;
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -289,8 +301,15 @@ function retry() {
 
 function hit() {
     cHitChoice = hitChoice()
-    console.log(cHitChoice)
+    if (cHitChoice === 0) {
+        let col = savedCChoice[1];
+        let row = savedCChoice[3];
+        --row;
+        savedCChoice[col][row];
+    }
+    return console.log('Hit: ' + col + ' ' + row)
 }
+
 // Makes a random number between 0-4 that tells it to guess up down left or right
 
 function hitChoice(min = 0, max = 4) {
