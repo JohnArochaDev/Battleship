@@ -317,49 +317,54 @@ function hit() {
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --row;
+        turnFunction = turnOptions.down;
         // chart[col][row];
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
         //new function to see if theboat sunk
-        return console.log('Hit: ' + col + row)
+        return savedCChoice
     } else if (cHitChoice === 1) {
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         ++row;
+        turnFunction = turnOptions.up;
         // chart[col][row];
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
         //new function to see if theboat sunk
-        return console.log('Hit: ' + col + row)
+        return savedCChoice
     } else if (cHitChoice === 2) {
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --col;
+        turnFunction = turnOptions.left;
         // chart[col][row];
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
         //new function to see if theboat sunk
-        return console.log('Hit: ' + col + row)
+        return savedCChoice
     } else if (cHitChoice === 3) {
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         ++col;
+        turnFunction = turnOptions.right;
         // chart[col][row];
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
         //new function to see if theboat sunk
-        return console.log('Hit: ' + col + row)
+        return savedCChoice
     }
 }
 
 // This will be the function that runs the new coords on the board
-// Make sure the whole ID is pushed to the cHopeHit, not the value of the cell in the array
+// Make sure the whole ID is pushed to the hitAgain, not the value of the cell in the array
 
 function hitAgain(choice) {
     let col = choice[1];
     let row = choice[3];
     if (chart[col][row] === 1 || chart[col][row] === 2 || chart[col][row] === 3) {
         // Set a value to a variable that tells the game what function to run once its the computers turn
+        chart[col][row] = 5;
         turnFunction = 0
     }
 }
