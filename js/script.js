@@ -307,24 +307,32 @@ function hit() {
         let row = savedCChoice[3];
         --row;
         // chart[col][row];
+        // New function to keep going this way unless it misses
+        //new function that runs the new coords on the board
         return console.log('Hit: ' + col + row)
     } else if (cHitChoice === 1) {
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         ++row;
         // chart[col][row];
+        // New function to keep going this way unless it misses
+        //new function that runs the new coords on the board
         return console.log('Hit: ' + col + row)
     } else if (cHitChoice === 2) {
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --col;
         // chart[col][row];
+        // New function to keep going this way unless it misses
+        //new function that runs the new coords on the board
         return console.log('Hit: ' + col + row)
     } else if (cHitChoice === 3) {
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         ++col;
         // chart[col][row];
+        // New function to keep going this way unless it misses
+        //new function that runs the new coords on the board
         return console.log('Hit: ' + col + row)
     }
 }
