@@ -255,7 +255,9 @@ function cTurn() {
     if (chart[col][row] === 1) {// BUILD A NEW SYSTEM THAT TAKES THE PREVIOUS GUESSES AND NEVER GUESSES THEM AGAIN
         if (pBattleship.health >= 2) {
             --pBattleship.health;
-            cPreviousHits.push(cBoxId);
+            if (!cPreviousHits.includes(cBoxId)) {
+                cPreviousHits.push(cBoxId);
+            }
             chart[col][row] = 5;
             savedCChoice = comId;
             hit()
@@ -265,7 +267,9 @@ function cTurn() {
             }
         } else {
             --pShipsLeft;
-            cPreviousHits.push(cBoxId);
+            if (!cPreviousHits.includes(cBoxId)) {
+                cPreviousHits.push(cBoxId);
+            }
             chart[col][row] = 5
             savedCChoice = comId;
             hit()
@@ -277,7 +281,9 @@ function cTurn() {
     } else if (chart[col][row] === 2) {
         if (pCruiserShip.health >= 2) {
             --pCruiserShip.health;
-            cPreviousHits.push(cBoxId);
+            if (!cPreviousHits.includes(cBoxId)) {
+                cPreviousHits.push(cBoxId);
+            }
             chart[col][row] = 5
             savedCChoice = comId;
             hit()
@@ -287,7 +293,9 @@ function cTurn() {
             }
         } else {
             --pShipsLeft;
-            cPreviousHits.push(cBoxId);
+            if (!cPreviousHits.includes(cBoxId)) {
+                cPreviousHits.push(cBoxId);
+            }
             chart[col][row] = 5
             savedCChoice = comId;
             hit()
@@ -299,7 +307,9 @@ function cTurn() {
     } else if (chart[col][row] === 3) {
         if (pTugShip.health >= 2) {
             --pTugShip.health;
-            cPreviousHits.push(cBoxId);
+            if (!cPreviousHits.includes(cBoxId)) {
+                cPreviousHits.push(cBoxId);
+            }
             chart[col][row] = 5
             savedCChoice = comId;
             hit()
@@ -309,7 +319,9 @@ function cTurn() {
             }
         } else {
             --pShipsLeft;
-            cPreviousHits.push(cBoxId);
+            if (!cPreviousHits.includes(cBoxId)) {
+                cPreviousHits.push(cBoxId);
+            }
             chart[col][row] = 5
             savedCChoice = comId;
             hit()
@@ -319,7 +331,9 @@ function cTurn() {
             }
         }
     } else {
-        cPreviousHits.push(cBoxId);
+        if (!cPreviousHits.includes(cBoxId)) {
+            cPreviousHits.push(cBoxId);
+        }
         console.log(cPreviousHits)
         chart[col][row] = 4
         savedCChoice = comId;
@@ -328,16 +342,6 @@ function cTurn() {
         }
     }
     render()
-}
-
-function retry() {
-    if (turn === 2) {
-        cTurn()
-    }
-}
-
-function tryAgain() {
-    hit()
 }
 
 // Function that runs if there is a hit to make it smarter
@@ -349,12 +353,10 @@ function hit() {// Uses random NUM generator and picks from its options
         let row = savedCChoice[3];
         --row;
         if (row < 0) {
-            tryAgain()// THIS IS BROKE RN
-            console.log('not down')
         }
         if (chart[col][row] === 0) {
             cHitChoice = 1;
-            tryAgain()// THIS IS BROKE RN
+            return
         }
         turnFunction = turnOptions.down;
         newCChoice = `v${col}h${row}`
@@ -367,12 +369,10 @@ function hit() {// Uses random NUM generator and picks from its options
         let row = savedCChoice[3];
         ++row;
         if (row > 7) {
-            tryAgain()// THIS IS BROKE RN
-            console.log('not up')
         }
         if (chart[col][row] === 0) {
             cHitChoice = 2;
-            return tryAgain()// THIS IS BROKE RN
+            return
         }
         turnFunction = turnOptions.up;
         savedCChoice = `v${col}h${row}`
@@ -385,12 +385,10 @@ function hit() {// Uses random NUM generator and picks from its options
         let row = savedCChoice[3];
         --col;
         if (row < 0) {
-            tryAgain()// THIS IS BROKE RN
-            console.log('not left')
         }
         if (chart[col][row] === 0) {
             cHitChoice = 3;
-            return tryAgain()// THIS IS BROKE RN
+            return
         }
         turnFunction = turnOptions.left;
         savedCChoice = `v${col}h${row}`
@@ -403,12 +401,10 @@ function hit() {// Uses random NUM generator and picks from its options
         let row = savedCChoice[3];
         ++col;
         if (row > 7) {
-            tryAgain()// THIS IS BROKE RN
-            console.log('not right')
         }
         if (chart[col][row] === 0) {
             cHitChoice = 0;
-            return tryAgain()// THIS IS BROKE RN
+            return
         }
         turnFunction = turnOptions.right;
         savedCChoice = `v${col}h${row}`
@@ -451,11 +447,33 @@ function cChoice(min = 0, max = 8) {
 
 function cptrId() {
     cChoice1 = cChoice()
-    // console.log(cChoice1)
     cChoice2 = cChoice()
-    // console.log(cChoice2)
     comId = `v${cChoice1}h${cChoice2}`
-    // console.log(comId)
+    console.log('cptrId first try: ' + comId)
+    if (cPreviousHits.includes(comId)) {
+        cChoice1 = cChoice()
+        cChoice2 = cChoice()
+        comId = `v${cChoice1}h${cChoice2}`
+        console.log('cptrId second try: ' + comId)
+    }
+    if (cPreviousHits.includes(comId)) {
+        cChoice1 = cChoice()
+        cChoice2 = cChoice()
+        comId = `v${cChoice1}h${cChoice2}`
+        console.log('cptrId third try: ' + comId)
+    }
+    if (cPreviousHits.includes(comId)) {
+        cChoice1 = cChoice()
+        cChoice2 = cChoice()
+        comId = `v${cChoice1}h${cChoice2}`
+        console.log('cptrId fourth try: ' + comId)
+    }
+    if (cPreviousHits.includes(comId)) {
+        cChoice1 = cChoice()
+        cChoice2 = cChoice()
+        comId = `v${cChoice1}h${cChoice2}`
+        console.log('cptrId fifth try: ' + comId)
+    }
     return comId
 }
 
