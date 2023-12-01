@@ -254,7 +254,7 @@ function cTurn() {
     exactSpot() // Giving cBoxId a value here depending on if it was a previous hit or not
     let col = cBoxId[1]
     let row = cBoxId[3]
-    if (chart[col][row] === 1) {// BUILD A NEW SYSTEM THAT TAKES THE PREVIOUS GUESSES AND NEVER GUESSES THEM AGAIN
+    if (chart[col][row] === 1) {
         if (pBattleship.health >= 2) {
             --pBattleship.health;
             if (!cPreviousHits.includes(cBoxId)) {
@@ -447,58 +447,21 @@ function cChoice(min = 0, max = 8) {
 
 // THis gives me an ID to use in the future for the computer turn (cTurn)
 
+let testRemove 
+
 function cptrId() {
-    cChoice1 = cChoice()
-    cChoice2 = cChoice()
-    comId = `v${cChoice1}h${cChoice2}`
-    console.log('cptrId first try: ' + comId)
-    if (cPreviousHits.includes(comId)) {
-        cChoice1 = cChoice()
-        cChoice2 = cChoice()
-        comId = `v${cChoice1}h${cChoice2}`
-        console.log('cptrId second try: ' + comId)
-    }
-    if (cPreviousHits.includes(comId)) {
-        cChoice1 = cChoice()
-        cChoice2 = cChoice()
-        comId = `v${cChoice1}h${cChoice2}`
-        console.log('cptrId third try: ' + comId)
-    }
-    if (cPreviousHits.includes(comId)) {
-        cChoice1 = cChoice()
-        cChoice2 = cChoice()
-        comId = `v${cChoice1}h${cChoice2}`
-        console.log('cptrId fourth try: ' + comId)
-    }
-    if (cPreviousHits.includes(comId)) {
-        cChoice1 = cChoice()
-        cChoice2 = cChoice()
-        comId = `v${cChoice1}h${cChoice2}`
-        console.log('cptrId fifth try: ' + comId)
-    }
+    comId = cPossibleHits[(Math.floor(Math.random() * cPossibleHits.length))]; // THIS VAR NEERS TO BE comId
+    testRemove = cPossibleHits.findIndex(removeId);
     console.log(comId)
+    console.log(testRemove)
+    cPossibleHits.splice(testRemove, 1) // removes the id in the array for future turns
+    console.log(cPossibleHits)
     return comId
 }
 
-let test
-
-let testRemove 
-
-function testO() {
-    test = cPossibleHits[(Math.floor(Math.random() * cPossibleHits.length))]; // THIS VAR NEERS TO BE comId
-    testRemove = cPossibleHits.findIndex(removeId);
-    console.log(test)
-    console.log(testRemove)
-    cPossibleHits.splice(testRemove, 1)
-    console.log(cPossibleHits)
+function removeId(arr) { // gathers the IDX of the id in the array
+    return arr === comId
 }
-
-function removeId(arr) {
-    return arr === test
-}
-
-testO()
-
 
 function checkWinner() {
     if (pShipsLeft === 0) {
