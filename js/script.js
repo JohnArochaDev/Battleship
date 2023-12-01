@@ -52,6 +52,15 @@ const colors = {
     0: 'green', // boxes
 }
 
+const turnOptions = {
+    down: 0,
+    up: 1,
+    left: 2,
+    right: 3,
+}
+
+let turnFunction
+
 let col = 0
 
 let row = 0
@@ -300,6 +309,8 @@ function retry() {
     }
 }
 
+// Function that runs if there is a hit to make it smarter
+
 function hit() {
     cHitChoice = hitChoice()
     if (cHitChoice === 0) {
@@ -309,6 +320,7 @@ function hit() {
         // chart[col][row];
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
+        //new function to see if theboat sunk
         return console.log('Hit: ' + col + row)
     } else if (cHitChoice === 1) {
         let col = savedCChoice[1];
@@ -317,6 +329,7 @@ function hit() {
         // chart[col][row];
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
+        //new function to see if theboat sunk
         return console.log('Hit: ' + col + row)
     } else if (cHitChoice === 2) {
         let col = savedCChoice[1];
@@ -325,6 +338,7 @@ function hit() {
         // chart[col][row];
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
+        //new function to see if theboat sunk
         return console.log('Hit: ' + col + row)
     } else if (cHitChoice === 3) {
         let col = savedCChoice[1];
@@ -333,6 +347,7 @@ function hit() {
         // chart[col][row];
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
+        //new function to see if theboat sunk
         return console.log('Hit: ' + col + row)
     }
 }
@@ -340,11 +355,12 @@ function hit() {
 // This will be the function that runs the new coords on the board
 // Make sure the whole ID is pushed to the cHopeHit, not the value of the cell in the array
 
-function cHopeHit(choice) {
+function hitAgain(choice) {
     let col = choice[1];
     let row = choice[3];
     if (chart[col][row] === 1 || chart[col][row] === 2 || chart[col][row] === 3) {
         // Set a value to a variable that tells the game what function to run once its the computers turn
+        turnFunction = 0
     }
 }
 // Makes a random number between 0-4 that tells it to guess up down left or right
