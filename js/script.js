@@ -417,12 +417,18 @@ function changeTurn() {
     
 }
 
-//THIS FUNCTION BELOW IS A NEW VERSION OF THE ABOVE FUNCTION
+//THIS FUNCTION BELOW IS A NEW VERSION OF THE ABOVE FUNCTION///////////////////////////////////////////////////////////////////////
 
 // function changeTurn() {
 //     turn = turn === 1 ? 2 : 1;
 //     if (turn === 2 && turnFunction === 0) {
-//         
+//         setTimeout(down, 3000)
+//     } else if (turn === 2 && turnFunction === 1) {
+//         setTimeout(up, 3000)
+//     } else if (turn === 2 && turnFunction === 2) {
+//         setTimeout(left, 3000)
+//     } else if (turn === 2 && turnFunction === 3) {
+//         setTimeout(right, 3000)
 //     }
 // }
 
