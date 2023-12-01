@@ -337,6 +337,16 @@ function hit() {
     }
 }
 
+// This will be the function that runs the new coords on the board
+// Make sure the whole ID is pushed to the cHopeHit, not the value of the cell in the array
+
+function cHopeHit(choice) {
+    let col = choice[1];
+    let row = choice[3];
+    if (chart[col][row] === 1 || chart[col][row] === 2 || chart[col][row] === 3) {
+        // Set a value to a variable that tells the game what function to run once its the computers turn
+    }
+}
 // Makes a random number between 0-4 that tells it to guess up down left or right
 
 function hitChoice(min = 0, max = 4) {
@@ -379,9 +389,11 @@ function checkWinner() {
 
 function changeTurn() {
     turn = turn === 1 ? 2 : 1;
-    if (turn === 2) {
+    if (turn === 2) {// Use and AND statement to do whatis meantioned below!!
         setTimeout(cTurn, 3000)
+        // Set a value to a variable that tells the game what function to run once its the computers turn 
     }
+    
 }
 // Use this later!
 function changeChart() {
