@@ -421,7 +421,7 @@ function changeTurn() {
 
 function changeTurn() {
     turn = turn === 1 ? 2 : 1;
-    if ((turn === 2 && turnFunction === 0) || (turn === 2 && someVariable === sum)) { // THIS MAY WORK TRY IT SECOND HALF IS FOR THE EXTRA VARIABLE FOR RE RUNNING CODE< ALSO MAYBE JUST CHANGE THE VARIABLE ENTERING INTO CTURN INSTEAD, WE WILL SEE
+    if ((turn === 2 && turnFunction === 0) || (turn === 2 && someVariable === sum)) { // THIS MAY WORK TRY IT SECOND HALF IS FOR THE EXTRA VARIABLE FOR RE RUNNING CODE, ALSO MAYBE JUST CHANGE THE VARIABLE ENTERING INTO CTURN INSTEAD, THAT WAY WE DONT NEED A NEW FUNCTION FOR RUNNING THE CODE AND APPLYING THE CHANGE TO THE BOARD
         setTimeout(down, 3000)
         //variable to tell it to run this again next turn
     } else if (turn === 2 && turnFunction === 1) {
