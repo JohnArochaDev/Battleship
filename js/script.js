@@ -44,6 +44,9 @@ const pTugShip = {
 }
 
 const colors = {
+    8: 'grey', //pTugShip
+    7: 'grey', //pCruiserShip
+    6: 'grey', // pBattleship
     5: 'red', // hit
     4: 'white', // miss
     3: 'grey', // tug ship
@@ -59,11 +62,13 @@ const turnOptions = {
     right: 4,
 }
 
+let pShipDown
+
 let col = 0
 
 let row = 0
 
-let cHitChoice
+let cHitChoice = null
 
 let newCChoice // THis is the variable that controlls the moves after it finds a hit
 
@@ -124,12 +129,12 @@ function initiate() {
     // THIS WILL BE THE CHART THAT THE PLAYER SEES HIS BOATS ON
     pChart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 0, 0, 0, 3, 3, 0], // col 1
+        [0, 0, 0, 0, 0, 8, 8, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
-        [0, 0, 1, 0, 2, 0, 0, 0], // col 3
-        [0, 0, 1, 0, 2, 0, 0, 0], // col 4
-        [0, 0, 1, 0, 2, 0, 0, 0], // col 5
-        [0, 0, 1, 0, 0, 0, 0, 0], // col 6
+        [0, 0, 0, 7, 7, 7, 0, 0], // col 3
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
+        [0, 0, 6, 6, 6, 6, 0, 0], // col 6
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
     ]
     //THIS WILL BE THE CHART THE PLAYER SEES HIS HITS AND MISSES ON
@@ -254,7 +259,7 @@ function cTurn() {
     exactSpot() // Giving cBoxId a value here depending on if it was a previous hit or not
     let col = cBoxId[1]
     let row = cBoxId[3]
-    if (chart[col][row] === 1) {
+    if (chart[col][row] === 6) {
         if (pBattleship.health >= 2) {
             --pBattleship.health;
             chart[col][row] = 5;
@@ -266,6 +271,7 @@ function cTurn() {
             }
         } else {
             --pShipsLeft;
+            pShipDown = true
             chart[col][row] = 5
             savedCChoice = comId;
             hit()
@@ -274,7 +280,7 @@ function cTurn() {
                 changeTurn()
             }
         }
-    } else if (chart[col][row] === 2) {
+    } else if (chart[col][row] === 7) {
         if (pCruiserShip.health >= 2) {
             --pCruiserShip.health;
             chart[col][row] = 5
@@ -286,6 +292,7 @@ function cTurn() {
             }
         } else {
             --pShipsLeft;
+            pShipDown = true
             chart[col][row] = 5
             savedCChoice = comId;
             hit()
@@ -294,7 +301,7 @@ function cTurn() {
                 changeTurn()
             }
         }
-    } else if (chart[col][row] === 3) {
+    } else if (chart[col][row] === 8) {
         if (pTugShip.health >= 2) {
             --pTugShip.health;
             chart[col][row] = 5
@@ -306,6 +313,7 @@ function cTurn() {
             }
         } else {
             --pShipsLeft;
+            pShipDown = true
             chart[col][row] = 5
             savedCChoice = comId;
             hit()
@@ -315,7 +323,10 @@ function cTurn() {
             }
         }
     } else {
-        chart[col][row] = 4
+        chart[col][row] = 4 
+        if (atkShip === true) {
+
+        }
         // ATK SHIP T OR FALSE IF STATEMENT
         savedCChoice = comId; // ATK SHIP
         if (!checkWinner()) {
@@ -335,11 +346,12 @@ function nRemoveId(arr) { // gathers the IDX of the id in the array for the AI w
 
 atkShip = false
 
-function hit() {// Uses random NUM generator and picks from its options
+function hit() {
     atkShip = true
-    cHitChoice = hitChoice()//                                                 Lets do a new system where is starts by going down, then left, then right, then up
-    if (cHitChoice < 150) {// CHANGE THIS BACK TO === 0 LATER
-        longSavedChoice = savedCChoice // This may need to go somewhere else
+    cHitChoice = hitChoice()
+    console.log(cHitChoice) //                                                 Lets do a new system where is starts by going down, then left, then right, then up
+    if (cHitChoice === 0) {// CHANGE THIS BACK TO === 0 LATER
+        longSavedChoice = savedCChoice // This may need to go somewhere else BEFORE THE TURN POSSIBLY
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --row;
@@ -368,6 +380,14 @@ function hit() {// Uses random NUM generator and picks from its options
             ++ row;
             newCChoice = `v${col}h${row}`
         }
+        if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
+            atkShip = false;
+            pShipDown = false;
+            turnFunction = 0
+        }
+        if (chart[col][row] === 6 || chart[col][row] === 7 || chart[col][row] === 8) {
+            cHitChoice = null
+        }
         // New function to keep going this way unless it misses
         //new function to see if theboat sunk
         return newCChoice
@@ -377,22 +397,29 @@ function hit() {// Uses random NUM generator and picks from its options
 // This will be the function that runs the new coords on the board
 // Make sure the whole ID is pushed to the hitAgain, not the value of the cell in the array
 
-function hitAgain(choice) {
-    let col = choice[1];
-    let row = choice[3];
-    if (chart[col][row] === 1 || chart[col][row] === 2 || chart[col][row] === 3) {
-        // Set a value to a variable that tells the game what function to run once its the computers turn
-        chart[col][row] = 5;
-        turnFunction = 0
-    }
-}
 // Makes a random number between 0-4 that tells it to guess up down left or right
 
-function hitChoice(min = 0, max = 4) {
-    let choice = Math.random();
-    choice = Math.floor(choice * max);
-    choice = choice + min;
-    return choice;
+// function hitChoice(min = 0, max = 4) {
+//     let choice = Math.random();
+//     choice = Math.floor(choice * max);
+//     choice = choice + min;
+//     return choice;
+// }
+
+function hitChoice() {
+    if (atkShip === true) {
+        if (cHitChoice === 0) {
+            ++cHitChoice
+        } else if (cHitChoice === 1) {
+            ++cHitChoice;
+        } else if (cHitChoice === 2) {
+            ++cHitChoice;
+        }
+    }
+    if (cHitChoice === null) {
+        cHitChoice = 0;
+    }
+    return cHitChoice
 }
 
 function cChoice(min = 0, max = 8) {
@@ -409,10 +436,10 @@ let testRemove
 function cptrId() {
     comId = getComId()
     testRemove = cPossibleHits.findIndex(removeId);
-    console.log('com ID: ' + comId)
-    console.log('IDX: ' + testRemove)
+    // console.log('com ID: ' + comId)
+    // console.log('IDX: ' + testRemove)
     cPossibleHits.splice(testRemove, 1) // removes the id in the array for future turns
-    console.log('The New Array: ' + cPossibleHits)
+    // console.log('The New Array: ' + cPossibleHits)
     return comId
 }
 
