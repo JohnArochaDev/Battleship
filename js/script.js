@@ -480,6 +480,26 @@ function cptrId() {
     return comId
 }
 
+let test
+
+let testRemove 
+
+function testO() {
+    test = cPossibleHits[(Math.floor(Math.random() * cPossibleHits.length))]; // THIS VAR NEERS TO BE comId
+    testRemove = cPossibleHits.findIndex(removeId);
+    console.log(test)
+    console.log(testRemove)
+    cPossibleHits.splice(testRemove, 1)
+    console.log(cPossibleHits)
+}
+
+function removeId(arr) {
+    return arr === test
+}
+
+testO()
+
+
 function checkWinner() {
     if (pShipsLeft === 0) {
         winner = 'c'
@@ -500,6 +520,7 @@ function changeTurn() {
     }
     
 }
+
 
 //THIS FUNCTION BELOW IS A NEW VERSION OF THE ABOVE FUNCTION///////////////////////////////////////////////////////////////////////
 
