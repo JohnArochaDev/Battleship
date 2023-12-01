@@ -423,16 +423,19 @@ function changeTurn() {
 //     turn = turn === 1 ? 2 : 1;
 //     if (turn === 2 && turnFunction === 0) {
 //         setTimeout(down, 3000)
+//         //variable to tell it to run this again next turn
 //     } else if (turn === 2 && turnFunction === 1) {
 //         setTimeout(up, 3000)
+//         //variable to tell it to run this again next turn
 //     } else if (turn === 2 && turnFunction === 2) {
 //         setTimeout(left, 3000)
+//         //variable to tell it to run this again next turn
 //     } else if (turn === 2 && turnFunction === 3) {
 //         setTimeout(right, 3000)
+//         //variable to tell it to run this again next turn
 //     }
 // }
 
-// Use this later!
 function changeChart() {
     if (turn === 1) {
         chart = cChart
