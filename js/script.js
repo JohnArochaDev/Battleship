@@ -153,7 +153,6 @@ function play(event) {
     if (turn === 2) {
         return
     }
-    console.log('turn:' + turn)
     const boxId = event.target.id
     const col = boxId[1]
     const row = boxId[3]
@@ -225,9 +224,9 @@ function play(event) {
 function cTurn() {
     cptrId()
     const boxId = comId
+    console.log('cptr ID: ' + comId)
     let col = boxId[1]
     let row = boxId[3]
-    console.log(col + ' ' + row)
     if (chart[col][row] === 4 || chart[col][row] === 5) {
         return retry()
     } else if (chart[col][row] === 1) {
@@ -286,7 +285,9 @@ function cTurn() {
         }
     } else {
         chart[col][row] = 4
+        savedCChoice = comId;
         if (!checkWinner()) {
+            hit();
             changeTurn()
         }
     }
@@ -305,9 +306,27 @@ function hit() {
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --row;
-        savedCChoice[col][row];
+        // chart[col][row];
+        return console.log('Hit: ' + col + row)
+    } else if (cHitChoice === 1) {
+        let col = savedCChoice[1];
+        let row = savedCChoice[3];
+        ++row;
+        // chart[col][row];
+        return console.log('Hit: ' + col + row)
+    } else if (cHitChoice === 2) {
+        let col = savedCChoice[1];
+        let row = savedCChoice[3];
+        --col;
+        // chart[col][row];
+        return console.log('Hit: ' + col + row)
+    } else if (cHitChoice === 3) {
+        let col = savedCChoice[1];
+        let row = savedCChoice[3];
+        ++col;
+        // chart[col][row];
+        return console.log('Hit: ' + col + row)
     }
-    return console.log('Hit: ' + col + ' ' + row)
 }
 
 // Makes a random number between 0-4 that tells it to guess up down left or right
