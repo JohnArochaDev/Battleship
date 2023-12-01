@@ -28,7 +28,7 @@ const pBattleship = {
     health: 4,
     color: 'grey',
 }
-
+//                                             READ LINE 424!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const pCruiserShip = {
     name: 'Cruiser Ship',
     num: 3,
@@ -419,22 +419,22 @@ function changeTurn() {
 
 //THIS FUNCTION BELOW IS A NEW VERSION OF THE ABOVE FUNCTION///////////////////////////////////////////////////////////////////////
 
-// function changeTurn() {
-//     turn = turn === 1 ? 2 : 1;
-//     if (turn === 2 && turnFunction === 0) {
-//         setTimeout(down, 3000)
-//         //variable to tell it to run this again next turn
-//     } else if (turn === 2 && turnFunction === 1) {
-//         setTimeout(up, 3000)
-//         //variable to tell it to run this again next turn
-//     } else if (turn === 2 && turnFunction === 2) {
-//         setTimeout(left, 3000)
-//         //variable to tell it to run this again next turn
-//     } else if (turn === 2 && turnFunction === 3) {
-//         setTimeout(right, 3000)
-//         //variable to tell it to run this again next turn
-//     }
-// }
+function changeTurn() {
+    turn = turn === 1 ? 2 : 1;
+    if ((turn === 2 && turnFunction === 0) || (turn === 2 && someVariable === sum)) { // THIS MAY WORK TRY IT SECOND HALF IS FOR THE EXTRA VARIABLE FOR RE RUNNING CODE< ALSO MAYBE JUST CHANGE THE VARIABLE ENTERING INTO CTURN INSTEAD, WE WILL SEE
+        setTimeout(down, 3000)
+        //variable to tell it to run this again next turn
+    } else if (turn === 2 && turnFunction === 1) {
+        setTimeout(up, 3000)
+        //variable to tell it to run this again next turn
+    } else if (turn === 2 && turnFunction === 2) {
+        setTimeout(left, 3000)
+        //variable to tell it to run this again next turn
+    } else if (turn === 2 && turnFunction === 3) {
+        setTimeout(right, 3000)
+        //variable to tell it to run this again next turn
+    }
+}
 
 function changeChart() {
     if (turn === 1) {
