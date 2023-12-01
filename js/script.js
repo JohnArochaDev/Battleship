@@ -59,10 +59,6 @@ const turnOptions = {
     right: 4,
 }
 
-// Need to return this value to 0 if we want toever go back to random number generating for the AI
-
-let turnFunction = 0
-
 let col = 0
 
 let row = 0
@@ -238,17 +234,22 @@ function play(event) {
     render()
 }
 
+// Need to return this value to 0 if we want to ever go back to random number generating for the AI
+
+let turnFunction = 0
+
 function exactSpot() { // tells the cTurn to either make a specific guess or use the random value
     if (turnFunction === 0) {
+        cptrId();
         cBoxId = comId
     } else if (turnFunction !== 0) {
-        cBoxId = newCChoice
+        cBoxId = newCChoice;
         comId = newCChoice
     }
 }
 
 function cTurn() {
-    cptrId() // comID is given Value Here
+    //cptrId() // need to only do this sometimes, only for random turns not all
     exactSpot() // Giving cBoxId a value here depending on if it was a previous hit or not
     let col = cBoxId[1]
     let row = cBoxId[3]
@@ -357,7 +358,7 @@ function hit() {// Uses random NUM generator and picks from its options
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
         //new function to see if theboat sunk
-        return savedCChoice
+        return newCChoice
     } else if (cHitChoice === -2) { // TEMP CHANGE THESE NUMBERS SO IT NEVER USES THESE OPTIONS
         let col = savedCChoice[1];
         let row = savedCChoice[3];
@@ -373,7 +374,7 @@ function hit() {// Uses random NUM generator and picks from its options
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
         //new function to see if theboat sunk
-        return savedCChoice
+        return newCChoice
     } else if (cHitChoice === -3) { // TEMP CHANGE THESE NUMBERS SO IT NEVER USES THESE OPTIONS
         let col = savedCChoice[1];
         let row = savedCChoice[3];
@@ -389,7 +390,7 @@ function hit() {// Uses random NUM generator and picks from its options
         // New function to keep going this way unless it misses
         //new function that runs the new coords on the board
         //new function to see if theboat sunk
-        return savedCChoice
+        return newCChoice
     }
 }
 
