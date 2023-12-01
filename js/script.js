@@ -416,6 +416,16 @@ function changeTurn() {
     }
     
 }
+
+//THIS FUNCTION BELOW IS A NEW VERSION OF THE ABOVE FUNCTION
+
+// function changeTurn() {
+//     turn = turn === 1 ? 2 : 1;
+//     if (turn === 2 && turnFunction === 0) {
+//         
+//     }
+// }
+
 // Use this later!
 function changeChart() {
     if (turn === 1) {
@@ -423,6 +433,22 @@ function changeChart() {
     } else {
         chart = pChart
     }
+}
+
+function down() {
+
+}
+
+function up() {
+    
+}
+
+function left() {
+    
+}
+
+function right() {
+    
 }
 
 // Called Functions //
