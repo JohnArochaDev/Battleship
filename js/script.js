@@ -377,6 +377,7 @@ function hit() {
         if (cPossibleHits.includes(newCChoice)) {
             nTestRemove = cPossibleHits.findIndex(nRemoveId);
             console.log('index to be removed: ' + nTestRemove);
+            console.log('possible hits RIGHT BEFORE: ' + cPossibleHits);
             cPossibleHits.splice(nTestRemove, 1);
             console.log('possible hits RIGHT AFTER: ' + cPossibleHits);
             console.log('removed ID from possibilities')
@@ -533,7 +534,12 @@ function changeTurn() {
     
 }
 
-
+function removeOption() {
+    if (cPossibleHits.includes(newCChoice)) {
+        nTestRemove = cPossibleHits.findIndex(nRemoveId);
+        cPossibleHits.splice(nTestRemove, 1);
+    }
+}
 //THIS FUNCTION BELOW IS A NEW VERSION OF THE ABOVE FUNCTION///////////////////////////////////////////////////////////////////////
 
 // function changeTurn() {
