@@ -49,9 +49,9 @@ const colors = {
     6: 'grey', // pBattleship
     5: 'red', // hit
     4: 'white', // miss
-    3: 'grey', // tug ship
-    2: 'grey', // cruiser
-    1: 'grey', // battleship
+    3: 'green', // tug ship
+    2: 'green', // cruiser
+    1: 'green', // battleship
     0: 'green', // boxes
 }
 
@@ -142,13 +142,13 @@ function initiate() {
     //THIS WILL BE THE CHART THE PLAYER SEES HIS HITS AND MISSES ON
     cChart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 1, 0, 0, 0, 0, 0], // col 1
-        [0, 0, 1, 0, 0, 0, 0, 0], // col 2
-        [0, 0, 1, 0, 0, 0, 0, 0], // col 3
-        [0, 0, 1, 0, 0, 0, 0, 0], // col 4
+        [0, 0, 0, 0, 2, 2, 2, 0], // col 1
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 2
+        [0, 0, 0, 0, 3, 0, 0, 0], // col 3
+        [0, 0, 0, 0, 3, 0, 0, 0], // col 4
         [0, 0, 0, 0, 0, 0, 0, 0], // col 5
-        [3, 0, 0, 2, 2, 2, 0, 0], // col 6
-        [3, 0, 0, 0, 0, 0, 0, 0], // col 7
+        [0, 0, 1, 1, 1, 1, 0, 0], // col 6
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 7
     ]
     render()
 }
@@ -385,8 +385,28 @@ function hit() {
         if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
             ++ row;
             ++ row;
-            newCChoice = `v${col}h${row}`
-            console.log('this ID was already used')
+            newCChoice = `v${col}h${row}`;
+            cHitChoice = 0
+            console.log('this ID was already used now up')
+            if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
+                --row;
+                --row;
+                --col;
+                newCChoice = `v${col}h${row}`;
+                cHitChoice = 1
+                console.log('this ID was already used now left')
+                if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
+                    ++row;
+                    ++row;
+                    ++col;
+                    ++col;
+                    newCChoice = `v${col}h${row}`;
+                    cHitChoice = 2
+                    console.log('this ID was already used now right')
+                    return newCChoice
+                }
+                return newCChoice
+            }
             return newCChoice
         }
 
@@ -420,17 +440,6 @@ function hit() {
             newCChoice = `v${col}h${row}`;
             console.log('no down go up ID: ' + newCChoice);
             removeOption();
-            // if (chart[col][row] === 0 || chart[col][row] === 4 || chart[col][row] === 5) { // STATEMENT TO TELL IT TO GO LEFT IF UP IS NO GO THIS WORKS, SEE IF WE CAN MAKE IT WORK WITHOUT IT!!!!!!!!!!!!!!
-            //     let col = longSavedChoice[1];
-            //     let row = longSavedChoice[3];
-            //     --col;
-            //     turnFunction = 2 
-            //     cHitChoice = 1
-            //     newCChoice = `v${col}h${row}`
-            //     console.log('no down go left')
-            //     console.log('no down go left ID: ' + newCChoice)
-            //     return newCChoice
-            // }
             return newCChoice
         }
         return newCChoice
@@ -534,10 +543,8 @@ function hit() {
 
 
     } else if (cHitChoice === 3) { /// THIS IS THE UP FUNCTION, NEEDS TO BE RE-WRITTEN //CHANGED
-        let col = longSavedChoice[1];
-        let row = longSavedChoice[3]; 
-        // let col = savedCChoice[1];              TRY THIS WE SHALL SEE
-        // let row = savedCChoice[3];              TRY THIS WE SHALL SEE
+        let col = savedCChoice[1];
+        let row = savedCChoice[3];
         ++col;                                                                          //CHANGED
         turnFunction = turnOptions.right;                                                 //CHANGED
         newCChoice = `v${col}h${row}`
