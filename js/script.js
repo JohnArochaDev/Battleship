@@ -352,7 +352,7 @@ function hit() {
     console.log('atk ship: ' + atkShip)
     cHitChoice = hitChoice()
     console.log('hit choice: ' + cHitChoice) //                                                 Lets do a new system where is starts by going down, then left, then right, then up
-    if (cHitChoice === 0) {
+    if (cHitChoice === 0) {// This is for going down
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --row;
@@ -361,14 +361,6 @@ function hit() {
         console.log('going down')
         newCChoice = `v${col}h${row}`
         // I need to take this newCChoice ID and check if its already been ran
-        if (cPossibleHits.includes(newCChoice)) {
-            nTestRemove = cPossibleHits.findIndex(nRemoveId); // Will give me index, write a new CB function!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            console.log('removed ID from possibilities')
-        } else {
-            ++ row;
-            newCChoice = `v${col}h${row}`
-            console.log('this ID was already used')
-        }
         if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
             atkShip = false;
             pShipDown = false;
@@ -386,6 +378,10 @@ function hit() {
             turnFunction = turnOptions.up;
             newCChoice = `v${col}h${row}`
             console.log('not a possible turn, off board')
+            if (cPossibleHits.includes(newCChoice)) {
+                nTestRemove = cPossibleHits.findIndex(nRemoveId); // Will give me index, write a new CB function!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                console.log('removed ID from possibilities')
+            }
             return newCChoice
         }
         if (chart[col][row] === 0 && atkShip === true) { // If it tries something and missess //
@@ -394,9 +390,23 @@ function hit() {
             let row = longSavedChoice[3];
             ++ row
             turnFunction = 1 // 1 is for going up
+            cHitChoice = 0
             console.log('no down go up')
+            if (cPossibleHits.includes(longSavedChoice)) {
+                nTestRemove = cPossibleHits.findIndex(nRemoveId); // Will give me index, write a new CB function!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                console.log('removed ID from possibilities')
+            }
             return newCChoice = `v${col}h${row}`
             
+        }
+        if (cPossibleHits.includes(newCChoice)) {
+            nTestRemove = cPossibleHits.findIndex(nRemoveId); // Will give me index, write a new CB function!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            console.log('removed ID from possibilities')
+        } else {
+            ++ row;
+            newCChoice = `v${col}h${row}`
+            console.log('this ID was already used')
+            return newCChoice
         }
         // New function to keep going this way unless it misses
         //new function to see if theboat sunk
