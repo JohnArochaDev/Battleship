@@ -131,12 +131,12 @@ function initiate() {
     // THIS WILL BE THE CHART THAT THE PLAYER SEES HIS BOATS ON
     pChart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 0, 0, 0, 8, 8, 0], // col 1
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 2
-        [0, 0, 0, 7, 7, 7, 0, 0], // col 3
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
-        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
-        [0, 0, 6, 6, 6, 6, 0, 0], // col 6
+        [0, 0, 0, 0, 0, 0, 6, 0], // col 1
+        [0, 0, 0, 0, 7, 0, 6, 0], // col 2
+        [0, 0, 0, 0, 7, 0, 6, 0], // col 3
+        [0, 8, 0, 0, 7, 0, 6, 0], // col 4
+        [0, 8, 0, 0, 0, 0, 0, 0], // col 5
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 6
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
     ]
     //THIS WILL BE THE CHART THE PLAYER SEES HIS HITS AND MISSES ON
@@ -333,6 +333,9 @@ function cTurn() {
             }
         }
     } else {
+        if(atkShip === true) {// IF MISS AFTER HIT REINITIATE THE SEARCH UNLESS THE ATTKSHIP IS NOW OFF
+            hit()
+        }
         if (cPossibleHits.includes(newCChoice)) {
             nTestRemove = cPossibleHits.findIndex(nRemoveId);
             cPossibleHits.splice(nTestRemove, 1);
@@ -411,14 +414,31 @@ function hit() {
             let col = longSavedChoice[1];
             let row = longSavedChoice[3];
             ++ row
-            turnFunction = 1 // 1 is for going up
+            turnFunction = 2 // 1 is for going up
             cHitChoice = 0
-            console.log('no down go up')
-            newCChoice = `v${col}h${row}`
-            removeOption()
+            console.log('no down go up');
+            newCChoice = `v${col}h${row}`;
+            console.log('no down go up ID: ' + newCChoice);
+            removeOption();
+            // if (chart[col][row] === 0 || chart[col][row] === 4 || chart[col][row] === 5) { // STATEMENT TO TELL IT TO GO LEFT IF UP IS NO GO THIS WORKS, SEE IF WE CAN MAKE IT WORK WITHOUT IT!!!!!!!!!!!!!!
+            //     let col = longSavedChoice[1];
+            //     let row = longSavedChoice[3];
+            //     --col;
+            //     turnFunction = 2 
+            //     cHitChoice = 1
+            //     newCChoice = `v${col}h${row}`
+            //     console.log('no down go left')
+            //     console.log('no down go left ID: ' + newCChoice)
+            //     return newCChoice
+            // }
             return newCChoice
         }
         return newCChoice
+
+
+
+
+
     } else if (cHitChoice === 1) { /// THIS IS THE UP FUNCTION, NEEDS TO BE RE-WRITTEN
         let col = savedCChoice[1];
         let row = savedCChoice[3];
@@ -453,17 +473,21 @@ function hit() {
             return newCChoice
         }
         if (chart[col][row] === 0 && atkShip === true || chart[col][row] === 4 || chart[col][row] === 5) { // If it tries something and missess //
-            cHitChoice = 2;
             let col = longSavedChoice[1];
             let row = longSavedChoice[3];
-            -- row
-            -- col
-            turnFunction = 2 // 2 is for going left
-            cHitChoice = 1
-            console.log('1 no up go down')                                             // TO BE CHANGED
+            -- col;
+            turnFunction = 2; // 2 is for going left
+            cHitChoice = 1;
+            atkShip = true
+            console.log('1 no up go left')                                             // TO BE CHANGED
             return newCChoice = `v${col}h${row}`
         }
-    } else if (cHitChoice === 2) { /// THIS IS THE UP FUNCTION, NEEDS TO BE RE-WRITTEN // TO BE CHANGED
+
+
+
+
+
+    } else if (cHitChoice === 2) { /// THIS IS THE LEFT FUNCTION, NEEDS TO BE RE-WRITTEN // TO BE CHANGED
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --col;                                                                          // TO BE CHANGED
@@ -485,7 +509,7 @@ function hit() {
         }
         if (chart[col][row] === 6 || chart[col][row] === 7 || chart[col][row] === 8) {
             cHitChoice = 1                                                                 // TO BE CHANGED
-            console.log('2 keep cHitChoice at 1 to keep going up')                             // TO BE CHANGED
+            console.log('2 keep cHitChoice at 2 to keep going left')                             // TO BE CHANGED
         }
         if (col < 0) { // If it tries something that is NOT on the board                        // TO BE CHANGED
             ++col;                                                                           // TO BE CHANGED
@@ -498,22 +522,28 @@ function hit() {
         if (chart[col][row] === 0 && atkShip === true || chart[col][row] === 4 || chart[col][row] === 5) { // If it tries something and missess //
             cHitChoice = 2;
             let col = longSavedChoice[1];
-            let row = longSavedChoice[3];
-            ++ row                                                                           // TO BE CHANGED
-            -- col                                                                           // TO BE CHANGED
+            let row = longSavedChoice[3];                                                                         // TO BE CHANGED
+            ++ col                                                                           // TO BE CHANGED
             turnFunction = 3 // 3 is for going right                                             // TO BE CHANGED
             cHitChoice = 1
             console.log('2 no up go down')                                                    // TO BE CHANGED
             return newCChoice = `v${col}h${row}`
         }
+
+
+
+
+
     } else if (cHitChoice === 3) { /// THIS IS THE UP FUNCTION, NEEDS TO BE RE-WRITTEN //CHANGED
-        let col = savedCChoice[1];
-        let row = savedCChoice[3];
+        let col = longSavedChoice[1];
+        let row = longSavedChoice[3]; 
+        // let col = savedCChoice[1];              TRY THIS WE SHALL SEE
+        // let row = savedCChoice[3];              TRY THIS WE SHALL SEE
         ++col;                                                                          //CHANGED
-        turnFunction = turnOptions.down;                                                 //CHANGED
+        turnFunction = turnOptions.right;                                                 //CHANGED
         newCChoice = `v${col}h${row}`
-        console.log('3 going left')                                                        //CHANGED
-        if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
+        console.log('3 going right')                                                        //CHANGED
+        if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {//Technically this should be impossible?
             -- col;  
             -- row;                                                                     //CHANGED
             newCChoice = `v${col}h${row}`
@@ -529,7 +559,7 @@ function hit() {
         }
         if (chart[col][row] === 6 || chart[col][row] === 7 || chart[col][row] === 8) {
             cHitChoice = 2                                                                 //CHANGED
-            console.log('3 keep cHitChoice at 1 to keep going up')                             //CHANGED
+            console.log('3 keep cHitChoice at 3 to keep going right')                             //CHANGED
         }
         if (col > 7) { // If it tries something that is NOT on the board                        // TO BE CHANGED
             --col;                                                                           //CHANGED
@@ -543,8 +573,7 @@ function hit() {
             cHitChoice = 2;
             let col = longSavedChoice[1];
             let row = longSavedChoice[3];
-            -- col                                                                           //CHANGED
-            -- row                                                                           //CHANGED
+            -- col                                                                           //CHANGED                                                                         //CHANGED
             turnFunction = null // null is for going back down                                             //CHANGED
             cHitChoice = 1
             console.log('3 no up go down')                                                    //CHANGED
@@ -562,6 +591,8 @@ function hitChoice() {
             ++cHitChoice;
         } else if (cHitChoice === 2) {
             ++cHitChoice;
+        } else if (cHitChoice === 3) {
+            cHitChoice = null
         }
     }
     if (cHitChoice === null) {
