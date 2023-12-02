@@ -427,7 +427,8 @@ function hit() {
         newCChoice = `v${col}h${row}`
         console.log('1 going up')
         if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
-            ++ col;
+            -- row;
+            -- col;
             newCChoice = `v${col}h${row}`
             console.log('1 this ID was already used')
             return newCChoice
@@ -443,7 +444,7 @@ function hit() {
             cHitChoice = 0
             console.log('1 keep cHitChoice at 1 to keep going up')
         }
-        if (row < 0) { // If it tries something that is NOT on the board
+        if (row > 7) { // If it tries something that is NOT on the board            // I CHANGED THIS DID IT BREAK
             --col;
             --col;
             turnFunction = turnOptions.left;
@@ -459,7 +460,94 @@ function hit() {
             -- col
             turnFunction = 2 // 2 is for going left
             cHitChoice = 1
-            console.log('1 no up go down')
+            console.log('1 no up go down')                                             // TO BE CHANGED
+            return newCChoice = `v${col}h${row}`
+        }
+    } else if (cHitChoice === 2) { /// THIS IS THE UP FUNCTION, NEEDS TO BE RE-WRITTEN // TO BE CHANGED
+        let col = savedCChoice[1];
+        let row = savedCChoice[3];
+        --col;                                                                          // TO BE CHANGED
+        turnFunction = turnOptions.left;                                                 //TO BE CHANGED
+        newCChoice = `v${col}h${row}`
+        console.log('2 going left')                                                        // TO BE CHANGED
+        if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
+            ++ col;                                                                         // TO BE CHANGED
+            newCChoice = `v${col}h${row}`
+            console.log('2 this ID was already used')                                           // TO BE CHANGED
+            return newCChoice
+        }
+        if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
+            atkShip = false;
+            pShipDown = false;
+            turnFunction = 0
+            cHitChoice = null
+            console.log('2 reset rules for random')                                       // TO BE CHANGED
+        }
+        if (chart[col][row] === 6 || chart[col][row] === 7 || chart[col][row] === 8) {
+            cHitChoice = 1                                                                 // TO BE CHANGED
+            console.log('2 keep cHitChoice at 1 to keep going up')                             // TO BE CHANGED
+        }
+        if (col < 0) { // If it tries something that is NOT on the board                        // TO BE CHANGED
+            ++col;                                                                           // TO BE CHANGED
+            ++col;                                                                           // TO BE CHANGED
+            turnFunction = turnOptions.right;                                                // TO BE CHANGED
+            newCChoice = `v${col}h${row}`
+            console.log('2 not a possible turn, off board')                                   // TO BE CHANGED
+            return newCChoice
+        }
+        if (chart[col][row] === 0 && atkShip === true || chart[col][row] === 4 || chart[col][row] === 5) { // If it tries something and missess //
+            cHitChoice = 2;
+            let col = longSavedChoice[1];
+            let row = longSavedChoice[3];
+            ++ row                                                                           // TO BE CHANGED
+            -- col                                                                           // TO BE CHANGED
+            turnFunction = 3 // 3 is for going right                                             // TO BE CHANGED
+            cHitChoice = 1
+            console.log('2 no up go down')                                                    // TO BE CHANGED
+            return newCChoice = `v${col}h${row}`
+        }
+    } else if (cHitChoice === 3) { /// THIS IS THE UP FUNCTION, NEEDS TO BE RE-WRITTEN //CHANGED
+        let col = savedCChoice[1];
+        let row = savedCChoice[3];
+        ++col;                                                                          //CHANGED
+        turnFunction = turnOptions.down;                                                 //CHANGED
+        newCChoice = `v${col}h${row}`
+        console.log('3 going left')                                                        //CHANGED
+        if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
+            -- col;  
+            -- row;                                                                     //CHANGED
+            newCChoice = `v${col}h${row}`
+            console.log('3 this ID was already used')                                           //CHANGED
+            return newCChoice
+        }
+        if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
+            atkShip = false;
+            pShipDown = false;
+            turnFunction = 0
+            cHitChoice = null
+            console.log('3 reset rules for random')                                       //CHANGED
+        }
+        if (chart[col][row] === 6 || chart[col][row] === 7 || chart[col][row] === 8) {
+            cHitChoice = 2                                                                 //CHANGED
+            console.log('3 keep cHitChoice at 1 to keep going up')                             //CHANGED
+        }
+        if (col > 7) { // If it tries something that is NOT on the board                        // TO BE CHANGED
+            --col;                                                                           //CHANGED
+            --row;                                                                           //CHANGED
+            turnFunction = turnOptions.down;                                                  //CHANGED
+            newCChoice = `v${col}h${row}`
+            console.log('3 not a possible turn, off board')                                   //CHANGED
+            return newCChoice
+        }
+        if (chart[col][row] === 0 && atkShip === true || chart[col][row] === 4 || chart[col][row] === 5) { // If it tries something and missess //
+            cHitChoice = 2;
+            let col = longSavedChoice[1];
+            let row = longSavedChoice[3];
+            -- col                                                                           //CHANGED
+            -- row                                                                           //CHANGED
+            turnFunction = null // null is for going back down                                             //CHANGED
+            cHitChoice = 1
+            console.log('3 no up go down')                                                    //CHANGED
             return newCChoice = `v${col}h${row}`
         }
     }
