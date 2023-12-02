@@ -254,7 +254,8 @@ function exactSpot() { // tells the cTurn to either make a specific guess or use
     } else if (turnFunction !== 0) {
         cBoxId = newCChoice;
         comId = newCChoice;
-        turnFunction = 0 // This is so that turn function is only not 0 if its called
+        turnFunction = 0; // This is so that turn function is only not 0 if its called
+        removeOption();
         console.log(cBoxId)
     }
 }
@@ -332,6 +333,10 @@ function cTurn() {
             }
         }
     } else {
+        if (cPossibleHits.includes(newCChoice)) {
+            nTestRemove = cPossibleHits.findIndex(nRemoveId);
+            cPossibleHits.splice(nTestRemove, 1);
+        }
         chart[col][row] = 4 
         if (atkShip === true) {
             atkShip = false
@@ -374,19 +379,25 @@ function hit() {
         turnFunction = turnOptions.down;
         newCChoice = `v${col}h${row}`
         console.log('going down')
-        if (cPossibleHits.includes(newCChoice)) {
-            nTestRemove = cPossibleHits.findIndex(nRemoveId);
-            console.log('index to be removed: ' + nTestRemove);
-            console.log('possible hits RIGHT BEFORE: ' + cPossibleHits);
-            cPossibleHits.splice(nTestRemove, 1);
-            console.log('possible hits RIGHT AFTER: ' + cPossibleHits);
-            console.log('removed ID from possibilities')
-        } else {
+        if (!cPossibleHits.includes(newCChoice)) {
             ++ row;
             newCChoice = `v${col}h${row}`
             console.log('this ID was already used')
             return newCChoice
         }
+        // if (cPossibleHits.includes(newCChoice)) {                        Save this trying something different
+        //     nTestRemove = cPossibleHits.findIndex(nRemoveId);
+        //     console.log('index to be removed: ' + nTestRemove);
+        //     console.log('possible hits RIGHT BEFORE: ' + cPossibleHits);
+        //     cPossibleHits.splice(nTestRemove, 1);
+        //     console.log('possible hits RIGHT AFTER: ' + cPossibleHits);
+        //     console.log('removed ID from possibilities')
+        // } else {
+        //     ++ row;
+        //     newCChoice = `v${col}h${row}`
+        //     console.log('this ID was already used')
+        //     return newCChoice
+        // }
         if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
             atkShip = false;
             pShipDown = false;
@@ -406,7 +417,7 @@ function hit() {
             console.log('not a possible turn, off board')
             return newCChoice
         }
-        if (chart[col][row] === 0 && atkShip === true) { // If it tries something and missess //
+        if (chart[col][row] === 0 && atkShip === true || chart[col][row] === 4 || chart[col][row] === 5) { // If it tries something and missess //
             cHitChoice = 1; // Might need to be a function
             let col = longSavedChoice[1];
             let row = longSavedChoice[3];
@@ -414,7 +425,9 @@ function hit() {
             turnFunction = 1 // 1 is for going up
             cHitChoice = 0
             console.log('no down go up')
-            return newCChoice = `v${col}h${row}`
+            newCChoice = `v${col}h${row}`
+            removeOption()
+            return newCChoice
         }
         return newCChoice
     } else if (cHitChoice === 1) { /// THIS IS THE UP FUNCTION, NEEDS TO BE RE-WRITTEN
@@ -424,18 +437,24 @@ function hit() {
         turnFunction = turnOptions.up;
         newCChoice = `v${col}h${row}`
         console.log('1 going up')
-        if (cPossibleHits.includes(newCChoice)) {
-            nTestRemove = cPossibleHits.findIndex(nRemoveId);
-            console.log('index to be removed: ' + nTestRemove);
-            cPossibleHits.splice(nTestRemove, 1);
-            console.log('possible hits RIGHT AFTER: ' + cPossibleHits);
-            console.log('removed ID from possibilities')
-        } else {
+        if (!cPossibleHits.includes(newCChoice)) {
             ++ col;
             newCChoice = `v${col}h${row}`
             console.log('this ID was already used')
             return newCChoice
         }
+        // if (cPossibleHits.includes(newCChoice)) {                                          Save this trying something different
+        //     nTestRemove = cPossibleHits.findIndex(nRemoveId);
+        //     console.log('index to be removed: ' + nTestRemove);
+        //     cPossibleHits.splice(nTestRemove, 1);
+        //     console.log('possible hits RIGHT AFTER: ' + cPossibleHits);
+        //     console.log('removed ID from possibilities')
+        // } else {
+        //     ++ col;
+        //     newCChoice = `v${col}h${row}`
+        //     console.log('this ID was already used')
+        //     return newCChoice
+        // }
         if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
             atkShip = false;
             pShipDown = false;
