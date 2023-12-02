@@ -326,7 +326,7 @@ function cTurn() {
     } else {
         chart[col][row] = 4 
         if (atkShip === true) {
-
+            atkShip = false
         }
         // ATK SHIP T OR FALSE IF STATEMENT
         savedCChoice = comId; // ATK SHIP
@@ -439,6 +439,7 @@ function hitChoice() {
     if (cHitChoice === null) {
         cHitChoice = 0;
     }
+    console.log('Rn hit choice: ' + cHitChoice)
     return cHitChoice
 }
 
