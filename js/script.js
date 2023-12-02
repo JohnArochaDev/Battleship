@@ -349,45 +349,54 @@ atkShip = false
 
 function hit() {
     atkShip = true
-    console.log(atkShip)
+    console.log('atk ship: ' + atkShip)
     cHitChoice = hitChoice()
-    console.log(cHitChoice) //                                                 Lets do a new system where is starts by going down, then left, then right, then up
-    if (cHitChoice === 0) {// CHANGE THIS BACK TO === 0 LATER
+    console.log('hit choice: ' + cHitChoice) //                                                 Lets do a new system where is starts by going down, then left, then right, then up
+    if (cHitChoice === 0) {
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --row;
         turnFunction = turnOptions.down;
         newCChoice = `v${col}h${row}`
-        if (row < 0) { // If it tries something that is NOT on the board // NOT SURE IF EITHER OF THESE ARE PUSHING THE VALUES TO COL OR ROW FOR THE LINE 355
-            ++row;
-            ++row;
-            turnFunction = turnOptions.up;
-            newCChoice = `v${col}h${row}`
-            return newCChoice
-        }
-        if (chart[col][row] === 0) { // If it tries something and missess // NOT SURE IF EITHER OF THESE ARE PUSHING THE VALUES TO COL OR ROW FOR THE LINE 355
-            cHitChoice = 1; // Might need to be a function
-            let col = longSavedChoice[1];
-            let row = longSavedChoice[3];
-            ++ row
-            turnFunction = 1 // 1 is for going up
-            return newCChoice = `v${col}h${row}`
-        }
+        console.log('going down')
         newCChoice = `v${col}h${row}`
         // I need to take this newCChoice ID and check if its already been ran
         if (cPossibleHits.includes(newCChoice)) {
             nTestRemove = cPossibleHits.findIndex(nRemoveId); // Will give me index, write a new CB function!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            console.log('removed ID from possibilities')
         } else {
             ++ row;
             newCChoice = `v${col}h${row}`
+            console.log('this ID was already used')
         }
         if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
             atkShip = false;
             pShipDown = false;
             turnFunction = 0
+            cHitChoice = null
+            console.log('reset rules for random')
         }
         if (chart[col][row] === 6 || chart[col][row] === 7 || chart[col][row] === 8) {
             cHitChoice = null
+            console.log('keep cHitChoice at 0 to keep going down')
+        }
+        if (row < 0) { // If it tries something that is NOT on the board // NOT SURE IF EITHER OF THESE ARE PUSHING THE VALUES TO COL OR ROW FOR THE LINE 355
+            ++row;
+            ++row;
+            turnFunction = turnOptions.up;
+            newCChoice = `v${col}h${row}`
+            console.log('not a possible turn, off board')
+            return newCChoice
+        }
+        if (chart[col][row] === 0 && atkShip === true) { // If it tries something and missess //
+            cHitChoice = 1; // Might need to be a function
+            let col = longSavedChoice[1];
+            let row = longSavedChoice[3];
+            ++ row
+            turnFunction = 1 // 1 is for going up
+            console.log('no down go up')
+            return newCChoice = `v${col}h${row}`
+            
         }
         // New function to keep going this way unless it misses
         //new function to see if theboat sunk
