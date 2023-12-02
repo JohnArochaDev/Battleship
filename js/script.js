@@ -359,6 +359,7 @@ function cTurn() {
     }
     console.log('End c turn')
     console.log(cPossibleHits)
+    console.log('new hit choice: ' + cHitChoice)  
     render()
 }
 
@@ -474,17 +475,19 @@ function hit() {
             newCChoice = `v${col}h${row}`;
             cHitChoice = 1
             console.log('this ID was already used now left')
-            if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
-                let col = longSavedChoice[1];
-                let row = longSavedChoice[3];
-                ++col;
-                newCChoice = `v${col}h${row}`;
-                cHitChoice = 2
-                console.log('this ID was already used now right')
-                return newCChoice
-            }
             return newCChoice
         }
+
+        if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
+            let col = longSavedChoice[1];
+            let row = longSavedChoice[3];
+            ++col;
+            newCChoice = `v${col}h${row}`;
+            cHitChoice = 2
+            console.log('this ID was already used now right')
+            return newCChoice
+        }
+
         if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
             atkShip = false;
             pShipDown = false;
@@ -492,6 +495,7 @@ function hit() {
             cHitChoice = null
             console.log('1 reset rules for random')
         }
+
         if (chart[col][row] === 6 || chart[col][row] === 7 || chart[col][row] === 8) {
             cHitChoice = 0
             console.log('1 keep cHitChoice at 1 to keep going up')
@@ -513,7 +517,6 @@ function hit() {
             atkShip = true
             console.log('1 no up go left')  
             newCChoice = `v${col}h${row}`
-            console.log(cHitChoice)  
             if (cPossibleHits.includes(newCChoice)) {
                 nTestRemove = cPossibleHits.findIndex(nRemoveId);
                 cPossibleHits.splice(nTestRemove, 1);
@@ -565,10 +568,10 @@ function hit() {
             return newCChoice
         }
         if (chart[col][row] === 0 && atkShip === true || chart[col][row] === 4 || chart[col][row] === 5) { // If it tries something and missess //
-            cHitChoice = 2;
             let col = longSavedChoice[1];
             let row = longSavedChoice[3];                                                                         // TO BE CHANGED
             ++ col                                                                           // TO BE CHANGED
+            cHitChoice = 2;
             turnFunction = 3 // 3 is for going right                                             // TO BE CHANGED
             console.log('2 no left go right')                                                    // TO BE CHANGED
             newCChoice = `v${col}h${row}`
