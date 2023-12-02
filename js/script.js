@@ -62,6 +62,8 @@ const turnOptions = {
     right: 4,
 }
 
+let turnCount = 0
+
 let pShipDown
 
 let col = 0
@@ -248,16 +250,22 @@ function exactSpot() { // tells the cTurn to either make a specific guess or use
         cptrId();
         cBoxId = comId
         longSavedChoice = comId
+        console.log(cBoxId)
     } else if (turnFunction !== 0) {
         cBoxId = newCChoice;
         comId = newCChoice;
         turnFunction = 0 // This is so that turn function is only not 0 if its called
+        console.log(cBoxId)
     }
 }
 
 function cTurn() {
+    console.log('Start c turn')
+    ++turnCount
+    console.log('this # turns: ' + turnCount)
     //cptrId() // need to only do this sometimes, only for random turns not all
     exactSpot() // Giving cBoxId a value here depending on if it was a previous hit or not
+    console.log(cBoxId)
     let col = cBoxId[1]
     let row = cBoxId[3]
     if (chart[col][row] === 6) {
@@ -334,6 +342,8 @@ function cTurn() {
             changeTurn()
         }
     }
+    console.log('End c turn')
+    console.log(cPossibleHits)
     render()
 }
 
@@ -341,13 +351,18 @@ function cTurn() {
 
 let nTestRemove
 
-function nRemoveId(arr) { // gathers the IDX of the id in the array for the AI when its hit something
+function nRemoveId(arr) { // gathers the IDX of the id in the array for the AI when its hit something for the HIT function
     return arr === newCChoice
+}
+
+function nRemoveIdMiss(arr) { // gathers the IDX of the id in the array for the AI when its hit something for the PLAY function
+    return arr === cBoxId
 }
 
 atkShip = false
 
 function hit() {
+    console.log('Start c turn hit')
     atkShip = true
     console.log('atk ship: ' + atkShip)
     cHitChoice = hitChoice()
@@ -359,7 +374,18 @@ function hit() {
         turnFunction = turnOptions.down;
         newCChoice = `v${col}h${row}`
         console.log('going down')
-        newCChoice = `v${col}h${row}`
+        if (cPossibleHits.includes(newCChoice)) {
+            nTestRemove = cPossibleHits.findIndex(nRemoveId);
+            console.log('index to be removed: ' + nTestRemove);
+            cPossibleHits.splice(nTestRemove, 1);
+            console.log('possible hits RIGHT AFTER: ' + cPossibleHits);
+            console.log('removed ID from possibilities')
+        } else {
+            ++ row;
+            newCChoice = `v${col}h${row}`
+            console.log('this ID was already used')
+            return newCChoice
+        }
         if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
             atkShip = false;
             pShipDown = false;
@@ -377,10 +403,6 @@ function hit() {
             turnFunction = turnOptions.up;
             newCChoice = `v${col}h${row}`
             console.log('not a possible turn, off board')
-            if (cPossibleHits.includes(newCChoice)) {
-                nTestRemove = cPossibleHits.findIndex(nRemoveId);
-                console.log('removed ID from possibilities')
-            }
             return newCChoice
         }
         if (chart[col][row] === 0 && atkShip === true) { // If it tries something and missess //
@@ -391,21 +413,7 @@ function hit() {
             turnFunction = 1 // 1 is for going up
             cHitChoice = 0
             console.log('no down go up')
-            if (cPossibleHits.includes(longSavedChoice)) {
-                nTestRemove = cPossibleHits.findIndex(nRemoveId);
-                console.log('removed ID from possibilities')
-            }
             return newCChoice = `v${col}h${row}`
-            
-        }
-        if (cPossibleHits.includes(newCChoice)) {
-            nTestRemove = cPossibleHits.findIndex(nRemoveId);
-            console.log('removed ID from possibilities')
-        } else {
-            ++ row;
-            newCChoice = `v${col}h${row}`
-            console.log('this ID was already used')
-            return newCChoice
         }
         return newCChoice
     } else if (cHitChoice === 1) { /// THIS IS THE UP FUNCTION, NEEDS TO BE RE-WRITTEN
@@ -415,7 +423,18 @@ function hit() {
         turnFunction = turnOptions.up;
         newCChoice = `v${col}h${row}`
         console.log('1 going up')
-        newCChoice = `v${col}h${row}`
+        if (cPossibleHits.includes(newCChoice)) {
+            nTestRemove = cPossibleHits.findIndex(nRemoveId);
+            console.log('index to be removed: ' + nTestRemove);
+            cPossibleHits.splice(nTestRemove, 1);
+            console.log('possible hits RIGHT AFTER: ' + cPossibleHits);
+            console.log('removed ID from possibilities')
+        } else {
+            ++ col;
+            newCChoice = `v${col}h${row}`
+            console.log('this ID was already used')
+            return newCChoice
+        }
         if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
             atkShip = false;
             pShipDown = false;
@@ -428,55 +447,27 @@ function hit() {
             console.log('1 keep cHitChoice at 1 to keep going up')
         }
         if (row < 0) { // If it tries something that is NOT on the board
-            --row;
-            --row;
+            --col;
+            --col;
             turnFunction = turnOptions.left;
             newCChoice = `v${col}h${row}`
             console.log('1 not a possible turn, off board')
-            if (cPossibleHits.includes(newCChoice)) {
-                nTestRemove = cPossibleHits.findIndex(nRemoveId);
-                console.log('1 removed ID from possibilities')
-            }
             return newCChoice
         }
         if (chart[col][row] === 0 && atkShip === true) { // If it tries something and missess //
             cHitChoice = 2;
             let col = longSavedChoice[1];
             let row = longSavedChoice[3];
-            ++ row
+            -- row
+            -- col
             turnFunction = 2 // 2 is for going left
             cHitChoice = 1
             console.log('1 no up go down')
-            if (cPossibleHits.includes(longSavedChoice)) {
-                nTestRemove = cPossibleHits.findIndex(nRemoveId);
-                console.log('1 removed ID from possibilities')
-            }
             return newCChoice = `v${col}h${row}`
-            
-        }
-        if (cPossibleHits.includes(newCChoice)) {
-            nTestRemove = cPossibleHits.findIndex(nRemoveId);
-            console.log('1 removed ID from possibilities')
-        } else {
-            ++ row;
-            newCChoice = `v${col}h${row}`
-            console.log('1 this ID was already used')
-            return newCChoice
         }
     }
+    console.log('End c turn hit')
 }
-
-// This will be the function that runs the new coords on the board
-// Make sure the whole ID is pushed to the hitAgain, not the value of the cell in the array
-
-// Makes a random number between 0-4 that tells it to guess up down left or right
-
-// function hitChoice(min = 0, max = 4) {
-//     let choice = Math.random();
-//     choice = Math.floor(choice * max);
-//     choice = choice + min;
-//     return choice;
-// }
 
 function hitChoice() {
     if (atkShip === true) {
@@ -509,15 +500,12 @@ let testRemove
 function cptrId() {
     comId = getComId()
     testRemove = cPossibleHits.findIndex(removeId);
-    // console.log('com ID: ' + comId)
-    // console.log('IDX: ' + testRemove)
     cPossibleHits.splice(testRemove, 1) // removes the id in the array for future turns
-    // console.log('The New Array: ' + cPossibleHits)
     return comId
 }
 
 function getComId() {
-    return cPossibleHits[(Math.floor(Math.random() * cPossibleHits.length))]
+    return cPossibleHits[(Math.floor(Math.random() * cPossibleHits.length))]// Gets random ID from the list
 }
 
 function removeId(arr) { // gathers the IDX of the id in the array
