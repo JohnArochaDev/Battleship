@@ -525,7 +525,6 @@ function hit() {
             let row = longSavedChoice[3];                                                                         // TO BE CHANGED
             ++ col                                                                           // TO BE CHANGED
             turnFunction = 3 // 3 is for going right                                             // TO BE CHANGED
-            cHitChoice = 1
             console.log('2 no up go down')                                                    // TO BE CHANGED
             return newCChoice = `v${col}h${row}`
         }
