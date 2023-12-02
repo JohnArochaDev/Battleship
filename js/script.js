@@ -474,7 +474,7 @@ function hit() {
             console.log('1 not a possible turn, off board')
             return newCChoice
         }
-        if (chart[col][row] === 0 && atkShip === true) { // If it tries something and missess //
+        if (chart[col][row] === 0 && atkShip === true || chart[col][row] === 4 || chart[col][row] === 5) { // If it tries something and missess //
             cHitChoice = 2;
             let col = longSavedChoice[1];
             let row = longSavedChoice[3];
