@@ -425,7 +425,7 @@ function hit() {
         }
         if (chart[col][row] === 6 || chart[col][row] === 7 || chart[col][row] === 8) {
             cHitChoice = 0
-            console.log('1 keep cHitChoice at 0 to keep going down')
+            console.log('1 keep cHitChoice at 1 to keep going up')
         }
         if (row < 0) { // If it tries something that is NOT on the board
             --row;
