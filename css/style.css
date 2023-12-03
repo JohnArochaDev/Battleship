@@ -5,7 +5,7 @@
 #whole {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    grid-template-rows: repeat(1, auto);
+    grid-template-rows: repeat(2, auto);
     gap: 10vmin;
 }
 
@@ -43,6 +43,13 @@ h1 {
     margin-top: 17px;
     text-decoration: underline solid;
     text-shadow: 4px 4px 5px rgba(14, 14, 14, 0.911);
+}
+
+#txt {
+    font-size: 70px;
+    margin-top: -75px;
+    text-shadow: 4px 4px 5px rgba(14, 14, 14, 0.911);
+    text-align: center;
 }
 
 #boardhold {
