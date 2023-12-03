@@ -343,14 +343,11 @@ function cTurn() {
         if(atkShip === true) {// IF MISS AFTER HIT REINITIATE THE SEARCH UNLESS THE ATTKSHIP IS NOW OFF
             hit()
         }
-        if (cPossibleHits.includes(newCChoice)) {
-            nTestRemove = cPossibleHits.findIndex(nRemoveId);
+        if (cPossibleHits.includes(cBoxId)) {
+            nTestRemove = cPossibleHits.findIndex(nRemoveIdMiss);
             cPossibleHits.splice(nTestRemove, 1);
         }
-        chart[col][row] = 4 
-        if (atkShip === true) {
-            atkShip = false
-        }
+        chart[col][row] = 4
         // ATK SHIP T OR FALSE IF STATEMENT
         savedCChoice = comId; // ATK SHIP
         if (!checkWinner()) {
@@ -379,7 +376,7 @@ atkShip = false
 
 let hasGoneRight
 
-function hit() {
+function hit() {//                                                                                           DOWN
     console.log('Start c turn hit')
     atkShip = true
     console.log('atk ship: ' + atkShip)
@@ -461,7 +458,7 @@ function hit() {
 
 
 
-    } else if (cHitChoice === 1) { /// THIS IS THE UP FUNCTION, NEEDS TO BE RE-WRITTEN
+    } else if (cHitChoice === 1) { ///                                                         UP
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         ++row;
@@ -517,10 +514,11 @@ function hit() {
             atkShip = true
             console.log('1 no up go left')  
             newCChoice = `v${col}h${row}`
-            if (cPossibleHits.includes(newCChoice)) {
-                nTestRemove = cPossibleHits.findIndex(nRemoveId);
-                cPossibleHits.splice(nTestRemove, 1);
-            }
+            // if (cPossibleHits.includes(newCChoice)) {
+            //     nTestRemove = cPossibleHits.findIndex(nRemoveId);
+            //     cPossibleHits.splice(nTestRemove, 1);
+            // }
+            removeOption();
             return newCChoice
         }
 
@@ -532,7 +530,7 @@ function hit() {
 
 
 
-    } else if (cHitChoice === 2) { /// THIS IS THE LEFT FUNCTION, NEEDS TO BE RE-WRITTEN // TO BE CHANGED
+    } else if (cHitChoice === 2) { ///                                                                            LEFT
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --col;                                                                          // TO BE CHANGED
@@ -568,13 +566,14 @@ function hit() {
             return newCChoice
         }
         if (chart[col][row] === 0 && atkShip === true || chart[col][row] === 4 || chart[col][row] === 5) { // If it tries something and missess //
+            cHitChoice = 2;
             let col = longSavedChoice[1];
             let row = longSavedChoice[3];                                                                         // TO BE CHANGED
             ++ col                                                                           // TO BE CHANGED
-            cHitChoice = 2;
             turnFunction = 3 // 3 is for going right                                             // TO BE CHANGED
             console.log('2 no left go right')                                                    // TO BE CHANGED
             newCChoice = `v${col}h${row}`
+            removeOption();
             return newCChoice
         }
 
@@ -585,8 +584,7 @@ function hit() {
 
 
 
-
-    } else if (cHitChoice === 3) { /// THIS IS THE right FUNCTION, NEEDS TO BE RE-WRITTEN //CHANGED
+    } else if (cHitChoice === 3) { ///                                                               RIGHT
         
         if (hasGoneRight === true) {
             let col = savedCChoice[1];
