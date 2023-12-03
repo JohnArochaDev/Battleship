@@ -374,8 +374,6 @@ function nRemoveIdMiss(arr) { // gathers the IDX of the id in the array for the 
 
 atkShip = false
 
-let hasGoneRight
-
 function hit() {//                                                                                           DOWN
     console.log('Start c turn hit')
     atkShip = true
@@ -383,6 +381,7 @@ function hit() {//                                                              
     cHitChoice = hitChoice()
     console.log('hit choice: ' + cHitChoice)
     if (cHitChoice === 0) {// This is for going down
+        console.log('going down choice: ' + savedCChoice)  
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --row;
@@ -458,7 +457,8 @@ function hit() {//                                                              
 
 
 
-    } else if (cHitChoice === 1) { ///                                                         UP
+    } else if (cHitChoice === 1) { ///  
+        console.log('going up choice: ' + savedCChoice)                                                    //   UP
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         ++row;
@@ -519,6 +519,15 @@ function hit() {//                                                              
             //     cPossibleHits.splice(nTestRemove, 1);
             // }
             removeOption();
+            if (!cPossibleHits.includes(newCChoice) && pShipDown === false) { //                 THIS MAY BE THE FIX
+                let col = longSavedChoice[1];
+                let row = longSavedChoice[3];
+                ++col;
+                newCChoice = `v${col}h${row}`;
+                cHitChoice = 2
+                console.log('this ID was already used now right')
+                return newCChoice
+            }
             return newCChoice
         }
 
@@ -531,6 +540,7 @@ function hit() {//                                                              
 
 
     } else if (cHitChoice === 2) { ///                                                                            LEFT
+        console.log('going left choice: ' + savedCChoice)  
         let col = savedCChoice[1];
         let row = savedCChoice[3];
         --col;                                                                          // TO BE CHANGED
@@ -585,33 +595,12 @@ function hit() {//                                                              
 
 
     } else if (cHitChoice === 3) { ///                                                               RIGHT
-        
-        if (hasGoneRight === true) {
-            let col = savedCChoice[1];
-            let row = savedCChoice[3];
-            ++col;                                                                          //CHANGED
-            turnFunction = turnOptions.right;                                                 //CHANGED
-            newCChoice = `v${col}h${row}`
-        } else {
-
-            let col = longSavedChoice[1];
-            let row = longSavedChoice[3];
-            ++col;                                                                          //CHANGED
-            turnFunction = turnOptions.right;                                                 //CHANGED
-            newCChoice = `v${col}h${row}`
-        }
-        
-
-        hasGoneRight = true
+        console.log('going right choice: ' + savedCChoice)  
+        let col = savedCChoice[1];
+        let row = savedCChoice[3];
+        console.log(`v${col}h${row}`)
+        ++col;
         console.log('3 going right')                                                        //CHANGED
-        // if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {//THIS MAY NOT NEED TO EXIST
-        //     let col = longSavedChoice[1];
-        //     let row = longSavedChoice[3];
-        //                                                                        //CHANGED
-        //     newCChoice = `v${col}h${row}`
-        //     console.log('3 this ID was already used')                                           //CHANGED
-        //     return newCChoice
-        // }
         if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
             atkShip = false;
             pShipDown = false;
@@ -631,6 +620,7 @@ function hit() {//                                                              
             console.log('3 not a possible turn, off board')                                   //CHANGED
             return newCChoice
         }
+        return newCChoice
     }
     console.log('End c turn hit')
 }
