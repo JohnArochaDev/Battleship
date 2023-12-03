@@ -20,7 +20,7 @@ h1 {
     font-size: 140px;
     margin-top: 17px;
     text-decoration: underline solid;
-    text-shadow: 4px 4px 5px rgba(85, 85, 85, 0.904);
+    text-shadow: 4px 4px 5px rgba(14, 14, 14, 0.911);
 }
 
 #boardhold {
@@ -36,10 +36,10 @@ h1 {
     gap: .4vmin;
     margin-top: -50px;
     background-color: rgba(0, 0, 0, 0.76);
-    background-image: url(https://www.freeiconspng.com/uploads/grid-png-image-0.png);
+    /* background-image: url(https://www.freeiconspng.com/uploads/grid-png-image-0.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: cover; */
     border-top: 3px solid rgb(0, 0, 0);
     border-left: 3px solid rgb(0, 0, 0);
     border-right: 3px solid rgb(0, 0, 0);
