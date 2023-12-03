@@ -49,10 +49,10 @@ const colors = {
     6: 'grey', // pBattleship
     5: 'red', // hit
     4: 'white', // miss
-    3: 'green', // tug ship
-    2: 'green', // cruiser
-    1: 'green', // battleship
-    0: 'green', // boxes
+    3: 'rgba(0, 255, 0, 0.603)', // tug ship
+    2: 'rgba(0, 255, 0, 0.603)', // cruiser
+    1: 'rgba(0, 255, 0, 0.603)', // battleship
+    0: 'rgba(0, 255, 0, 0.603)', // boxes
 }
 
 const turnOptions = {
