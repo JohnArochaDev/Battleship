@@ -601,6 +601,8 @@ function hit() {//                                                              
         console.log(`v${col}h${row}`)
         ++col;
         console.log('3 going right')                                                        //CHANGED
+        turnFunction = turnOptions.right;
+        newCChoice = `v${col}h${row}`
         if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
             atkShip = false;
             pShipDown = false;
@@ -615,7 +617,7 @@ function hit() {//                                                              
         if (col > 7) { // If it tries something that is NOT on the board                        // TO BE CHANGED
             --col;                                                                           //CHANGED
             --row;                                                                           //CHANGED
-            turnFunction = turnOptions.down;                                                  //CHANGED
+            turnFunction = turnOptions.right;                                                  //CHANGED
             newCChoice = `v${col}h${row}`
             console.log('3 not a possible turn, off board')                                   //CHANGED
             return newCChoice
