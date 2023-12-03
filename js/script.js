@@ -106,6 +106,8 @@ const board = document.querySelectorAll('.box')
 
 const cBoard = document.querySelectorAll('.cBox')
 
+const txt = document.getElementById('txt')
+
 // function Statements //
 
 function initiate() {
@@ -672,13 +674,30 @@ function removeId(arr) { // gathers the IDX of the id in the array
     return arr === comId
 }
 
+playerColors = {
+    0: 'blue',
+    1: 'red',
+    2: 'player',
+    3: 'computer'
+}
+
 function checkWinner() {
     if (pShipsLeft === 0) {
         winner = 'c'
         console.log('They sunk your battleship!')
+        txt.innerHTML = `
+        <span style="color: ${playerColors[1]}">
+            ${playerColors[3].toUpperCase()}
+        </span> Wins!
+    `
     } else if (cShipsLeft === 0) {
         winner = 'p'
         console.log('You sunk their battleship!')
+        txt.innerHTML = `
+        <span style="color: ${playerColors[0]}">
+            ${playerColors[2].toUpperCase()}
+        </span> Wins!
+    `
     } else {
         return false
     }
