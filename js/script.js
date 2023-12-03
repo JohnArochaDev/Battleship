@@ -713,6 +713,9 @@ function player() {
 }
 
 function changeTurn() {
+    if (winner === 'p' || winner === 'c') {
+        return
+    }
     turn = turn === 1 ? 2 : 1;
     if (turn === 2) {// Use and AND statement to do whatis meantioned below!!
         setTimeout(computer, 1400)
