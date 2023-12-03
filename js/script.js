@@ -62,6 +62,13 @@ const turnOptions = {
     right: 4,
 }
 
+playerColors = {
+    0: 'blue',
+    1: 'red',
+    2: 'player',
+    3: 'computer'
+}
+
 let turnCount = 0
 
 let pShipDown
@@ -674,12 +681,6 @@ function removeId(arr) { // gathers the IDX of the id in the array
     return arr === comId
 }
 
-playerColors = {
-    0: 'blue',
-    1: 'red',
-    2: 'player',
-    3: 'computer'
-}
 
 function checkWinner() {
     if (pShipsLeft === 0) {
@@ -703,13 +704,24 @@ function checkWinner() {
     }
 }
 
+function computer() {
+    txt.innerHTML = `<span style="color: red">${playerColors[3].toUpperCase()}</span>'s Turn!`
+}
+
+function player() {
+    txt.innerHTML = `<span style="color: blue">${playerColors[2].toUpperCase()}</span>'s Turn!`
+}
+
 function changeTurn() {
     turn = turn === 1 ? 2 : 1;
     if (turn === 2) {// Use and AND statement to do whatis meantioned below!!
+        setTimeout(computer, 1400)
         setTimeout(cTurn, 3000)
         // Set a value to a variable that tells the game what function to run once its the computers turn 
+    } else {
+        setTimeout(player, 1700)
     }
-    
+
 }
 
 function removeOption() {
