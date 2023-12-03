@@ -58,14 +58,21 @@ h1 {
     gap: .4vmin;
     margin-top: -50px;
     background-color: rgba(0, 0, 0, 0.76);
-    background-image: url(https://www.freeiconspng.com/uploads/grid-png-image-0.png);
+    /* background-image: url(https://www.freeiconspng.com/uploads/grid-png-image-0.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: cover; */
     border-top: 3px solid rgb(0, 0, 0);
     border-left: 3px solid rgb(0, 0, 0);
     border-right: 3px solid rgb(0, 0, 0);
     border-bottom: 3px solid rgb(0, 0, 0);
+}
+
+.box {
+    background-image: url(https://www.freeiconspng.com/uploads/dot-grid-png-transparent--2.png);
+    background-repeat: no-repeat;
+    background-position: center; /* Center the image */
+    background-size: 50vh; /* Resize the background image to cover the entire container */
 }
 
 #board:hover {
@@ -82,37 +89,37 @@ h1 {
 
 /*corners*/
 #v0h7 {
-    border-top: 4px solid rgb(0, 255, 0);
-    border-left: 4px solid rgb(0, 255, 0);
+    border-top: 2px solid rgb(0, 255, 0);
+    border-left: 2px solid rgb(0, 255, 0);
 }
 #v7h7 {
-    border-top: 4px solid rgb(0, 255, 0);
-    border-right: 4px solid rgb(0, 255, 0);
+    border-top: 2px solid rgb(0, 255, 0);
+    border-right: 2px solid rgb(0, 255, 0);
 }
 #v0h0 {
-    border-bottom: 4px solid rgb(0, 255, 0);
-    border-left: 4px solid rgb(0, 255, 0);
+    border-bottom: 2px solid rgb(0, 255, 0);
+    border-left: 2px solid rgb(0, 255, 0);
 }
 #v7h0 {
-    border-bottom: 4px solid rgb(0, 255, 0);
-    border-right: 4px solid rgb(0, 255, 0);
+    border-bottom: 2px solid rgb(0, 255, 0);
+    border-right: 2px solid rgb(0, 255, 0);
 }
 /*corners*/
 
 /*top*/
 #v1h7, #v2h7, #v3h7, #v4h7, #v5h7,#v6h7 {
-    border-top: 4px solid rgb(0, 255, 0);
+    border-top: 2px solid rgb(0, 255, 0);
 }
 #v1h0, #v2h0, #v3h0, #v4h0, #v5h0,#v6h0 {
-    border-bottom: 4px solid rgb(0, 255, 0);
+    border-bottom: 2px solid rgb(0, 255, 0);
 }
 /*bottom*/
 
 /*left*/
 #v0h1, #v0h2, #v0h3, #v0h4, #v0h5, #v0h6 {
-    border-left: 4px solid rgb(0, 255, 0);
+    border-left: 2px solid rgb(0, 255, 0);
 }
 #v7h1, #v7h2, #v7h3, #v7h4, #v7h5, #v7h6 {
-    border-right: 4px solid rgb(0, 255, 0);
+    border-right: 2px solid rgb(0, 255, 0);
 }
 /*right*/
