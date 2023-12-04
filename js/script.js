@@ -255,9 +255,14 @@ const mute = document.getElementById('mutebutton')
 
 document.getElementById('mutebutton').addEventListener('click', muted);
 
+const retryButton = document.getElementById('retry')
+
+document.getElementById('retry').addEventListener('click', restart);
+
 // function Statements //
 
 function initiate() {
+    retryButton.style.visibility = 'hidden';
     board.forEach((box) => {
         box.addEventListener('click', (e)=>{
             play(e);
@@ -879,19 +884,13 @@ function checkWinner() {
     if (pShipsLeft === 0) {
         winner = 'c'
         console.log('They sunk your battleship!')
-        txt.innerHTML = `
-        <span style="color: rgb(174,35,33)">
-            ${playerColors[3].toUpperCase()}
-        </span> Wins!
-    `
+        txt.innerHTML = `<span style="color: rgb(174,35,33)">${playerColors[3].toUpperCase()}</span> Wins!`;
+        retryButton.style.visibility = 'visible';
     } else if (cShipsLeft === 0) {
         winner = 'p'
         console.log('You sunk their battleship!')
-        txt.innerHTML = `
-        <span style="color: rgb(42,108,78)">
-            ${playerColors[2].toUpperCase()}
-        </span> Wins!
-    `
+        txt.innerHTML = `<span style="color: rgb(42,108,78)">${playerColors[2].toUpperCase()}</span> Wins!`;
+        retryButton.style.visibility = 'visible';
     } else {
         return false
     }
@@ -945,6 +944,10 @@ function muted() {
         mute.innerHTML = `<img class="mute" id="mute" src="images/icons8-mute-100.png">`
     }
     musicOn = !musicOn
+}
+
+function restart() {
+    initiate()
 }
 
 // Called Functions //
