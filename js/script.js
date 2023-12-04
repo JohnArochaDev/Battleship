@@ -191,18 +191,15 @@ function render() {
 }
 
 function darkenCBattleship() {
-    cpBattleship.style.opacity = 0.5
-    console.log('BATTLESHIP OPAQUE')
+    cpBattleship.style.opacity = 0.3
 }
 
 function darkenCCruiser() {
-    cpCruiser.style.opacity = 0.5
-    console.log('BATTLESHIP OPAQUE')
+    cpCruiser.style.opacity = 0.3
 }
 
 function darkenCTug() {
-    cpTug.style.opacity = 0.5
-    console.log('BATTLESHIP OPAQUE')
+    cpTug.style.opacity = 0.3
 }
 
 function play(event) {
@@ -303,18 +300,15 @@ function exactSpot() { // tells the cTurn to either make a specific guess or use
 }
 
 function darkenPlBattleship() {
-    plBattleship.style.opacity = 0.5
-    console.log('BATTLESHIP OPAQUE')
+    plBattleship.style.opacity = 0.3
 }
 
 function darkenPlCruiser() {
-    plCruiser.style.opacity = 0.5
-    console.log('BATTLESHIP OPAQUE')
+    plCruiser.style.opacity = 0.3
 }
 
 function darkenPlTug() {
-    plTug.style.opacity = 0.5
-    console.log('BATTLESHIP OPAQUE')
+    plTug.style.opacity = 0.3
 }
 
 function cTurn() {
