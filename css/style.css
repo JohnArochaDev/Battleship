@@ -34,9 +34,22 @@ body {
     font-family: 'Black Ops One', sans-serif;
     background-image: url(https://hdwallpaperim.com/wp-content/uploads/2017/08/27/141794-World_of_Warships-ship-battle.jpg);
     background-repeat: no-repeat;
-    background-position: center; /* Center the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+    background-position: center;
+    background-size: cover;
+
 }
+
+/* #video {
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+} */
 
 h1 {
     font-size: 140px;
