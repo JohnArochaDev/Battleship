@@ -724,7 +724,6 @@ function changeTurn() {
     } else {
         setTimeout(player, 1700)
     }
-
 }
 
 function removeOption() {
