@@ -11,7 +11,7 @@
 
 #player {
     background-color: rgba(73, 73, 73, 0.568);
-    border: solid rgba(0, 255, 0, 0.822);
+    border: solid rgba(77,147,63, 0.822);
     width: 27vh;
     height: 50vh;
     border-radius: 25px;
@@ -19,7 +19,7 @@
 
 #computer {
     background-color: rgba(73, 73, 73, 0.568);
-    border: solid rgba(0, 255, 0, 0.822);
+    border: solid rgba(77,147,63, 0.822);
     width: 27vh;
     height: 50vh;
     border-radius: 25px;
@@ -32,14 +32,14 @@ body {
     height: 100vh;
     margin: 0;
     font-family: 'Black Ops One', sans-serif;
-    background-image: url(https://hdwallpaperim.com/wp-content/uploads/2017/08/27/141794-World_of_Warships-ship-battle.jpg);
+    /* background-image: url(https://hdwallpaperim.com/wp-content/uploads/2017/08/27/141794-World_of_Warships-ship-battle.jpg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: cover; */
 
 }
 
-/* #video {
+#video {
     object-fit: cover;
     width: 100vw;
     height: 100vh;
@@ -49,13 +49,13 @@ body {
     left: 0;
     right: 0;
     z-index: -1;
-} */
+}
 
 h1 {
     font-size: 140px;
     margin-top: 17px;
     text-decoration: underline solid;
-    text-shadow: 4px 4px 5px rgba(14, 14, 14, 0.911);
+    text-shadow: 4px 4px 5px rgba(77,147,63, 0.822);
 }
 
 #txt {
