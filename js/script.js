@@ -109,7 +109,7 @@ let cPossibleHits = ['v0h0', 'v0h1', 'v0h2', 'v0h3', 'v0h4', 'v0h5', 'v0h6', 'v0
 
 let musicOn = false
 
-const pBoardOptions = {
+const cBoardOptions = {
     1 : [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
         [0, 0, 0, 0, 0, 0, 1, 0], // col 1
@@ -161,7 +161,7 @@ const pBoardOptions = {
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
     ]
 }
-const cBoardOptions = {
+const pBoardOptions = {
     1 : [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
         [0, 0, 0, 0, 0, 0, 0, 0], // col 1
@@ -300,8 +300,12 @@ function initiate() {
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
     ]
     //Put a function that randomly picks an option from the boards and chooses it for the game
-
-
+    let pRandom = Math.floor(Math.random() * 5 + 1)
+    let cRandom = Math.floor(Math.random() * 5 + 1)
+    pChart = pBoardOptions[pRandom]
+    cChart = cBoardOptions[cRandom]
+    console.log(pChart)
+    console.log(cChart)
     render()
 }
 
