@@ -26,6 +26,30 @@
     text-align: center;
 }
 
+#pbattleship {
+    width: 200px;
+}
+
+#pcruiser {
+    width: 200px;
+}
+
+#ptug {
+    width: 200px;
+}
+
+#cbattleship {
+    width: 200px;
+}
+
+#ccruiser {
+    width: 200px;
+}
+
+#ctug {
+    width: 200px;
+}
+
 #computer {
     display: grid;
     grid-template-columns: repeat(1, auto);
