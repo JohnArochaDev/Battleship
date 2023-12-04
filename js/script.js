@@ -190,8 +190,19 @@ function render() {
     setTimeout(renderBoard, 2000)
 }
 
-function darkenCTug() {
+function darkenCBattleship() {
+    cpBattleship.style.opacity = 0.5
+    console.log('BATTLESHIP OPAQUE')
+}
 
+function darkenCCruiser() {
+    cpCruiser.style.opacity = 0.5
+    console.log('BATTLESHIP OPAQUE')
+}
+
+function darkenCTug() {
+    cpTug.style.opacity = 0.5
+    console.log('BATTLESHIP OPAQUE')
 }
 
 function play(event) {
@@ -212,6 +223,7 @@ function play(event) {
                 changeTurn()
             }
         } else {
+            darkenCBattleship()
             cBattleship.health--;
             --cShipsLeft;
             console.log('You sunk their Battleship!');
@@ -231,6 +243,7 @@ function play(event) {
                 changeTurn()
             }
         } else {
+            darkenCCruiser()
             --cCruiserShip.health;
             --cShipsLeft;
             console.log('You sunk their Cruiser!');
@@ -250,6 +263,7 @@ function play(event) {
                 changeTurn()
             }
         } else {
+            darkenCTug()
             --cTugShip.health;
             --cShipsLeft;
             console.log('You sunk their Tug!');
@@ -288,6 +302,21 @@ function exactSpot() { // tells the cTurn to either make a specific guess or use
     }
 }
 
+function darkenPlBattleship() {
+    plBattleship.style.opacity = 0.5
+    console.log('BATTLESHIP OPAQUE')
+}
+
+function darkenPlCruiser() {
+    plCruiser.style.opacity = 0.5
+    console.log('BATTLESHIP OPAQUE')
+}
+
+function darkenPlTug() {
+    plTug.style.opacity = 0.5
+    console.log('BATTLESHIP OPAQUE')
+}
+
 function cTurn() {
     if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
         atkShip = false;
@@ -315,6 +344,7 @@ function cTurn() {
                 changeTurn()
             }
         } else {
+            darkenPlBattleship()
             --pShipsLeft;
             pShipDown = true
             chart[col][row] = 5
@@ -336,6 +366,7 @@ function cTurn() {
                 changeTurn()
             }
         } else {
+            darkenPlCruiser()
             --pShipsLeft;
             pShipDown = true
             chart[col][row] = 5
@@ -357,6 +388,7 @@ function cTurn() {
                 changeTurn()
             }
         } else {
+            darkenPlTug()
             --pShipsLeft;
             pShipDown = true
             chart[col][row] = 5
