@@ -145,7 +145,7 @@ const backgroundMusic = new Audio('audio/backgroundsound.mp3')
 
 backgroundMusic.volume = 0.7
 
-const mute = document.getElementById('mute')
+const mute = document.getElementById('mutebutton')
 
 document.getElementById('mutebutton').addEventListener('click', muted);
 
@@ -839,13 +839,13 @@ function changeChart() {
     }
 }
 
-function muted(event) {
+function muted() {
     if (musicOn) {
         backgroundMusic.pause()
-        mute.innterHTML = 'class="mute" id="mute" src="images/icons8-sound-100.png"'
+        mute.innerHTML = `<img class="mute" id="mute" src="images/icons8-sound-100.png">`
     } else {
         backgroundMusic.play()
-        mute.innterHTML = 'class="mute" id="mute" src="images/icons8-mute-100.png"'
+        mute.innerHTML = `<img class="mute" id="mute" src="images/icons8-mute-100.png">`
     }
     musicOn = !musicOn
 }
