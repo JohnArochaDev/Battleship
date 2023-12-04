@@ -115,6 +115,18 @@ const cBoard = document.querySelectorAll('.cBox')
 
 const txt = document.getElementById('txt')
 
+const plBattleship = document.getElementById('pbattleship')
+
+const plCruiser = document.getElementById('pcruiser')
+
+const plTug = document.getElementById('ptug')
+
+const cpBattleship = document.getElementById('cbattleship')
+
+const cpCruiser = document.getElementById('ccruiser')
+
+const cpTug = document.getElementById('ctug')
+
 // function Statements //
 
 function initiate() {
@@ -178,6 +190,10 @@ function render() {
     setTimeout(renderBoard, 2000)
 }
 
+function darkenCTug() {
+
+}
+
 function play(event) {
     if (turn === 2) {
         return
@@ -196,6 +212,7 @@ function play(event) {
                 changeTurn()
             }
         } else {
+            cBattleship.health--;
             --cShipsLeft;
             console.log('You sunk their Battleship!');
             console.log(cShipsLeft);
@@ -214,6 +231,7 @@ function play(event) {
                 changeTurn()
             }
         } else {
+            --cCruiserShip.health;
             --cShipsLeft;
             console.log('You sunk their Cruiser!');
             console.log(cShipsLeft);
@@ -232,6 +250,7 @@ function play(event) {
                 changeTurn()
             }
         } else {
+            --cTugShip.health;
             --cShipsLeft;
             console.log('You sunk their Tug!');
             console.log(cShipsLeft);
