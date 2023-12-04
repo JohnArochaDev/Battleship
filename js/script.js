@@ -213,7 +213,6 @@ const pBoardOptions = {
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
     ],
 }
-// Dom Declirations //
 
 const board = document.querySelectorAll('.box')
 
@@ -235,49 +234,58 @@ const cpTug = document.getElementById('ctug')
 
 const firstHit = new Audio('audio/hit1.mp3')
 
-firstHit.volume = 0.2
-
 const sunk = new Audio('audio/sink.mp3')
-
-sunk.volume = 0.2
 
 const miss = new Audio('audio/miss.mp3')
 
-miss.volume = 0.2
-
 const backgroundMusic = new Audio('audio/backgroundsound.mp3')
-
-backgroundMusic.volume = 0.2
-
-backgroundMusic.loop = true;
 
 const mute = document.getElementById('mutebutton')
 
-document.getElementById('mutebutton').addEventListener('click', muted);
-
 const retryButton = document.getElementById('retry')
 
-document.getElementById('retry').addEventListener('click', restart);
+// Dom Declirations //
+document.getElementById('retry').addEventListener('click', initiate);
+
+document.getElementById('mutebutton').addEventListener('click', muted);
+
+backgroundMusic.loop = true;
+
+backgroundMusic.volume = 0.2
+
+sunk.volume = 0.2
+
+miss.volume = 0.2
+
+firstHit.volume = 0.2
 
 // function Statements //
 
 function initiate() {
     retryButton.style.visibility = 'hidden';
-    lightenPlTug()
-    lightenPlCruiser()
-    lightenPlBattleship()
-    lightenCBattleship()
-    lightenCCruiser()
-    lightenCTug()
+    let cPossibleHits = ['v0h0', 'v0h1', 'v0h2', 'v0h3', 'v0h4', 'v0h5', 'v0h6', 'v0h7', 'v1h0', 'v1h1', 'v1h2', 'v1h3', 'v1h4', 'v1h5', 'v1h6', 'v1h7', 'v2h0', 'v2h1', 'v2h2', 'v2h3', 'v2h4', 'v2h5', 'v2h6', 'v2h7', 'v3h0', 'v3h1', 'v3h2', 'v3h3', 'v3h4', 'v3h5', 'v3h6', 'v3h7', 'v4h0', 'v4h1', 'v4h2', 'v4h3', 'v4h4', 'v4h5', 'v4h6', 'v4h7', 'v5h0', 'v5h1', 'v5h2', 'v5h3', 'v5h4', 'v5h5', 'v5h6', 'v5h7', 'v6h0', 'v6h1', 'v6h2', 'v6h3', 'v6h4', 'v6h5', 'v6h6', 'v6h7', 'v7h0', 'v7h1', 'v7h2', 'v7h3', 'v7h4', 'v7h5', 'v7h6', 'v7h7'];
+    lightenPlTug();
+    lightenPlCruiser();
+    lightenPlBattleship();
+    lightenCBattleship();
+    lightenCCruiser();
+    lightenCTug();
     board.forEach((box) => {
         box.addEventListener('click', (e)=>{
             play(e);
         });
     })
-    pShipsLeft = 3
-    cShipsLeft = 3
-    turn = 1
-    winner = null
+    cBattleship.health = 4;
+    cCruiserShip.health = 3;
+    cTugShip.health = 2;
+    pBattleship.health = 4;
+    pCruiserShip.health = 3;
+    pTugShip.health = 2;
+    turnFunction = 0;
+    pShipsLeft = 3;
+    cShipsLeft = 3;
+    turn = 1;
+    winner = null;
     chart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
         [0, 0, 0, 0, 0, 0, 0, 0], // col 1
@@ -287,36 +295,36 @@ function initiate() {
         [0, 0, 0, 0, 0, 0, 0, 0], // col 5
         [0, 0, 0, 0, 0, 0, 0, 0], // col 6
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
-    ]
+    ];
     // THIS WILL BE THE CHART THAT THE PLAYER SEES HIS BOATS ON
     pChart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 0, 0, 0, 0, 6, 0], // col 1
-        [0, 0, 0, 0, 7, 0, 6, 0], // col 2
-        [0, 0, 0, 0, 7, 0, 6, 0], // col 3
-        [0, 8, 0, 0, 7, 0, 6, 0], // col 4
-        [0, 8, 0, 0, 0, 0, 0, 0], // col 5
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 1
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 2
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 3
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 5
         [0, 0, 0, 0, 0, 0, 0, 0], // col 6
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
-    ]
+    ];
     //THIS WILL BE THE CHART THE PLAYER SEES HIS HITS AND MISSES ON
     cChart = [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
-        [0, 0, 0, 0, 2, 2, 2, 0], // col 1
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 1
         [0, 0, 0, 0, 0, 0, 0, 0], // col 2
-        [0, 0, 0, 0, 3, 0, 0, 0], // col 3
-        [0, 0, 0, 0, 3, 0, 0, 0], // col 4
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 3
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 4
         [0, 0, 0, 0, 0, 0, 0, 0], // col 5
-        [0, 0, 1, 1, 1, 1, 0, 0], // col 6
+        [0, 0, 0, 0, 0, 0, 0, 0], // col 6
         [0, 0, 0, 0, 0, 0, 0, 0], // col 7
-    ]
+    ];
     //Put a function that randomly picks an option from the boards and chooses it for the game
-    let pRandom = Math.floor(Math.random() * 5 + 1)
-    let cRandom = Math.floor(Math.random() * 5 + 1)
-    pChart = pBoardOptions[pRandom]
-    cChart = cBoardOptions[cRandom]
-    console.log(pChart)
-    console.log(cChart)
+    let pRandom = Math.floor(Math.random() * 5 + 1);
+    let cRandom = Math.floor(Math.random() * 5 + 1);
+    pChart = pBoardOptions[pRandom];
+    cChart = cBoardOptions[cRandom];
+    console.log(pChart);
+    console.log(cChart);
     render()
 }
 
@@ -974,10 +982,6 @@ function muted() {
         mute.innerHTML = `<img class="mute" id="mute" src="images/icons8-mute-100.png">`
     }
     musicOn = !musicOn
-}
-
-function restart() {
-    initiate()
 }
 
 // Called Functions //
