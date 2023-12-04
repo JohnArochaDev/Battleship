@@ -44,15 +44,15 @@ const pTugShip = {
 }
 
 const colors = {
-    8: 'grey', //pTugShip
-    7: 'grey', //pCruiserShip
-    6: 'grey', // pBattleship
-    5: 'red', // hit
-    4: 'white', // miss
-    3: 'rgba(0, 255, 0, 0.603)', // tug ship
-    2: 'rgba(0, 255, 0, 0.603)', // cruiser
-    1: 'rgba(0, 255, 0, 0.603)', // battleship
-    0: 'rgba(0, 255, 0, 0.603)', // boxes
+    8: 'rgb(102,119,133)', //pTugShip
+    7: 'rgb(102,119,133)', //pCruiserShip
+    6: 'rgb(102,119,133)', // pBattleship
+    5: 'rgb(174,35,33)', // hit
+    4: 'rgb(209,208,204)', // miss
+    3: 'rgba(77,147,63, 0.822)', // tug ship
+    2: 'rgba(77,147,63, 0.822)', // cruiser
+    1: 'rgba(77,147,63, 0.822)', // battleship
+    0: 'rgba(77,147,63, 0.822)', // boxes
 }
 
 const turnOptions = {
