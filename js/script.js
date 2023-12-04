@@ -127,6 +127,12 @@ const cpCruiser = document.getElementById('ccruiser')
 
 const cpTug = document.getElementById('ctug')
 
+const firstHit = new Audio('audio/hit1.mp3')
+
+const sunk = new Audio('audio/sink.mp3')
+
+const miss = new Audio('audio/miss.mp3')
+
 // function Statements //
 
 function initiate() {
@@ -213,19 +219,21 @@ function play(event) {
         return
     } else if (chart[col][row] === 1) {
         if (cBattleship.health >= 2) {
+            firstHit.play();
             cBattleship.health--;
-            chart[col][row] = 5
-            checkWinner()
+            chart[col][row] = 5;
+            checkWinner();
             if (!checkWinner()) {
                 changeTurn()
             }
         } else {
-            darkenCBattleship()
+            sunk.play();
+            darkenCBattleship();
             cBattleship.health--;
             --cShipsLeft;
             console.log('You sunk their Battleship!');
             console.log(cShipsLeft);
-            chart[col][row] = 5
+            chart[col][row] = 5;
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -233,19 +241,21 @@ function play(event) {
         }
     } else if (chart[col][row] === 2) {
         if (cCruiserShip.health >= 2) {
+            firstHit.play();
             --cCruiserShip.health;
-            chart[col][row] = 5
+            chart[col][row] = 5;
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         } else {
-            darkenCCruiser()
+            sunk.play();
+            darkenCCruiser();
             --cCruiserShip.health;
             --cShipsLeft;
             console.log('You sunk their Cruiser!');
             console.log(cShipsLeft);
-            chart[col][row] = 5
+            chart[col][row] = 5;
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -253,26 +263,29 @@ function play(event) {
         }
     } else if (chart[col][row] === 3) {
         if (cTugShip.health >= 2) {
+            firstHit.play();
             --cTugShip.health;
-            chart[col][row] = 5
+            chart[col][row] = 5;
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         } else {
             darkenCTug()
+            sunk.play();
             --cTugShip.health;
             --cShipsLeft;
             console.log('You sunk their Tug!');
             console.log(cShipsLeft);
-            chart[col][row] = 5
+            chart[col][row] = 5;
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         }
     } else {
-        chart[col][row] = 4
+        miss.play();
+        chart[col][row] = 4;
         if (!checkWinner()) {
             changeTurn()
         }
@@ -328,21 +341,23 @@ function cTurn() {
     let row = cBoxId[3]
     if (chart[col][row] === 6) {
         if (pBattleship.health >= 2) {
+            firstHit.play();
             --pBattleship.health;
             chart[col][row] = 5;
             savedCChoice = comId;
-            hit()
+            hit();
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         } else {
-            darkenPlBattleship()
+            sunk.play();
+            darkenPlBattleship();
             --pShipsLeft;
-            pShipDown = true
-            chart[col][row] = 5
+            pShipDown = true;
+            chart[col][row] = 5;
             savedCChoice = comId;
-            hit()
+            hit();
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -350,21 +365,23 @@ function cTurn() {
         }
     } else if (chart[col][row] === 7) {
         if (pCruiserShip.health >= 2) {
+            firstHit.play();
             --pCruiserShip.health;
-            chart[col][row] = 5
+            chart[col][row] = 5;
             savedCChoice = comId;
-            hit()
+            hit();
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         } else {
-            darkenPlCruiser()
+            sunk.play();
+            darkenPlCruiser();
             --pShipsLeft;
-            pShipDown = true
-            chart[col][row] = 5
+            pShipDown = true;
+            chart[col][row] = 5;
             savedCChoice = comId;
-            hit()
+            hit();
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
@@ -372,27 +389,30 @@ function cTurn() {
         }
     } else if (chart[col][row] === 8) {
         if (pTugShip.health >= 2) {
+            firstHit.play();
             --pTugShip.health;
-            chart[col][row] = 5
+            chart[col][row] = 5;
             savedCChoice = comId;
-            hit()
+            hit();
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         } else {
-            darkenPlTug()
+            sunk.play();
+            darkenPlTug();
             --pShipsLeft;
-            pShipDown = true
-            chart[col][row] = 5
+            pShipDown = true;
+            chart[col][row] = 5;
             savedCChoice = comId;
-            hit()
+            hit();
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
             }
         }
     } else {
+        miss.play();
         if(atkShip === true) {// IF MISS AFTER HIT REINITIATE THE SEARCH UNLESS THE ATTKSHIP IS NOW OFF
             hit()
         }
@@ -400,7 +420,7 @@ function cTurn() {
             nTestRemove = cPossibleHits.findIndex(nRemoveIdMiss);
             cPossibleHits.splice(nTestRemove, 1);
         }
-        chart[col][row] = 4
+        chart[col][row] = 4;
         // ATK SHIP T OR FALSE IF STATEMENT
         savedCChoice = comId; // ATK SHIP
         if (!checkWinner()) {
