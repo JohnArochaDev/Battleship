@@ -131,15 +131,15 @@ const cpTug = document.getElementById('ctug')
 
 const firstHit = new Audio('audio/hit1.mp3')
 
-firstHit.volume = 0.3
+firstHit.volume = 0.2
 
 const sunk = new Audio('audio/sink.mp3')
 
-sunk.volume = 0.3
+sunk.volume = 0.2
 
 const miss = new Audio('audio/miss.mp3')
 
-miss.volume = 0.3
+miss.volume = 0.2
 
 const backgroundMusic = new Audio('audio/backgroundsound.mp3')
 
