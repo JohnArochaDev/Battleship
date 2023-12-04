@@ -107,6 +107,8 @@ let cBoxId // May use this to store the variable for cTurn
 
 let cPossibleHits = ['v0h0', 'v0h1', 'v0h2', 'v0h3', 'v0h4', 'v0h5', 'v0h6', 'v0h7', 'v1h0', 'v1h1', 'v1h2', 'v1h3', 'v1h4', 'v1h5', 'v1h6', 'v1h7', 'v2h0', 'v2h1', 'v2h2', 'v2h3', 'v2h4', 'v2h5', 'v2h6', 'v2h7', 'v3h0', 'v3h1', 'v3h2', 'v3h3', 'v3h4', 'v3h5', 'v3h6', 'v3h7', 'v4h0', 'v4h1', 'v4h2', 'v4h3', 'v4h4', 'v4h5', 'v4h6', 'v4h7', 'v5h0', 'v5h1', 'v5h2', 'v5h3', 'v5h4', 'v5h5', 'v5h6', 'v5h7', 'v6h0', 'v6h1', 'v6h2', 'v6h3', 'v6h4', 'v6h5', 'v6h6', 'v6h7', 'v7h0', 'v7h1', 'v7h2', 'v7h3', 'v7h4', 'v7h5', 'v7h6', 'v7h7']
 
+let musicOn = false
+
 // Dom Declirations //
 
 const board = document.querySelectorAll('.box')
@@ -129,9 +131,23 @@ const cpTug = document.getElementById('ctug')
 
 const firstHit = new Audio('audio/hit1.mp3')
 
+firstHit.volume = 0.7
+
 const sunk = new Audio('audio/sink.mp3')
 
+sunk.volume = 0.7
+
 const miss = new Audio('audio/miss.mp3')
+
+miss.volume = 0.7
+
+const backgroundMusic = new Audio('audio/backgroundsound.mp3')
+
+backgroundMusic.volume = 0.7
+
+const mute = document.getElementById('mute')
+
+document.getElementById('mutebutton').addEventListener('click', muted);
 
 // function Statements //
 
@@ -823,20 +839,15 @@ function changeChart() {
     }
 }
 
-function down() {
-
-}
-
-function up() {
-    
-}
-
-function left() {
-    
-}
-
-function right() {
-    
+function muted(event) {
+    if (musicOn) {
+        backgroundMusic.pause()
+        mute.innterHTML = 'class="mute" id="mute" src="images/icons8-sound-100.png"'
+    } else {
+        backgroundMusic.play()
+        mute.innterHTML = 'class="mute" id="mute" src="images/icons8-mute-100.png"'
+    }
+    musicOn = !musicOn
 }
 
 // Called Functions //

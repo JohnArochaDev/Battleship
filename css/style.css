@@ -185,3 +185,12 @@ h1 {
     border-right: 2px solid rgb(80,147,63);
 }
 /*right*/
+
+.mute {
+    margin-top: -70px;
+    cursor:pointer;
+    width:100px;
+    height:100px;
+    background-color: rgba(18,27,33, 0);
+    border: none;
+}
