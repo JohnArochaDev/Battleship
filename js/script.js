@@ -131,19 +131,21 @@ const cpTug = document.getElementById('ctug')
 
 const firstHit = new Audio('audio/hit1.mp3')
 
-firstHit.volume = 0.7
+firstHit.volume = 0.3
 
 const sunk = new Audio('audio/sink.mp3')
 
-sunk.volume = 0.7
+sunk.volume = 0.3
 
 const miss = new Audio('audio/miss.mp3')
 
-miss.volume = 0.7
+miss.volume = 0.3
 
 const backgroundMusic = new Audio('audio/backgroundsound.mp3')
 
-backgroundMusic.volume = 0.7
+backgroundMusic.volume = 0.2
+
+backgroundMusic.loop = true;
 
 const mute = document.getElementById('mutebutton')
 
@@ -814,22 +816,6 @@ function removeOption() {
 }
 //THIS FUNCTION BELOW IS A NEW VERSION OF THE ABOVE FUNCTION///////////////////////////////////////////////////////////////////////
 
-// function changeTurn() {
-//     turn = turn === 1 ? 2 : 1;
-//     if ((turn === 2 && turnFunction === 0) || (turn === 2 && someVariable === sum)) { // THIS MAY WORK TRY IT SECOND HALF IS FOR THE EXTRA VARIABLE FOR RE RUNNING CODE, ALSO MAYBE JUST CHANGE THE VARIABLE ENTERING INTO CTURN INSTEAD, THAT WAY WE DONT NEED A NEW FUNCTION FOR RUNNING THE CODE AND APPLYING THE CHANGE TO THE BOARD
-//         setTimeout(down, 3000)
-//         //variable to tell it to run this again next turn
-//     } else if (turn === 2 && turnFunction === 1) {
-//         setTimeout(up, 3000)
-//         //variable to tell it to run this again next turn
-//     } else if (turn === 2 && turnFunction === 2) {
-//         setTimeout(left, 3000)
-//         //variable to tell it to run this again next turn
-//     } else if (turn === 2 && turnFunction === 3) {
-//         setTimeout(right, 3000)
-//         //variable to tell it to run this again next turn
-//     }
-// }
 
 function changeChart() {
     if (turn === 1) {
