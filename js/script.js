@@ -28,7 +28,7 @@ const pBattleship = {
     health: 4,
     color: 'grey',
 }
-//                                             READ LINE 424!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 const pCruiserShip = {
     name: 'Cruiser Ship',
     num: 3,
@@ -317,12 +317,11 @@ function cTurn() {
         pShipDown = false;
         turnFunction = 0
         cHitChoice = null
-        console.log('2 reset rules for random')                                       // TO BE CHANGED
+        console.log('2 reset rules for random')
     }
     console.log('Start c turn')
     ++turnCount
     console.log('this # turns: ' + turnCount)
-    //cptrId() // need to only do this sometimes, only for random turns not all
     exactSpot() // Giving cBoxId a value here depending on if it was a previous hit or not
     console.log(cBoxId)
     let col = cBoxId[1]
