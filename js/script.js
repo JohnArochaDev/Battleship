@@ -687,7 +687,7 @@ function checkWinner() {
         winner = 'c'
         console.log('They sunk your battleship!')
         txt.innerHTML = `
-        <span style="color: ${playerColors[1]}">
+        <span style="color: rgb(174,35,33)">
             ${playerColors[3].toUpperCase()}
         </span> Wins!
     `
@@ -695,7 +695,7 @@ function checkWinner() {
         winner = 'p'
         console.log('You sunk their battleship!')
         txt.innerHTML = `
-        <span style="color: ${playerColors[0]}">
+        <span style="color: rgb(42,108,78)">
             ${playerColors[2].toUpperCase()}
         </span> Wins!
     `
