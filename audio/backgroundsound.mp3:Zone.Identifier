@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://cloudconvert.com/
+HostUrl=https://eu-central.storage.cloudconvert.com/tasks/068f72a0-f463-4f3b-934a-ef94d1140d55/backgroundsound.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20231204%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20231204T165557Z&X-Amz-Expires=86400&X-Amz-Signature=f5aae1e56a79b199367f27b4a8b3ee4544fc57abeec210026f8eb408edc73cdd&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22backgroundsound.mp3%22&response-content-type=audio%2Fmpeg&x-id=GetObject
