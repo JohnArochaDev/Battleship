@@ -263,6 +263,12 @@ document.getElementById('retry').addEventListener('click', restart);
 
 function initiate() {
     retryButton.style.visibility = 'hidden';
+    lightenPlTug()
+    lightenPlCruiser()
+    lightenPlBattleship()
+    lightenCBattleship()
+    lightenCCruiser()
+    lightenCTug()
     board.forEach((box) => {
         box.addEventListener('click', (e)=>{
             play(e);
@@ -334,12 +340,24 @@ function darkenCBattleship() {
     cpBattleship.style.opacity = 0.3
 }
 
+function lightenCBattleship() {
+    cpBattleship.style.opacity = 1
+}
+
 function darkenCCruiser() {
     cpCruiser.style.opacity = 0.3
 }
 
+function lightenCCruiser() {
+    cpCruiser.style.opacity = 1
+}
+
 function darkenCTug() {
     cpTug.style.opacity = 0.3
+}
+
+function lightenCTug() {
+    cpTug.style.opacity = 1
 }
 
 function play(event) {
@@ -450,12 +468,24 @@ function darkenPlBattleship() {
     plBattleship.style.opacity = 0.3
 }
 
+function lightenPlBattleship() {
+    plBattleship.style.opacity = 1
+}
+
 function darkenPlCruiser() {
     plCruiser.style.opacity = 0.3
 }
 
+function lightenPlCruiser() {
+    plCruiser.style.opacity = 1
+}
+
 function darkenPlTug() {
     plTug.style.opacity = 0.3
+}
+
+function lightenPlTug() {
+    plTug.style.opacity = 1
 }
 
 function cTurn() {
