@@ -187,10 +187,11 @@ h1 {
 /*right*/
 
 .mute {
+    position: fixed;
     margin-top: -70px;
     cursor:pointer;
-    width:100px;
-    height:100px;
+    width:90px;
+    height:90px;
     background-color: rgba(18,27,33, 0);
     border: none;
 }
