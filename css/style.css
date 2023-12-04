@@ -15,6 +15,12 @@
     width: 27vh;
     height: 50vh;
     border-radius: 25px;
+
+
+    font-size: 23px;
+    padding-top:7px;
+    text-shadow: 4px 4px 5px rgba(95, 95, 95, 0.575);
+    text-align: center;
 }
 
 #computer {
@@ -23,6 +29,12 @@
     width: 27vh;
     height: 50vh;
     border-radius: 25px;
+
+
+    font-size: 23px;
+    padding-top:7px;
+    text-shadow: 4px 4px 5px rgba(95, 95, 95, 0.575);
+    text-align: center;
 }
 
 body {
