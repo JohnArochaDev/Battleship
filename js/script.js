@@ -705,11 +705,11 @@ function checkWinner() {
 }
 
 function computer() {
-    txt.innerHTML = `<span style="color: red">${playerColors[3].toUpperCase()}</span>'s Turn!`
+    txt.innerHTML = `<span style="color: rgb(174,35,33)">${playerColors[3].toUpperCase()}</span>'s Turn!`
 }
 
 function player() {
-    txt.innerHTML = `<span style="color: blue">${playerColors[2].toUpperCase()}</span>'s Turn!`
+    txt.innerHTML = `<span style="color: rgb(42,108,78)">${playerColors[2].toUpperCase()}</span>'s Turn!`
 }
 
 function changeTurn() {
