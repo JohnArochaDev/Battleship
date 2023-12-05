@@ -364,6 +364,9 @@ function play(event) {
     if (turn === 2) {
         return
     }
+    if (chart === pChart) {
+        return
+    }
     const boxId = event.target.id
     const col = boxId[1]
     const row = boxId[3]
