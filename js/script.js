@@ -109,6 +109,10 @@ let cPossibleHits = ['v0h0', 'v0h1', 'v0h2', 'v0h3', 'v0h4', 'v0h5', 'v0h6', 'v0
 
 let musicOn = false
 
+atkShip = false
+
+let nTestRemove
+
 const cBoardOptions = {
     1 : [
         [0, 0, 0, 0, 0, 0, 0, 0], // col 0
@@ -214,6 +218,8 @@ const pBoardOptions = {
     ],
 }
 
+// Dom Declirations //
+
 const board = document.querySelectorAll('.box')
 
 const cBoard = document.querySelectorAll('.cBox')
@@ -244,8 +250,7 @@ const mute = document.getElementById('mutebutton')
 
 const retryButton = document.getElementById('retry')
 
-// Dom Declirations //
-document.getElementById('retry').addEventListener('click', initiate);
+document.getElementById('retry').addEventListener('click', reload);
 
 document.getElementById('mutebutton').addEventListener('click', muted);
 
@@ -263,24 +268,11 @@ firstHit.volume = 0.2
 
 function initiate() {
     retryButton.style.visibility = 'hidden';
-    let cPossibleHits = ['v0h0', 'v0h1', 'v0h2', 'v0h3', 'v0h4', 'v0h5', 'v0h6', 'v0h7', 'v1h0', 'v1h1', 'v1h2', 'v1h3', 'v1h4', 'v1h5', 'v1h6', 'v1h7', 'v2h0', 'v2h1', 'v2h2', 'v2h3', 'v2h4', 'v2h5', 'v2h6', 'v2h7', 'v3h0', 'v3h1', 'v3h2', 'v3h3', 'v3h4', 'v3h5', 'v3h6', 'v3h7', 'v4h0', 'v4h1', 'v4h2', 'v4h3', 'v4h4', 'v4h5', 'v4h6', 'v4h7', 'v5h0', 'v5h1', 'v5h2', 'v5h3', 'v5h4', 'v5h5', 'v5h6', 'v5h7', 'v6h0', 'v6h1', 'v6h2', 'v6h3', 'v6h4', 'v6h5', 'v6h6', 'v6h7', 'v7h0', 'v7h1', 'v7h2', 'v7h3', 'v7h4', 'v7h5', 'v7h6', 'v7h7'];
-    lightenPlTug();
-    lightenPlCruiser();
-    lightenPlBattleship();
-    lightenCBattleship();
-    lightenCCruiser();
-    lightenCTug();
     board.forEach((box) => {
         box.addEventListener('click', (e)=>{
             play(e);
         });
     })
-    cBattleship.health = 4;
-    cCruiserShip.health = 3;
-    cTugShip.health = 2;
-    pBattleship.health = 4;
-    pCruiserShip.health = 3;
-    pTugShip.health = 2;
     turnFunction = 0;
     pShipsLeft = 3;
     cShipsLeft = 3;
@@ -521,7 +513,7 @@ function cTurn() {
             checkWinner()
             if (!checkWinner()) {
                 changeTurn()
-            }
+            } 
         } else {
             sunk.play();
             darkenPlBattleship();
@@ -605,10 +597,6 @@ function cTurn() {
     render()
 }
 
-// Function that runs if there is a hit to make it smarter
-
-let nTestRemove
-
 function nRemoveId(arr) { // gathers the IDX of the id in the array for the AI when its hit something for the HIT function
     return arr === newCChoice
 }
@@ -617,7 +605,6 @@ function nRemoveIdMiss(arr) { // gathers the IDX of the id in the array for the 
     return arr === cBoxId
 }
 
-atkShip = false
 
 function hit() {//                                                                                           DOWN
     console.log('Start c turn hit')
@@ -680,7 +667,7 @@ function hit() {//                                                              
             console.log('not a possible turn, off board')
             return newCChoice
         }
-        if (chart[col][row] === 0 && atkShip === true || chart[col][row] === 4 || chart[col][row] === 5) { // If it tries something and missess //
+        if (chart[col][row] === 0 && atkShip === true || chart[col][row] === 4 || chart[col][row] === 5) { // If it tries something and missess
             cHitChoice = 1; // Might need to be a function
             let col = longSavedChoice[1];
             let row = longSavedChoice[3];
@@ -710,7 +697,7 @@ function hit() {//                                                              
         turnFunction = turnOptions.up;
         newCChoice = `v${col}h${row}`
         console.log('1 going up')
-        if (!cPossibleHits.includes(newCChoice) && pShipDown === false) { //                 THIS MAY BE THE FIX
+        if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
             let col = longSavedChoice[1];
             let row = longSavedChoice[3];
             --col;
@@ -742,7 +729,7 @@ function hit() {//                                                              
             cHitChoice = 0
             console.log('1 keep cHitChoice at 1 to keep going up')
         }
-        if (row > 7) { // If it tries something that is NOT on the board            // I CHANGED THIS DID IT BREAK
+        if (row > 7) { // If it tries something that is NOT on the board
             --col;
             --col;
             turnFunction = turnOptions.left;
@@ -759,12 +746,8 @@ function hit() {//                                                              
             atkShip = true
             console.log('1 no up go left')  
             newCChoice = `v${col}h${row}`
-            // if (cPossibleHits.includes(newCChoice)) {
-            //     nTestRemove = cPossibleHits.findIndex(nRemoveId);
-            //     cPossibleHits.splice(nTestRemove, 1);
-            // }
             removeOption();
-            if (!cPossibleHits.includes(newCChoice) && pShipDown === false) { //                 THIS MAY BE THE FIX
+            if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
                 let col = longSavedChoice[1];
                 let row = longSavedChoice[3];
                 ++col;
@@ -788,10 +771,10 @@ function hit() {//                                                              
         console.log('going left choice: ' + savedCChoice)  
         let col = savedCChoice[1];
         let row = savedCChoice[3];
-        --col;                                                                          // TO BE CHANGED
-        turnFunction = turnOptions.left;                                                 //TO BE CHANGED
+        --col;
+        turnFunction = turnOptions.left;
         newCChoice = `v${col}h${row}`
-        console.log('2 going left')                                                        // TO BE CHANGED
+        console.log('2 going left')
         if (!cPossibleHits.includes(newCChoice) && pShipDown === false) {
             let col = longSavedChoice[1];
             let row = longSavedChoice[3];
@@ -806,27 +789,27 @@ function hit() {//                                                              
             pShipDown = false;
             turnFunction = 0
             cHitChoice = null
-            console.log('2 reset rules for random')                                       // TO BE CHANGED
+            console.log('2 reset rules for random')
         }
         if (chart[col][row] === 6 || chart[col][row] === 7 || chart[col][row] === 8) {
-            cHitChoice = 1                                                                 // TO BE CHANGED
-            console.log('2 keep cHitChoice at 2 to keep going left')                             // TO BE CHANGED
+            cHitChoice = 1
+            console.log('2 keep cHitChoice at 2 to keep going left')
         }
-        if (col < 0) { // If it tries something that is NOT on the board                        // TO BE CHANGED
-            ++col;                                                                           // TO BE CHANGED
-            ++col;                                                                           // TO BE CHANGED
-            turnFunction = turnOptions.right;                                                // TO BE CHANGED
-            newCChoice = `v${col}h${row}`
-            console.log('2 not a possible turn, off board')                                   // TO BE CHANGED
+        if (col < 0) { // If it tries something that is NOT on the board
+            ++col;
+            ++col;
+            turnFunction = turnOptions.right;
+            newCChoice = `v${col}h${row}`;
+            console.log('2 not a possible turn, off board')   ;
             return newCChoice
         }
         if (chart[col][row] === 0 && atkShip === true || chart[col][row] === 4 || chart[col][row] === 5) { // If it tries something and missess //
             cHitChoice = 2;
             let col = longSavedChoice[1];
-            let row = longSavedChoice[3];                                                                         // TO BE CHANGED
-            ++ col                                                                           // TO BE CHANGED
-            turnFunction = 3 // 3 is for going right                                             // TO BE CHANGED
-            console.log('2 no left go right')                                                    // TO BE CHANGED
+            let row = longSavedChoice[3];
+            ++ col;
+            turnFunction = 3 // 3 is for going right
+            console.log('2 no left go right')
             newCChoice = `v${col}h${row}`
             removeOption();
             return newCChoice
@@ -845,7 +828,7 @@ function hit() {//                                                              
         let row = savedCChoice[3];
         console.log(`v${col}h${row}`)
         ++col;
-        console.log('3 going right')                                                        //CHANGED
+        console.log('3 going right')
         turnFunction = turnOptions.right;
         newCChoice = `v${col}h${row}`
         if (atkShip === true && pShipDown === true) { // THis resets the rules and puts you back to random guessing
@@ -853,18 +836,18 @@ function hit() {//                                                              
             pShipDown = false;
             turnFunction = 0
             cHitChoice = null
-            console.log('3 reset rules for random')                                       //CHANGED
+            console.log('3 reset rules for random')
         }
         if (chart[col][row] === 6 || chart[col][row] === 7 || chart[col][row] === 8) {
-            cHitChoice = 2                                                                 //CHANGED
-            console.log('3 keep cHitChoice at 3 to keep going right')                             //CHANGED
+            cHitChoice = 2
+            console.log('3 keep cHitChoice at 3 to keep going right')
         }
-        if (col > 7) { // If it tries something that is NOT on the board                        // TO BE CHANGED
-            --col;                                                                           //CHANGED
-            --row;                                                                           //CHANGED
-            turnFunction = turnOptions.right;                                                  //CHANGED
+        if (col > 7) { // If it tries something that is NOT on the board
+            --col;
+            --row;
+            turnFunction = turnOptions.right;
             newCChoice = `v${col}h${row}`
-            console.log('3 not a possible turn, off board')                                   //CHANGED
+            console.log('3 not a possible turn, off board')
             return newCChoice
         }
         return newCChoice
@@ -898,8 +881,6 @@ function cChoice(min = 0, max = 8) {
     return choice;
 }
 
-// THis gives me an ID to use in the future for the computer turn (cTurn)
-
 let testRemove 
 
 function cptrId() {
@@ -916,7 +897,6 @@ function getComId() {
 function removeId(arr) { // gathers the IDX of the id in the array
     return arr === comId
 }
-
 
 function checkWinner() {
     if (pShipsLeft === 0) {
@@ -962,8 +942,6 @@ function removeOption() {
         cPossibleHits.splice(nTestRemove, 1);
     }
 }
-//THIS FUNCTION BELOW IS A NEW VERSION OF THE ABOVE FUNCTION///////////////////////////////////////////////////////////////////////
-
 
 function changeChart() {
     if (turn === 1) {
@@ -984,25 +962,8 @@ function muted() {
     musicOn = !musicOn
 }
 
-// Called Functions //
+function reload() {
+    location.reload()
+}
 
 initiate()
-
-// Dom Statements //
-
-
-
-
-// SOUND EFFECTS FOR LATER// 
-
-
-
-// EXPLOSION https://www.youtube.com/watch?v=YRex1Udiybs
-
-//MISS https://www.youtube.com/watch?v=xHN3zSp6Ggg
-
-// background noise potentally https://www.youtube.com/watch?v=FWdnm3CHato
-
-
-
-//ICONS  https://www.vecteezy.com/vector-art/7802058-cute-battle-ship-illustration-design
