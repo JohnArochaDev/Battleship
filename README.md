@@ -24,3 +24,10 @@ As a user, I want the ability to...
 
 
 ![Screenshot](wireframe.jpg)
+
+
+FUTURE UPDATES
+
+- Figure out how to make a custom cursor at some point
+- better boats!
+- a different reload system?
