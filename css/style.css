@@ -19,8 +19,6 @@
     width: 27vh;
     height: 50vh;
     border-radius: 25px;
-
-
     font-size: 23px;
     padding-top:7px;
     text-shadow: 4px 4px 5px rgba(95, 95, 95, 0.575);
@@ -60,8 +58,6 @@
     width: 27vh;
     height: 50vh;
     border-radius: 25px;
-
-
     font-size: 23px;
     padding-top:7px;
     text-shadow: 4px 4px 5px rgba(95, 95, 95, 0.575);
@@ -102,10 +98,11 @@ h1 {
 }
 
 #txt {
-    font-size: 54px;
+    font-size: 45px;
     margin-top: -75px;
     text-shadow: 4px 4px 5px rgba(14, 14, 14, 0.911);
     text-align: center;
+    max-width: 90%;
 }
 
 #boardhold {
