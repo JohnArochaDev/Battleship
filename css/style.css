@@ -98,11 +98,14 @@ h1 {
 }
 
 #txt {
-    font-size: 40px;
+    /* position : absolute; */
+    font-size: 35px;
     margin-top: -75px;
+    /* left: 37%;
+    top: 85%; */
     text-shadow: 4px 4px 5px rgba(14, 14, 14, 0.911);
     text-align: center;
-    max-width: 80%;
+    max-width: 30vw;
 }
 
 #boardhold {
