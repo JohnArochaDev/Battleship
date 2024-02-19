@@ -23,9 +23,6 @@ As a user, I want the ability to...
 - Repeat this process until there is a winner
 
 
-![Screenshot](wireframe.jpg)
-
-
 FUTURE UPDATES
 
 - Figure out how to make a custom cursor at some point
